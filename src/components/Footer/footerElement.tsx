@@ -6,7 +6,7 @@ padding:40px 0px;
 `;
 
 export const FooterLinkTitle = styled('h5')`
-font-family: SF Compact Display;
+font-family:var(--primary-fonts)!important;
 font-weight: 500;
 font-size: 20px;
 color: #FFFFFF;
@@ -19,7 +19,7 @@ export const FooterLinkContainer = styled('ul')`
     margin:0px;
 
     & a{
-        font-family: SF Compact Display;
+        font-family:"Helvetica";
         font-weight: 400;
         font-size: 16px;
         color: #D9DBE1;

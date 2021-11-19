@@ -1,11 +1,22 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@font-face {
+  font-family: "SF Compact Display";
+  src: url("/fonts/sf-compact-display/SFCompactDisplay-Regular.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
+:root {
+  --primary-fonts: "SF Compact Display";
+  --secondary-fonts: "";
+}
+html,
+body {
+  font-family: var(--primary-fonts);
+  padding: 0;
+  margin: 0;
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -13,4 +24,213 @@ a {
 
 * {
   box-sizing: border-box;
+}
+/* useful class */
+.list-style-none {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+/* useful class */
+
+/* Header */
+.site-header{
+  position: sticky;
+  top: 0;
+  background: #fff;
+}
+.site-header.is-active {
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);   
+}
+.site-header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0px;
+}
+.site-header-wrapper li {
+  display: inline-block;
+}
+
+.site-header-wrapper li:not(:last-of-type) {
+  margin-right: 60px;
+}
+.site-header-wrapper li a {
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  color: #203b4e;
+}
+
+/* Header */
+
+/* Toggler button menu icon */
+.btn-nav-toggler:focus,
+.btn-nav-toggler:focus-visible {
+  outline: none;
+}
+
+.btn-nav-toggler {
+  display: none;
+  padding: 0px;
+  width: 25px;
+  height: 20px;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  background-color: transparent;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+}
+.btn-nav-toggler span {
+  width: 100%;
+  height: 3px;
+  right: 0;
+  border-radius: 10px;
+  background: #000;
+  display: inline-block;
+  position: absolute;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -o-transition: 0.25s ease-in-out;
+  transition: 0.25s ease-in-out;
+}
+
+.btn-nav-toggler span:nth-child(1) {
+  top: 0;
+}
+
+.btn-nav-toggler span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn-nav-toggler span:nth-child(3) {
+  bottom: 0;
+}
+
+.btn-nav-toggler.is-active span:nth-child(1) {
+  top: calc(50% - 1.45px);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.btn-nav-toggler.is-active span:nth-child(2) {
+  opacity: 0;
+  right: -60px;
+  overflow: hidden;
+}
+
+.btn-nav-toggler.is-active span:nth-child(3) {
+  bottom: calc(50% - 1.45px);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+/* Toggler button menu icon */
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.footer-logo img {
+  max-width: 30px;
+  width: 100%;
+  height: auto;
+  display: inline-block;
+}
+.footer-logo h3 {
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #ffffff;
+  margin: 0px 0px 0px 10px;
+}
+
+.copy-right-text {
+  font-size: 14px;
+  color: #d9dbe1;
+  margin: 0px 0px 10px 0px;
+}
+
+.social-icons {
+  margin-top: 20px;
+}
+.social-icons ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+.social-icons ul li {
+  display: inline-block;
+}
+.social-icons ul li:not(:first-child) {
+  margin-left: 15px;
+}
+
+/* cta-banner */
+.cta-banner{
+  padding: 70px 0px;
+  background: #191919;
+  margin: 45px 0px;
+}
+.cta-banner h3{
+  font-family: "SF Pro Display";
+  font-weight: bold;
+  font-size: 62px;
+  color: #FFFFFF;
+  margin: 0px 0px 30px 0px;
+}
+/* cta-banner */
+
+@media (max-width: 768px) {
+  .header-links-wrapper {
+    position: fixed;
+    top: 84px;
+    right: -100%;
+    bottom: 0;
+    padding: 40px;
+    background: #fff;
+    overflow: hidden;
+    width: 50%;
+    transition: 0.3s ease-in;
+  }
+  .header-links-wrapper.is-active {
+    right: 0%;
+  }
+  .btn-nav-toggler {
+    display: block;
+  }
+  .site-header-wrapper li {
+    display: block;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .site-header-wrapper li:not(:last-of-type) {
+    margin-right: 0px;
+  }
+  .site-header-wrapper li a {
+    font-weight: 500;
+    font-size: 24px;
+    text-align: center;
+    color: #203b4e;
+  }
 }

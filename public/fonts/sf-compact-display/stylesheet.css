@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'SF Compact Display';
+    src: url('SFCompactDisplay-Regular.woff2') format('woff2'),
+        url('SFCompactDisplay-Regular.woff') format('woff'),
+        url('SFCompactDisplay-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
