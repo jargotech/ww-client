@@ -279,6 +279,36 @@ a {
 }
 /* our-stats */
 
+/* how-it-works */
+.how-it-works {
+  margin: 50px 0px;
+  padding: 100px 0px;
+  text-align: center;
+}
+.how-it-works h3 {
+  font-family: "SF Pro Display";
+  font-weight: 900;
+  font-size: 48px;
+  text-align: center;
+  color: #18191f;
+  margin: 0px 0px 40px 0px;
+}
+.how-it-works h4 {
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  color: #18191f;
+  margin: 10px 0px;
+}
+.how-it-works p {
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  color: #18191f;
+  margin: 0px 0px 10px 0px;
+}
+/* how-it-works */
+
 @media (max-width: 900px) {
   .our-stats .MuiGrid-item:nth-child(even) {
     border-left: 1px solid #ffffff !important;
@@ -331,5 +361,11 @@ a {
   }
   .our-stats .MuiGrid-container {
     padding: 20px 0px 0px 0px;
+  }
+  .how-it-works h3 {
+    font-size: 38px;
+  }
+  .how-it-works h4 {
+    font-size: 20px;
   }
 }
