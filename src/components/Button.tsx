@@ -32,20 +32,24 @@ color: #640E27;
      width:16px !important;
      height:16px !important;
  }
+
+ @media(max-width:992px){
+     margin:0 auto;
+ }
 `;
 
 
-interface SiteButtonTypes {  
-    text: String,  
-    arrow:Boolean,
-  }
+interface SiteButtonTypes {
+    text: String,
+    arrow: Boolean,
+}
 
-export default function SiteButton({text, arrow}:SiteButtonTypes) {
+export default function SiteButton({ text, arrow }: SiteButtonTypes) {
     return (
         <StyledButton>
             {text}
-            {arrow? (<Image src={ArrowRightLogo} height={16} width={16} alt={"arrow-right"} />): nul}
-            
+            {arrow ? (<Image src={ArrowRightLogo} height={16} width={16} alt={"arrow-right"} />) : null}
+
         </StyledButton>
     )
 }

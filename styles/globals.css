@@ -35,13 +35,14 @@ a {
 /* useful class */
 
 /* Header */
-.site-header{
+.site-header {
   position: sticky;
   top: 0;
   background: #fff;
+  z-index: 99;
 }
 .site-header.is-active {
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);   
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 .site-header-wrapper {
   display: flex;
@@ -186,19 +187,106 @@ a {
 }
 
 /* cta-banner */
-.cta-banner{
+.cta-banner {
   padding: 70px 0px;
   background: #191919;
   margin: 45px 0px;
+  position: relative;
 }
-.cta-banner h3{
+
+.cta-banner .MuiContainer-root > span {
+  position: absolute !important;
+  top: 5% !important;
+  right: 0 !important;
+  z-index: 1;
+}
+.cta-banner h3 {
   font-family: "SF Pro Display";
   font-weight: bold;
   font-size: 62px;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0px 0px 30px 0px;
 }
+
+@media (max-width: 992px) {
+  .cta-banner h3 {
+    padding: 200px 0px 0px 0px;
+    text-align: center;
+  }
+}
+@media (max-width: 767px) {
+  .cta-banner h3 {
+    font-size: 38px;
+  }
+}
+
 /* cta-banner */
+
+/* our-stats */
+.our-stats {
+  position: relative;
+  background: #191919;
+  padding: 50px 0px;
+  margin: 50px 0px;
+}
+.our-stats::before {
+  content: "";
+  background-image: url("../public/BG.svg");
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-size: cover;
+}
+.our-stats h3 {
+  font-family: "SF Pro Display";
+  font-weight: 700;
+  font-size: 48px;
+  text-align: center;
+  color: #ffffff;
+  margin: 0px 0px 10px 0px;
+}
+.our-stats p {
+  font-size: 18px;
+  text-align: center;
+  color: #ffffff;
+  padding: 0px 0px 40px 0px;
+  margin: 0;
+}
+.our-stats .MuiGrid-container {
+  padding: 40px 0px 0px 0px;
+}
+
+.our-stats .MuiGrid-item:not(:first-child) {
+  border-left: 1px solid #ffffff;
+}
+.our-stats .stats-list h4 {
+  font-family: "Inter";
+  font-weight: 800;
+  font-size: 48px;
+  text-align: center;
+  color: #ffffff;
+  margin: 0px 0px 10px 0px;
+}
+.our-stats .stats-list p {
+  font-family: "Inter";
+  font-size: 18px;
+  text-align: center;
+  color: #ffffff;
+  margin: 0px 0px 10px 0px;
+}
+/* our-stats */
+
+@media (max-width: 900px) {
+  .our-stats .MuiGrid-item:nth-child(even) {
+    border-left: 1px solid #ffffff !important;
+  }
+  .our-stats .MuiGrid-item:nth-child(odd) {
+    border-left: 1px solid transparent !important;
+  }
+}
 
 @media (max-width: 768px) {
   .header-links-wrapper {
@@ -223,7 +311,7 @@ a {
     text-align: center;
     margin-bottom: 15px;
   }
-  
+
   .site-header-wrapper li:not(:last-of-type) {
     margin-right: 0px;
   }
@@ -232,5 +320,16 @@ a {
     font-size: 24px;
     text-align: center;
     color: #203b4e;
+  }
+  .our-stats h3,
+  .our-stats .stats-list h4 {
+    font-size: 30px;
+  }
+  .our-stats p,
+  .our-stats .stats-list p {
+    font-size: 16px;
+  }
+  .our-stats .MuiGrid-container {
+    padding: 20px 0px 0px 0px;
   }
 }
