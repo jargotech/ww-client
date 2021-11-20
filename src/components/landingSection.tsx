@@ -3,8 +3,13 @@ import SiteButton from './Button'
 import React from 'react'
 import Image from 'next/image'
 import HeroImage from '../../public/heroImg.png'
+import { useRouter } from 'next/router'
 
 export default function LandingSection() {
+    const router = useRouter()
+    const handleClick = () => {
+        router.push('/car-collection')
+    }
     return (
         <section className="landign-section">
             <Container maxWidth="lg">
@@ -16,7 +21,7 @@ export default function LandingSection() {
                         <div className="position-relative">
                             <h3>Premium Pre-<span>Owned</span> Cars</h3>
                             <p>Don’t deny yourself the pleasure of driving the best premium cars from around the world here and now</p>
-                            <SiteButton text="SEE COLLECTION" arrow={true} />
+                            <SiteButton text="SEE COLLECTION" arrow={true} onClick={handleClick} />
                         </div>
                     </Grid>
                 </Grid>

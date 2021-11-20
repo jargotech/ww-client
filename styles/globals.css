@@ -347,6 +347,15 @@ a {
   position: relative;
   z-index: 1;
 }
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.flex-container button {
+  margin: 0px 0px 0px auto;
+}
 /* useful class */
 
 /* Header */
@@ -727,6 +736,123 @@ a {
   margin: 0px 0px 10px 0px;
 }
 /* how-it-works */
+
+/* latest arrivals */
+.latest-arrival {
+  padding: 50px 0px;
+  margin: 50px 0px;
+}
+.section-title {
+  font-family: var(--secondary-fonts);
+  font-weight: 700;
+  font-size: 50px;
+  color: #191919;
+  margin: 0px;
+}
+.section-title span {
+  position: relative;
+  display: inline-block;
+  padding: 5px 10px;
+}
+.section-title span:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url("../public/yellowCircle.svg") no-repeat center center;
+  background-size: contain;
+  z-index: -1;
+}
+.flex-container {
+  margin-bottom: 70px;
+}
+/* latest arrivals */
+
+/* cars-cards component */
+.cars-cards {
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.cars-cards.card2 {
+  box-shadow: none;
+}
+
+.cars-cards.card2 img {
+  border-radius: 0px 0px 12px 12px;
+}
+.cars-cards .content {
+  padding: 12px;
+}
+.cars-cards h4 {
+  font-family: var(--secondary-fonts);
+  font-weight: 700;
+  font-size: 24px;
+  color: #191919;
+  margin: 0px 0px 15px 0px;
+}
+
+.cars-cards > span {
+  display: block !important;
+  margin-bottom: 15px !important;
+}
+
+.cars-cards .car-summary-header {
+  font-weight: 300;
+  font-size: 14px;
+  color: #5c5c5c;
+  margin: 0px 0px 10px 0px;
+}
+
+.cars-cards .car-summary {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  color: #5c5c5c;
+  margin: 0px;
+}
+
+.cars-cards .price {
+  font-family: var(--secondary-fonts);
+  font-weight: 700;
+  font-size: 26px;
+  color: #000000;
+  margin: 0px;
+}
+
+.cars-cards button {
+  margin-left: auto;
+  margin-right: 0px;
+}
+
+@media (max-width: 1100px) {
+  .cars-cards h4 {
+    font-size: 20px;
+  }
+}
+/* cars-cards component */
+
+/* car-listing */
+.car-listing {
+  padding: 50px 0px;
+}
+/* car-listing */
+
+/* filter-wrapper */
+.filter-wrapper h4 {
+  font-family: var(--secondary-fonts);
+  font-weight: 700;
+  font-size: 36px;
+  letter-spacing: 0.15px;
+  color: #272833;
+  margin: 0px;
+  padding: 20px;
+  border-bottom: 1px solid #dedede;
+}
+/* filter-wrapper */
 
 @media (max-width: 900px) {
   .our-stats .MuiGrid-item:nth-child(even) {

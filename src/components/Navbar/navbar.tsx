@@ -7,19 +7,21 @@ import { LocationChip } from '../Navbar/navbarElement'
 
 export default function Navbar() {
     const [isActive, setIsActive] = React.useState(false);
-    
+
     return (
         <header className="site-header">
             <Container maxWidth="lg">
                 <div className="site-header-wrapper">
-                    <a href="">
-                        <Image
-                            src={Logo}
-                            alt="siteLogo"
-                            width={50}
-                            height={50}
-                        />
-                    </a>
+                    <Link href="/">
+                        <a>
+                            <Image
+                                src={Logo}
+                                alt="siteLogo"
+                                width={50}
+                                height={50}
+                            />
+                        </a>
+                    </Link>
                     <button className={isActive ? "btn-nav-toggler is-active" : "btn-nav-toggler"} onClick={() => setIsActive(!isActive)}>
                         <span></span>
                         <span></span>

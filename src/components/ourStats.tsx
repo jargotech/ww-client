@@ -16,20 +16,20 @@ export default function OurStats() {
                     </Grid>
                     <Grid item xs={6} md={3} sx={{ marginBottom: '20px' }}>
                         <div className="stats-list">
-                            <h4>3</h4>
-                            <p>Service Cities</p>
+                            <h4>30+</h4>
+                            <p>Cars</p>
                         </div>
                     </Grid>
                     <Grid item xs={6} md={3} sx={{ marginBottom: '20px' }}>
                         <div className="stats-list">
-                            <h4>3</h4>
-                            <p>Service Cities</p>
+                            <h4>100</h4>
+                            <p>Customers Served</p>
                         </div>
                     </Grid>
                     <Grid item xs={6} md={3} sx={{ marginBottom: '20px' }}>
                         <div className="stats-list">
-                            <h4>3</h4>
-                            <p>Service Cities</p>
+                            <h4>5</h4>
+                            <p>Years of Journey</p>
                         </div>
                     </Grid>
                 </Grid>

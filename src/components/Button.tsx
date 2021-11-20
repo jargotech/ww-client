@@ -10,10 +10,8 @@ background: #F7F3D0;
 border: 1px solid #F7F3D0;
 box-sizing: border-box;
 border-radius: 4px;
-padding:8px 0px;
+padding:8px 22px;
 display:flex;
-max-width:200px;
-width:100%;
 align-items: center;
 
 :hover{
@@ -41,14 +39,15 @@ color: #640E27;
 
 interface SiteButtonTypes {
     text: String,
-    arrow: Boolean,
+    arrow?: Boolean,
+    onClick?: any,
 }
 
-export default function SiteButton({ text, arrow }: SiteButtonTypes) {
+export default function SiteButton({ text, arrow, onClick }: SiteButtonTypes) {
     return (
-        <StyledButton>
+        <StyledButton onClick={onClick}>
             {text}
-            {arrow ? (<Image src={ArrowRightLogo} height={16} width={16} alt={"arrow-right"} />) : null}
+            {arrow == true ? (<Image src={ArrowRightLogo} height={16} width={16} alt={"arrow-right"} />) : null}
 
         </StyledButton>
     )
