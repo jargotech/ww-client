@@ -1,15 +1,326 @@
-@font-face {
+/* @font-face {
   font-family: "SF Compact Display";
   src: url("/fonts/sf-compact-display/SFCompactDisplay-Regular.ttf")
     format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+} */
+/* SF Compact Display */
+@font-face {
+  font-family: "SF Compact Display";
+  src: url("/fonts/sf-compact-display/SFCompactDisplay-Black.woff2")
+      format("woff2"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Black.woff") format("woff"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Black.ttf")
+      format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
+
+@font-face {
+  font-family: "SF Compact Display";
+  src: url("/fonts/sf-compact-display/SFCompactDisplay-Bold.woff2")
+      format("woff2"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Bold.woff") format("woff"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Bold.ttf")
+      format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Compact Display";
+  src: url("/fonts/sf-compact-display/SFCompactDisplay-Regular.woff2")
+      format("woff2"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Regular.woff")
+      format("woff"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Regular.ttf")
+      format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Compact Display";
+  src: url("/fonts/sf-compact-display/SFCompactDisplay-Medium.woff2")
+      format("woff2"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Medium.woff") format("woff"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Medium.ttf")
+      format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Compact Display";
+  src: url("/fonts/sf-compact-display/SFCompactDisplay-Light.woff2")
+      format("woff2"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Light.woff") format("woff"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Light.ttf")
+      format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Compact Display";
+  src: url("/fonts/sf-compact-display/SFCompactDisplay-Heavy.woff2")
+      format("woff2"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Heavy.woff") format("woff"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Heavy.ttf")
+      format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Compact Display";
+  src: url("/fonts/sf-compact-display/SFCompactDisplay-Thin.woff2")
+      format("woff2"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Thin.woff") format("woff"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Thin.ttf")
+      format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Compact Display";
+  src: url("/fonts/sf-compact-display/SFCompactDisplay-Ultralight.woff2")
+      format("woff2"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Ultralight.woff")
+      format("woff"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Ultralight.ttf")
+      format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Compact Display";
+  src: url("/fonts/sf-compact-display/SFCompactDisplay-Semibold.woff2")
+      format("woff2"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Semibold.woff")
+      format("woff"),
+    url("/fonts/sf-compact-display/SFCompactDisplay-Semibold.ttf")
+      format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* SF Compact Display */
+
+/* SF Pro Display */
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-Bold.woff2") format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-Bold.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-Black.woff2") format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-Black.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-BlackItalic.woff2")
+      format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-BlackItalic.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-BoldItalic.woff2")
+      format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-BoldItalic.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-HeavyItalic.woff2")
+      format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-HeavyItalic.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-HeavyItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-Heavy.woff2") format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-Heavy.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-Heavy.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-Light.woff2") format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-Light.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-RegularItalic.woff2")
+      format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-RegularItalic.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-RegularItalic.ttf")
+      format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-Medium.woff2") format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-Medium.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-Regular.woff2") format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-Regular.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-LightItalic.woff2")
+      format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-LightItalic.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-MediumItalic.woff2")
+      format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-MediumItalic.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-MediumItalic.ttf")
+      format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-Semibold.woff2") format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-Semibold.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-Semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-Ultralight.woff2")
+      format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-Ultralight.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-Ultralight.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-UltralightItalic.woff2")
+      format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-UltralightItalic.woff")
+      format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-UltralightItalic.ttf")
+      format("truetype");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-ThinItalic.woff2")
+      format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-ThinItalic.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-Thin.woff2") format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-Thin.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/sf-pro-display/SFProDisplay-SemiboldItalic.woff2")
+      format("woff2"),
+    url("/fonts/sf-pro-display/SFProDisplay-SemiboldItalic.woff") format("woff"),
+    url("/fonts/sf-pro-display/SFProDisplay-SemiboldItalic.ttf")
+      format("truetype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* SF Pro Display */
 
 :root {
   --primary-fonts: "SF Compact Display";
-  --secondary-fonts: "";
+  --secondary-fonts: "SF Pro Display";
 }
 html,
 body {
@@ -31,6 +342,10 @@ a {
   padding: 0;
   margin: 0;
   display: block;
+}
+.position-relative {
+  position: relative;
+  z-index: 1;
 }
 /* useful class */
 
@@ -186,6 +501,106 @@ a {
   margin-left: 15px;
 }
 
+/* landign-section */
+.landign-section {
+  padding: 50px 0px;
+  margin: 50px 0px;
+  position: relative;
+}
+/* .landign-section::before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-image: url("../public/heroImg.png");
+  background-repeat: no-repeat;
+  background-position: center left;
+  z-index: -1;
+} */
+.landign-section .MuiContainer-root .MuiGrid-item > span {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%);
+  left: 0 !important;
+  z-index: 1;
+}
+.landign-section h3 {
+  font-weight: bold;
+  font-size: 80px;
+  line-height: 75px;
+  color: #191919;
+  margin: 0px 0px 40px 0px;
+  max-width: 420px;
+}
+.landign-section h3 span {
+  position: relative;
+  display: inline-block;
+}
+.landign-section h3 span::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url("../public/yellowCircle.svg") no-repeat center center;
+  background-size: contain;
+  z-index: -1;
+}
+.landign-section p {
+  font-size: 20px;
+  line-height: 30px;
+  color: #5c5c5c;
+  margin: 0px 0px 50px 0px;
+  max-width: 320px;
+}
+@media (max-width: 1200px) {
+  .landign-section .MuiContainer-root .MuiGrid-item > span {
+    position: absolute !important;
+    transform: none;
+    top: 0% !important;
+  }
+  .landign-section .position-relative {
+    padding-top: 50%;
+  }
+  .landign-section h3 {
+    margin: 0px auto 40px auto;
+    max-width: 800px;
+    text-align: center;
+  }
+  .landign-section p {
+    margin: 0px auto 50px auto;
+    max-width: 700px;
+    text-align: center;
+  }
+  .landign-section button {
+    margin: 0 auto;
+  }
+}
+@media (max-width: 768px) {
+  .landign-section h3 {
+    font-size: 50px;
+    margin-bottom: 10px;
+    line-height: normal;
+  }
+  .landign-section p {
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 576px) {
+  .landign-section h3 {
+    font-size: 34px;
+    margin-bottom: 10px;
+  }
+  .landign-section p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+}
+/* landign-section */
+
 /* cta-banner */
 .cta-banner {
   padding: 70px 0px;
@@ -201,7 +616,7 @@ a {
   z-index: 1;
 }
 .cta-banner h3 {
-  font-family: "SF Pro Display";
+  font-family: var(--secondary-fonts);
   font-weight: bold;
   font-size: 62px;
   color: #ffffff;
@@ -217,6 +632,10 @@ a {
 @media (max-width: 767px) {
   .cta-banner h3 {
     font-size: 38px;
+    padding: 130px 0px 0px 0px;
+  }
+  .cta-banner .MuiContainer-root > span {
+    width: 150px !important;
   }
 }
 
@@ -241,7 +660,7 @@ a {
   background-size: cover;
 }
 .our-stats h3 {
-  font-family: "SF Pro Display";
+  font-family: var(--secondary-fonts);
   font-weight: 700;
   font-size: 48px;
   text-align: center;
@@ -286,7 +705,7 @@ a {
   text-align: center;
 }
 .how-it-works h3 {
-  font-family: "SF Pro Display";
+  font-family: var(--secondary-fonts);
   font-weight: 900;
   font-size: 48px;
   text-align: center;
