@@ -43,7 +43,7 @@ export default function Navbar() {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/car-listing">
+                                        <Link href="/faq">
                                             <a>FAQ</a>
                                         </Link>
                                     </li>

@@ -6,17 +6,24 @@ import SiteButton from './Button'
 import { useRouter } from 'next/router'
 
 interface cardType {
-    variant?: string
+    variant?: string,
+    hideButton?: boolean
+    img?: string
+    style?: any
 }
 
-export default function CarCards({ variant }: cardType) {
+export default function CarCards({ variant, hideButton, img, style }: cardType) {
     const router = useRouter()
     const handleClick = () => {
         router.push('/car-detail')
     }
+
+    const bookTrail = () => {
+        router.push('/book-car')
+    }
     return (
-        <div onClick={handleClick} className={(variant == 'card2') ? 'cars-cards card2' : 'cars-cards'} >
-            <Image src={CarImage} width={435} height={270} alt="Car" />
+        <div style={style} onClick={handleClick} className={(variant == 'card2') ? 'cars-cards card2' : 'cars-cards'} >
+            <Image src={img || CarImage} width={435} height={270} alt="Car" />
             <div className="content">
                 <h4>2015 USED AUDI A8 W12</h4>
                 <Grid container spacing={2}>
@@ -41,7 +48,8 @@ export default function CarCards({ variant }: cardType) {
                                     <p className="price" >₹ 59,00,000</p>
                                 </Grid>
                                 <Grid item md={6}>
-                                    <SiteButton text="bOOK tRAIL" arrow={true} />
+                                    {!hideButton ? (<SiteButton text="bOOK tRAIL" arrow={true} onClick={bookTrail} />) : null}
+
                                 </Grid>
                             </Grid>
                         )

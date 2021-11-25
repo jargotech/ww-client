@@ -1,3 +1,9 @@
-export default function Custom404() {
-    return <h1>This is a 404 page</h1>
-  }
+import React from 'react'
+
+export default function PageNotFound() {
+  return (
+    <section className="page-not-found">
+
+    </section>
+  )
+}
