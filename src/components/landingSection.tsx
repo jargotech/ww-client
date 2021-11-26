@@ -11,7 +11,7 @@ export default function LandingSection() {
         router.push('/car-collection')
     }
     return (
-        <section className="landign-section">
+        <section className="landign-section site-section">
             <Container maxWidth="lg">
                 <Grid container spacing={2}>
                     <Grid item xs={12} lg={6}>

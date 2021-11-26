@@ -5,7 +5,7 @@ import CreateLogo from '../../public/create.svg'
 
 export default function HowItWorks() {
     return (
-        <section className="how-it-works">
+        <section className="how-it-works site-section">
             <Container maxWidth="lg">
                 <h3>How it works</h3>
                 <Grid container spacing={2}>

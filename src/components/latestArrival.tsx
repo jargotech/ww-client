@@ -12,7 +12,7 @@ const StyledGrid = styled(Grid)`
 
 export default function LatestArrival() {
     return (
-        <section className="latest-arrival">
+        <section className="latest-arrival site-section">
             <Container maxWidth="lg">
                 <div className="flex-container">
                     <h3 className="section-title">

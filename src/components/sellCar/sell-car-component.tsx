@@ -9,7 +9,7 @@ import OtpForm from '../form/otpForm'
 import Alert from '@mui/material/Alert';
 import StyledStepper from '../stepper/stepper';
 import CarDetailForm from '../form/car-detail-form';
-import UploadInput from '../form/uploadInput';
+import UploadInput from '../form/upload/uploadInput';
 
 const steps = ['step1', 'step2', 'step3', 'step4'];
 export default function SellCarComponent() {
@@ -149,7 +149,7 @@ export default function SellCarComponent() {
                                                             (<OtpForm formik={props} />)
                                                             : null
                                         }
-                                        <div style={{ position: 'relative', display: 'table', margin: '0 0 0 auto' }}>
+                                        <div style={{ position: 'relative', display: 'table', margin: '20px 0 0 auto' }}>
                                             <SiteButton
                                                 styles={{ marginLeft: 'auto' }}
                                                 disabled={!(props.isValid && props.dirty)}

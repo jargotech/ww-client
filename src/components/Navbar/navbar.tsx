@@ -1,17 +1,33 @@
 import { Container, Chip } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Logo from '../../../public/wishwheels-logo.svg'
 import Link from 'next/link'
 import { LocationChip } from '../Navbar/navbarElement'
 
 export default function Navbar() {
-    const [isActive, setIsActive] = React.useState(false);
+    const [isActive, setIsActive] = useState(false);
+    const [navbarScroll, setNavbarScroll] = useState(false);
+
+    // functions 
+    const ScrollBackground = () => {
+        if (window.scrollY >= 84) {
+            setNavbarScroll(true);
+
+        } else {
+            setNavbarScroll(false);
+        }
+    }
+    useEffect(() => {
+        ScrollBackground();
+        window.addEventListener('scroll', ScrollBackground);
+    }, []);
+
 
     return (
         <>
             <div className={isActive ? "backdrop" : ''}></div>
-            <header className="site-header">
+            <header id="header" className={!navbarScroll ? "site-header" : "site-header is-active"}>
                 <Container maxWidth="lg">
                     <div className="site-header-wrapper">
                         <Link href="/">
@@ -33,7 +49,7 @@ export default function Navbar() {
                             <nav className="site-nav">
                                 <ul className="list-style-none">
                                     <li>
-                                        <Link href="/car-listing">
+                                        <Link href="/sell-car">
                                             <a>Sell Car</a>
                                         </Link>
                                     </li>

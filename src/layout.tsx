@@ -1,11 +1,11 @@
 import Footer from './components/Footer/footer'
 import Navbar from './components/Navbar/navbar'
 
-export default function Layout({ children }:any) {
+export default function Layout({ children }: any) {
   return (
     <>
       <Navbar />
-      <main>{children}</main>
+      <main className="site-main">{children}</main>
       <Footer />
     </>
   )
