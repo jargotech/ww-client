@@ -3,6 +3,7 @@ import React from 'react'
 import { Box, styled } from '@mui/system';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MediaQuery from 'react-responsive'
+import Head from 'next/head'
 
 
 interface TabPanelProps {
@@ -59,6 +60,9 @@ export default function Faq() {
         };
     return (
         <section className="faq-section">
+            <Head>
+                <title>Wish Wheels | FAQ</title>
+            </Head>
             <Container maxWidth="lg">
                 <h3>faq</h3>
                 <div className="faq-wrapper">

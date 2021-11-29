@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Container, Grid, IconButton } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Container, Grid, IconButton, ImageList, ImageListItem } from '@mui/material'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import CarImage from '../../../public/car-img.png'
@@ -6,10 +6,14 @@ import AccordionIcon from '../../../public/accordian-icon.svg'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SiteButton from '../Button'
 import MakeOfferCta from '../makeOfferCta'
+import 'react-bnb-gallery/dist/style.css'
+import ReactBnbGallery from 'react-bnb-gallery';
 
 export default function CarDetailComponent() {
+
     const [displayToggle, setDisplayToggle] = useState(false);
     const [expanded, setExpanded] = React.useState<string | false>('panel1');
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleChange =
         (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
@@ -173,9 +177,18 @@ export default function CarDetailComponent() {
                     </Grid>
                     <Grid item xs={12} md={6} className="order-md-1">
                         <div className="car-detail-img">
-                            <Image src={CarImage} alt="car-img" height={300} width={600} />
+                            <Image
+                                onClick={() => { setIsOpen(true) }}
+                                src={CarImage} alt="car-img"
+                                height={300} width={600} />
                         </div>
-                        <SiteButton text="View All" arrow={true} styles={{ margin: '0 0 0 auto' }} />
+                        <SiteButton onClick={() => setIsOpen(true)} text="View All" arrow={true} styles={{ margin: '0 0 0 auto' }} />
+                        <ReactBnbGallery
+                            show={isOpen}
+                            photos={photosArray}
+                            onClose={() => setIsOpen(false)}
+                        />
+
                     </Grid>
                 </Grid>
             </Container>
@@ -183,3 +196,11 @@ export default function CarDetailComponent() {
         </section >
     )
 }
+
+const photosArray = [
+    "https://media.istockphoto.com/photos/black-car-on-the-road-picture-id1226119391?b=1&k=20&m=1226119391&s=170667a&w=0&h=lspxnUA45EFCjw9bXAgwinu1QA74QjI6QemF6oXmZTg=",
+    "https://media.istockphoto.com/photos/silver-sports-car-on-black-tile-floor-picture-id170450723?b=1&k=20&m=170450723&s=170667a&w=0&h=A4rCaXBjUovNOGWXoyuL4hnvPxdLx3fiPdeF33XIqH0=",
+    "https://media.istockphoto.com/photos/hot-sports-car-picture-id147461270?b=1&k=20&m=147461270&s=170667a&w=0&h=BPko-5TFfhmgbS9mw31pNfhHcqX656m9LBxcGewFByM=",
+    "https://media.istockphoto.com/photos/car-driving-on-a-road-picture-id1264045165?b=1&k=20&m=1264045165&s=170667a&w=0&h=XsPL8bwJ69wGIc0oLPQ1pHkjesNjemTqKbj0YJ12t5Y=",
+    "https://media.istockphoto.com/photos/generic-modern-sports-car-in-concrete-garage-picture-id1307086563?b=1&k=20&m=1307086563&s=170667a&w=0&h=sPx3GPlfoe6NT_ZO4XyAT5eP1QbbUf5rZlSrqQmX2Ig=",
+]

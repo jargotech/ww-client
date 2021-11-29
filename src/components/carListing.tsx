@@ -1,10 +1,13 @@
-import { Container, Drawer, Grid, styled } from '@mui/material'
+import { Container, Drawer, Grid, IconButton, styled } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import SiteButton from './Button'
 import CarCards from './carCards'
 import BrandAutoComplete from '../components/BrandAutoComplete'
 import DeletableChips from './deletableChips'
 import { AllCityService } from '../services/carService'
+import Image from 'next/image'
+import BackLogo from '../../public/backArrow.svg'
+
 
 
 const StyledGrid = styled(Grid)`
@@ -45,9 +48,9 @@ export default function CarListing() {
         })
     }
 
-    useEffect(() => {
-        _getAllCity();
-    }, [])
+    // useEffect(() => {
+    //     _getAllCity();
+    // }, [])
 
     // const _getAllCars = () => {
     //     const data = carService.getAllCollection();
@@ -82,7 +85,12 @@ export default function CarListing() {
                     onClose={toggleDrawer(false)}
                 >
                     <div className="filter-wrapper">
-                        <h4>Filters</h4>
+                        <div className="drawer-header-with-icon">
+                            <IconButton onClick={toggleDrawer(false)}>
+                                <Image src={BackLogo} alt="Add comment" />
+                            </IconButton>
+                            <h4>Filters</h4>
+                        </div>
                         <div className="filter">
                             <h5>Registration Year</h5>
                             <ul className="filter-list">

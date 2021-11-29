@@ -1,9 +1,8 @@
 import React from 'react'
-import { Container, FormControl, Grid, Input, InputAdornment, InputLabel } from '@mui/material'
+import { FormControl, Grid, Input, InputAdornment, InputLabel, TextField } from '@mui/material'
 import RupeeLogo from '../../../public/rupee.svg'
 import Image from 'next/image'
-import SiteButton from '../Button'
-import CarCards from '../carCards'
+// import MaskedInput from 'react-text-mask'
 
 
 export default function MakeOffer(props: any) {
@@ -17,6 +16,20 @@ export default function MakeOffer(props: any) {
                 <InputLabel htmlFor="input-with-icon-adornment">
                     make your offer
                 </InputLabel>
+                {/* <MaskedInput
+                    // mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                    mask={[/[1-9]/, /\d/, ',', /\d/, /\d/, ',', /\d/, /\d/, /\d/]}
+                    name="makeOffer"
+                    value={formik.values.makeOffer}
+                    onChange={formik.handleChange}
+                    id="input-with-icon-adornment"
+                    placeholder="59,00,000"
+                startAdornment={
+                    <InputAdornment position="start">
+                        <Image src={RupeeLogo} width={10} height={16} alt="rupeelogo" />
+                    </InputAdornment>
+                }
+                /> */}
                 <Input
                     name="makeOffer"
                     value={formik.values.makeOffer}

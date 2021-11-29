@@ -7,6 +7,8 @@ export default function BrandAutoComplete() {
     return (
         <StyledAutoComplete
             disablePortal
+            multiple
+            limitTags={2}
             id="all-brands"
             options={BrandName}
             fullWidth={true}

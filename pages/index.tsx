@@ -7,16 +7,22 @@ import LatestArrival from '../src/components/latestArrival'
 import { CityService } from '../src/services/cityService'
 import axios from 'axios'
 import { APIURL } from '../src/config/apiConfig'
+import Footer from '../src/components/Footer/footer'
+import Head from 'next/head'
 
 export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Wish Wheels</title>
+      </Head>
       <LandingSection />
       <OurStats />
       <LatestArrival />
       <HowItWorks />
-      <CtaBanner />
+      <Footer className="site-section" />
+
     </>
   )
 }

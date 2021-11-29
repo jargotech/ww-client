@@ -4,13 +4,16 @@ import Image from 'next/image'
 import Logo from '../../../public/wishwheels-logo.svg'
 import Link from 'next/link'
 import { LocationChip } from '../Navbar/navbarElement'
+import { useRouter } from 'next/router';
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
     const [navbarScroll, setNavbarScroll] = useState(false);
+    const router = useRouter();
 
     // functions 
     const ScrollBackground = () => {
+        // console.log(window.scrollY);
         if (window.scrollY >= 84) {
             setNavbarScroll(true);
 
@@ -27,7 +30,7 @@ export default function Navbar() {
     return (
         <>
             <div className={isActive ? "backdrop" : ''}></div>
-            <header id="header" className={!navbarScroll ? "site-header" : "site-header is-active"}>
+            <header id="header" className={navbarScroll ? "site-header is-active" : router.pathname == '/404' ? "site-header fixed" : "site-header"}>
                 <Container maxWidth="lg">
                     <div className="site-header-wrapper">
                         <Link href="/">
@@ -50,27 +53,27 @@ export default function Navbar() {
                                 <ul className="list-style-none">
                                     <li>
                                         <Link href="/sell-car">
-                                            <a>Sell Car</a>
+                                            <a className={router.pathname == "/sell-car" ? "is-active" : ""}>Sell Car</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/car-listing">
-                                            <a>Browse Car</a>
+                                        <Link href="/car-collection">
+                                            <a className={router.pathname == "/car-collection" ? "is-active" : ""}>Browse Car</a>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link href="/faq">
-                                            <a>FAQ</a>
+                                            <a className={router.pathname == "/faq" ? "is-active" : ""}>FAQ</a>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link href="/car-listing">
-                                            <a>About Us</a>
+                                            <a className={router.pathname == "/car-listing" ? "is-active" : ""}>About Us</a>
                                         </Link>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                         <LocationChip label="Mumbai" />
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </nav>
                         </div>

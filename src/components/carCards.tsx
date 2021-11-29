@@ -27,15 +27,15 @@ export default function CarCards({ variant, hideButton, img, style }: cardType) 
             <div className="content">
                 <h4>2015 USED AUDI A8 W12</h4>
                 <Grid container spacing={2}>
-                    <Grid item md={4}>
+                    <Grid item xs={4}>
                         <p className="car-summary-header" >FUEL TYPE </p>
                         <span className="car-summary">PETROL</span>
                     </Grid>
-                    <Grid item md={4}>
+                    <Grid item xs={4} sx={{ textAlign: 'center' }}>
                         <p className="car-summary-header">MODEL</p>
                         <span className="car-summary">2015</span>
                     </Grid>
-                    <Grid item md={4}>
+                    <Grid item xs={4} sx={{ textAlign: 'right' }}>
                         <p className="car-summary-header">KMS</p>
                         <span className="car-summary">40,000</span>
                     </Grid>
