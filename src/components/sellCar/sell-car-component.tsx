@@ -41,25 +41,36 @@ export default function SellCarComponent() {
 
     }
 
+    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
     const BookTrialSchema = [
 
         Yup.object().shape({
-            firstName: Yup.string().required(),
-            lastName: Yup.string().required(),
-            mobile: Yup.number().required(),
+            firstName: Yup.string()
+                .min(2, 'Too Short!')
+                .max(50, 'Too Long!')
+                .required('Required'),
+            lastName: Yup.string()
+                .min(2, 'Too Short!')
+                .max(50, 'Too Long!')
+                .required('Required'),
+            mobile: Yup.string().matches(phoneRegExp, 'Phone number is not valid').required('required'),
             email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-            address1: Yup.string().required(),
-            address2: Yup.string().required(),
+            address1: Yup.string().required('required'),
+            address2: Yup.string(),
+            city: Yup.object().required('required')
         }),
 
         Yup.object().shape({
-            firstName: Yup.string().required(),
-            lastName: Yup.string().required(),
-            mobile: Yup.number().required(),
-            email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-            address1: Yup.string().required(),
-            address2: Yup.string().required(),
+            year: Yup.number().min(4).required(),
+            manifacture: Yup.string()
+                .min(2, 'Too Short!')
+                .max(50, 'Too Long!')
+                .required('Required'),
+            model: Yup.string()
+                .required('Required'),
+            kmTraveled: Yup.number().min(3).required(),
+            fuelType: Yup.string().required('Required'),
         }),
 
         Yup.object().shape({
@@ -123,7 +134,7 @@ export default function SellCarComponent() {
                         ) : (
                             <Formik
                                 initialValues={BookTrailInitialValues}
-                                // validationSchema={currentValidationSchema}
+                                validationSchema={currentValidationSchema}
                                 onSubmit={_handleSubmit}
                             >
                                 {(props: any) => (

@@ -36,86 +36,90 @@ export default function CarDetailForm(props: any) {
     return (
         <div>
             <Grid container spacing={2}>
-                {
+                {/* {
                     carFields.map((carFields, index) => {
                         const Name = carFields.name;
                         return (
-                            <Grid key={index} item md={6}>
+                            <Grid  item md={6}>
                                 <StyledTextField
                                     name={Name}
                                     value={formik.values.Name}
                                     onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     variant="outlined"
                                     placeholder={carFields.label}
                                     fullWidth />
+                                <span className="error">{formik.touched.Name && formik.errors.Name}</span>
                             </Grid>
                         )
 
                     })
-                }
-
-                {/* <Grid item md={6}>
+                } */}
+                <Grid item md={6}>
                     <StyledTextField
-                        name='lastName'
-                        value={formik.values.lastName}
+                        name='year'
+                        value={formik.values.year}
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder="Last Name"
+                        placeholder='Year'
                         fullWidth />
+                    <span className="error">{formik.touched.year && formik.errors.year}</span>
                 </Grid>
                 <Grid item md={6}>
                     <StyledTextField
-                        name='mobile'
-                        value={formik.values.mobile}
+                        name='manifacture'
+                        value={formik.values.manifacture}
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder="Mobile"
+                        placeholder='Manifacture'
                         fullWidth />
+                    <span className="error">{formik.touched.manifacture && formik.errors.manifacture}</span>
                 </Grid>
                 <Grid item md={6}>
                     <StyledTextField
-                        name='email'
-                        value={formik.values.email}
+                        name='model'
+                        value={formik.values.model}
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder="Email"
+                        placeholder='Modal'
                         fullWidth />
+                    <span className="error">{formik.touched.model && formik.errors.model}</span>
                 </Grid>
                 <Grid item md={6}>
                     <StyledTextField
-                        name='address1'
-                        value={formik.values.address1}
+                        name='kmTraveled'
+                        value={formik.values.kmTraveled}
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder="Address Line 1 "
+                        placeholder="Km Traveled"
                         fullWidth />
+                    <span className="error">{formik.touched.kmTraveled && formik.errors.kmTraveled}</span>
                 </Grid>
                 <Grid item md={6}>
                     <StyledTextField
-                        name='address2'
-                        value={formik.values.address2}
+                        name='fuelType'
+                        value={formik.values.fuelType}
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder="Address Line 2 "
+                        placeholder='fuelType'
                         fullWidth />
+                    <span className="error">{formik.touched.fuelType && formik.errors.fuelType}</span>
                 </Grid>
-                <Grid item md={6}>
+                {/* <Grid  item md={6}>
                     <StyledTextField
-                        name='address2'
-                        value={formik.values.address2}
+                        name={Name}
+                        value={formik.values.Name}
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder="Address Line 2 "
+                        placeholder={carFields.label}
                         fullWidth />
-                </Grid>
-                <Grid item md={6}>
-                    <StyledTextField
-                        name='address2'
-                        value={formik.values.address2}
-                        onChange={formik.handleChange}
-                        variant="outlined"
-                        placeholder="Address Line 2 "
-                        fullWidth />
+                    <span className="error">{formik.touched.Name && formik.errors.Name}</span>
                 </Grid> */}
 
             </Grid>
