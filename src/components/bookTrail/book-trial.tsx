@@ -153,7 +153,7 @@ export default function BookTrail() {
                                                         (<OtpForm formik={props} />)
                                                         : null
                                         }
-                                        <div style={{ position: 'relative', display: 'table', margin: '0 0 0 auto' }}>
+                                        <div style={{ position: 'relative', display: 'table', margin: '20px 0 0 auto' }}>
                                             <SiteButton
                                                 styles={{ marginLeft: 'auto' }}
                                                 disabled={!(props.isValid && props.dirty)}

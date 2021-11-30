@@ -21,7 +21,7 @@ export default function Footer({ className }: any) {
                                 <img src={Logo.src} alt="" />
                                 <h3>Wish Wheels</h3>
                             </div>
-                            <h6 className="copy-right-text">Copyright © 2021 JargoTech.Inc  </h6>
+                            <h6 className="copy-right-text">Copyright © 2021 WishWheels.Inc  </h6>
                             <h6 className="copy-right-text">All rights reserved</h6>
                             <div className="social-icons">
                                 <ul>

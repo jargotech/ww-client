@@ -27,7 +27,7 @@ export default function CarDetailComponent() {
     return (
         <section className="car-detail">
             <Container maxWidth="lg">
-                <h3>Car Tittle </h3>
+                <h3>Car Title </h3>
                 <Grid container spacing={2} sx={{ justifyContent: 'center !important' }}>
                     <Grid item xs={12} md={6} className="order-md-2">
                         <div className="flex-container">

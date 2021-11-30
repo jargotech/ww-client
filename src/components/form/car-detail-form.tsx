@@ -55,58 +55,60 @@ export default function CarDetailForm(props: any) {
 
                     })
                 } */}
-                <Grid item md={6}>
+                <Grid item xs={12} md={6}>
                     <StyledTextField
                         name='year'
+                        type="number"
                         value={formik.values.year}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder='Year'
+                        placeholder='Year *'
                         fullWidth />
                     <span className="error">{formik.touched.year && formik.errors.year}</span>
                 </Grid>
-                <Grid item md={6}>
+                <Grid xs={12} item md={6}>
                     <StyledTextField
                         name='manifacture'
                         value={formik.values.manifacture}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder='Manifacture'
+                        placeholder='Manifacture *'
                         fullWidth />
                     <span className="error">{formik.touched.manifacture && formik.errors.manifacture}</span>
                 </Grid>
-                <Grid item md={6}>
+                <Grid xs={12} item md={6}>
                     <StyledTextField
                         name='model'
                         value={formik.values.model}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder='Modal'
+                        placeholder='Modal *'
                         fullWidth />
                     <span className="error">{formik.touched.model && formik.errors.model}</span>
                 </Grid>
-                <Grid item md={6}>
+                <Grid xs={12} item md={6}>
                     <StyledTextField
                         name='kmTraveled'
+                        type="number"
                         value={formik.values.kmTraveled}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder="Km Traveled"
+                        placeholder="Km Traveled *"
                         fullWidth />
                     <span className="error">{formik.touched.kmTraveled && formik.errors.kmTraveled}</span>
                 </Grid>
-                <Grid item md={6}>
+                <Grid xs={12} item md={6}>
                     <StyledTextField
                         name='fuelType'
                         value={formik.values.fuelType}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder='fuelType'
+                        placeholder='fuelType *'
                         fullWidth />
                     <span className="error">{formik.touched.fuelType && formik.errors.fuelType}</span>
                 </Grid>

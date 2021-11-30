@@ -32,6 +32,7 @@ export default function MakeOffer(props: any) {
                 /> */}
                 <Input
                     name="makeOffer"
+                    type='number'
                     value={formik.values.makeOffer}
                     onChange={formik.handleChange}
                     id="input-with-icon-adornment"

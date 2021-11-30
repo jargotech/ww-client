@@ -27,13 +27,8 @@ export default function DeletableChips() {
     };
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                listStyle: 'none',
-                margin: '10px 0px 20px 0px'
-            }}
+        <div
+            className="filter-chips"
         >
             {chipData.map((data) => {
                 let icon;
@@ -47,6 +42,6 @@ export default function DeletableChips() {
                     </ListItem>
                 );
             })}
-        </Box>
+        </div>
     );
 }

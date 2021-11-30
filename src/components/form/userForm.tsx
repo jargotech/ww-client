@@ -12,64 +12,66 @@ export default function UserForm(props: any) {
     return (
         <div>
             <Grid container spacing={2}>
-                <Grid item md={6}>
+                <Grid item xs={12} md={6}>
                     <StyledTextField
                         name='firstName'
                         value={formik.values.firstName}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder="First Name"
+                        placeholder="First Name *"
                         fullWidth />
                     <span className="error">{formik.touched.firstName && formik.errors.firstName}</span>
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12} md={6}>
                     <StyledTextField
                         name='lastName'
                         value={formik.values.lastName}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder="Last Name"
+                        placeholder="Last Name *"
                         fullWidth />
                     <span className="error">{formik.errors.lastName && formik.touched.lastName ? formik.errors.lastName : null}</span>
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12} md={6}>
                     <StyledTextField
                         name='mobile'
                         value={formik.values.mobile}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder="Mobile"
+                        placeholder="Mobile *"
                         fullWidth />
                     <span className="error">{formik.touched.mobile && formik.errors.mobile}</span>
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12} md={6}>
                     <StyledTextField
                         name='email'
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder="Email"
+                        placeholder="Email *"
                         fullWidth />
                     <span className="error">{formik.touched.email && formik.errors.email}</span>
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12}>
                     <StyledTextField
                         name='address1'
+                        multiline
                         value={formik.values.address1}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="outlined"
-                        placeholder="Address Line 1 "
+                        placeholder="Address Line 1 *"
                         fullWidth />
                     <span className="error">{formik.touched.address1 && formik.errors.address1}</span>
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12}>
                     <StyledTextField
                         name='address2'
+                        multiline
                         value={formik.values.address2}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -78,7 +80,7 @@ export default function UserForm(props: any) {
                         fullWidth />
                     <span className="error">{formik.touched.address2 && formik.errors.address2}</span>
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12} md={6}>
                     <StyledAutoComplete
                         autoComplete={false}
                         disablePortal
@@ -94,7 +96,7 @@ export default function UserForm(props: any) {
                                 value !== null ? value : formik.initialValues.city
                             );
                         }}
-                        renderInput={(params) => <TextField name="city" {...params} placeholder="City" />}
+                        renderInput={(params) => <TextField name="city" {...params} placeholder="City *" />}
                     />
                     <span className="error">{formik.touched.city && formik.errors.city}</span>
                 </Grid>

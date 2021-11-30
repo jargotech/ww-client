@@ -44,10 +44,10 @@ export default function CarCards({ variant, hideButton, img, style }: cardType) 
                     variant == 'card2'
                         ? (
                             <Grid container spacing={2} sx={{ marginTop: '5px' }}>
-                                <Grid item md={6} sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Grid item xs={6} sx={{ display: 'flex', alignItems: 'center' }}>
                                     <p className="price" >₹ 59,00,000</p>
                                 </Grid>
-                                <Grid item md={6}>
+                                <Grid item xs={6} sx={{ textAlign: 'right' }}>
                                     {!hideButton ? (<SiteButton text="bOOK tRAIL" arrow={true} onClick={bookTrail} />) : null}
 
                                 </Grid>
