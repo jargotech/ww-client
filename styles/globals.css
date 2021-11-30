@@ -412,26 +412,26 @@ input[type="number"] {
 }
 
 .primary-btn {
-  background-color: #f7f3d0;
-  border: 1px solid #f7f3d0;
-  color: #640e27;
-  font-family: var(--secondary-fonts);
+  background-color: #f7f3d0 !important;
+  border: 1px solid #f7f3d0 !important;
+  color: #640e27 !important;
+  font-family: var(--secondary-fonts) !important;
 }
 .primary-btn.Mui-disabled {
-  color: #640e27;
-  opacity: 0.4;
+  color: #640e27 !important;
+  opacity: 0.4 !important;
 }
 .primary-btn:hover {
-  background-color: #f7f3d0;
+  background-color: #f7f3d0 !important;
 }
 .secondary-btn {
-  border: 1px solid rgba(63, 81, 181, 0.5);
-  background-color: #fff;
-  color: rgba(19, 19, 19, 0.87);
-  font-family: var(--secondary-fonts);
+  border: 1px solid rgba(63, 81, 181, 0.5) !important;
+  background-color: #fff !important;
+  color: rgba(19, 19, 19, 0.87) !important;
+  font-family: var(--secondary-fonts) !important;
 }
 .secondary-btn:hover {
-  background-color: #fff;
+  background-color: #fff !important;
 }
 .text-right {
   text-align: right;
