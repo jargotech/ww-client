@@ -6,15 +6,15 @@ import Image from 'next/image'
 
 
 const StyledButton = styled(Button)`
-box-sizing: border-box;
-border-radius: 4px;
-padding:8px 22px;
-display:flex;
-align-items: center;
-font-weight: 700;
-font-size: 14px;
-letter-spacing: 0.46px;
-text-transform: uppercase;
+box-sizing: border-box !important;
+border-radius: 4px !important;
+padding:8px 22px !important;
+display:flex !important;
+align-items: center !important;
+font-weight: 700 !important;
+font-size: 14px !important;
+letter-spacing: 0.46px !important;
+text-transform: uppercase !important;
  & span{
      display:inline-block !important;
      margin:0px 0px 0px 12px !important;
@@ -23,10 +23,10 @@ text-transform: uppercase;
  }
 
  @media(max-width:992px){
-     margin:0 auto;
+     margin:0 auto !important;
  }
  @media(max-width:567px){
-    padding:5px 15px;
+    padding:5px 15px !important;
  }
 `;
 
