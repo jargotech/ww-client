@@ -9,9 +9,13 @@ import axios from 'axios'
 import { APIURL } from '../src/config/apiConfig'
 import Footer from '../src/components/Footer/footer'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 export default function Home() {
-
+  const router = useRouter()
+  const handleClick = () => {
+    router.push('/sell-car')
+}
   return (
     <>
       <Head>
@@ -21,7 +25,11 @@ export default function Home() {
       <OurStats />
       <LatestArrival />
       <HowItWorks />
-      <Footer className="site-section" />
+      <Footer 
+      ctaTitle="We can help you sell your car"
+      ctaBtnText="Sell Now"
+      ctaAction={handleClick}
+      className="site-section"  />
 
     </>
   )

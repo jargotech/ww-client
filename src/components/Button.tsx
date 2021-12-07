@@ -32,7 +32,7 @@ text-transform: uppercase ;
 
 
 interface SiteButtonTypes {
-    text: String,
+    text?: string,
     arrow?: Boolean,
     onClick?: any,
     buttonVariant?: string,

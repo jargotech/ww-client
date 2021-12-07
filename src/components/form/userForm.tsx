@@ -18,8 +18,8 @@ export default function UserForm(props: any) {
                         value={formik.values.firstName}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        variant="outlined"
-                        placeholder="First Name *"
+                        variant="filled"
+                        label="First Name *"
                         fullWidth />
                     <span className="error">{formik.touched.firstName && formik.errors.firstName}</span>
                 </Grid>
@@ -29,8 +29,8 @@ export default function UserForm(props: any) {
                         value={formik.values.lastName}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        variant="outlined"
-                        placeholder="Last Name *"
+                        variant="filled"
+                        label="Last Name *"
                         fullWidth />
                     <span className="error">{formik.errors.lastName && formik.touched.lastName ? formik.errors.lastName : null}</span>
                 </Grid>
@@ -40,8 +40,8 @@ export default function UserForm(props: any) {
                         value={formik.values.mobile}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        variant="outlined"
-                        placeholder="Mobile *"
+                        variant="filled"
+                        label="Mobile *"
                         fullWidth />
                     <span className="error">{formik.touched.mobile && formik.errors.mobile}</span>
                 </Grid>
@@ -51,8 +51,8 @@ export default function UserForm(props: any) {
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        variant="outlined"
-                        placeholder="Email *"
+                        variant="filled"
+                        label="Email *"
                         fullWidth />
                     <span className="error">{formik.touched.email && formik.errors.email}</span>
                 </Grid>
@@ -63,8 +63,8 @@ export default function UserForm(props: any) {
                         value={formik.values.address1}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        variant="outlined"
-                        placeholder="Address Line 1 *"
+                        variant="filled"
+                        label="Address Line 1 *"
                         fullWidth />
                     <span className="error">{formik.touched.address1 && formik.errors.address1}</span>
                 </Grid>
@@ -75,8 +75,8 @@ export default function UserForm(props: any) {
                         value={formik.values.address2}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        variant="outlined"
-                        placeholder="Address Line 2 "
+                        variant="filled"
+                        label="Address Line 2 "
                         fullWidth />
                     <span className="error">{formik.touched.address2 && formik.errors.address2}</span>
                 </Grid>
@@ -96,7 +96,7 @@ export default function UserForm(props: any) {
                                 value !== null ? value : formik.initialValues.city
                             );
                         }}
-                        renderInput={(params) => <TextField name="city" {...params} placeholder="City *" />}
+                        renderInput={(params) => <TextField name="city" variant="filled" {...params} label="City *" />}
                     />
                     <span className="error">{formik.touched.city && formik.errors.city}</span>
                 </Grid>

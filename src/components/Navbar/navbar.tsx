@@ -12,9 +12,18 @@ export default function Navbar() {
     const router = useRouter();
 
     // functions 
+
+    const handleSidebar = () => {
+        setIsActive(!isActive)
+        if (!isActive) {
+            document.body.classList.add("overflow-hidden");
+        } else {
+            document.body.classList.remove("overflow-hidden");
+        }
+    }
     const ScrollBackground = () => {
         // console.log(window.scrollY);
-        if (window.scrollY >= 84) {
+        if (window.scrollY >= 85) {
             setNavbarScroll(true);
 
         } else {
@@ -43,7 +52,7 @@ export default function Navbar() {
                                 />
                             </a>
                         </Link>
-                        <button className={isActive ? "btn-nav-toggler is-active" : "btn-nav-toggler"} onClick={() => setIsActive(!isActive)}>
+                        <button className={isActive ? "btn-nav-toggler is-active" : "btn-nav-toggler"} onClick={handleSidebar}>
                             <span></span>
                             <span></span>
                             <span></span>

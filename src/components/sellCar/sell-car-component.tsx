@@ -1,7 +1,7 @@
 import { Box, Button, CircularProgress, Container, FormControl, Grid, Input, InputAdornment, InputLabel, Step, StepLabel, Stepper } from '@mui/material'
 import SiteButton from '../Button'
 import CarCards from '../carCards'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import UserForm from '../form/userForm'
@@ -10,6 +10,8 @@ import Alert from '@mui/material/Alert';
 import StyledStepper from '../stepper/stepper';
 import CarDetailForm from '../form/car-detail-form';
 import UploadInput from '../form/upload/uploadInput';
+import MediaQuery from 'react-responsive';
+import { useRouter } from 'next/router'
 
 const steps = ['step1', 'step2', 'step3', 'step4'];
 export default function SellCarComponent() {
@@ -17,6 +19,7 @@ export default function SellCarComponent() {
     const [activeStep, setActiveStep] = useState(0);
     const [data, setData] = useState();
     const isLastStep = activeStep === steps.length - 1;
+    const router = useRouter()
 
     const BookTrailInitialValues = {
         firstName: '',
@@ -90,6 +93,9 @@ export default function SellCarComponent() {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    const RedirectHomePage = () =>{
+        router.push('/')
+    }
     async function _submitForm(values: any, actions: any) {
         await _sleep(1000);
         // alert(JSON.stringify(values, null, 2));
@@ -99,6 +105,7 @@ export default function SellCarComponent() {
         // actions.setSubmitting(false);
 
         setActiveStep(activeStep + 1);
+       
     }
 
     function _handleSubmit(values: any, actions: any) {
@@ -116,19 +123,28 @@ export default function SellCarComponent() {
     }
 
 
+
     return (
         <section className="book-trail">
             <Container maxWidth="lg" >
                 <h3>Sell Car</h3>
-                <Grid container spacing={2} sx={{ justifyContent: 'center !important' }}>
+                <Grid 
+                container 
+                spacing={2} 
+                sx={{' @media(maxWidth:767px)':{
+                    justifyContent: 'center !important' 
+                } }}>
                     <Grid item lg={6} className="order-md-2">
-                        <StyledStepper activeStep={activeStep} steps={steps} />
+                        <MediaQuery query="(min-width: 992px)">
+                            <StyledStepper activeStep={activeStep} steps={steps} />
+                        </MediaQuery>
                         <h5>Hear from our Inspection team </h5>
 
                         {activeStep === steps.length ? (
                             (
                                 <Alert variant="outlined" severity="success">
                                     This is a success alert — check it out!
+                                    { RedirectHomePage()}
                                 </Alert>
                             )
                         ) : (
@@ -180,6 +196,9 @@ export default function SellCarComponent() {
                         )}
                     </Grid>
                     <Grid item lg={6} className="order-md-1">
+                        <MediaQuery query="(max-width: 992px)">
+                            <StyledStepper activeStep={activeStep} steps={steps} />
+                        </MediaQuery>
                         <Grid item lg={9} sx={{ margin: '0 auto' }}>
                             <CarCards variant="card2" hideButton={true} style={{ marginBottom: '10px' }} />
                         </Grid>

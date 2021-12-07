@@ -46,8 +46,8 @@ export default function CarDetailForm(props: any) {
                                     value={formik.values.Name}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                    variant="outlined"
-                                    placeholder={carFields.label}
+                                     variant="filled"
+                                    label={carFields.label}
                                     fullWidth />
                                 <span className="error">{formik.touched.Name && formik.errors.Name}</span>
                             </Grid>
@@ -62,8 +62,8 @@ export default function CarDetailForm(props: any) {
                         value={formik.values.year}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        variant="outlined"
-                        placeholder='Year *'
+                         variant="filled"
+                        label='Year *'
                         fullWidth />
                     <span className="error">{formik.touched.year && formik.errors.year}</span>
                 </Grid>
@@ -73,8 +73,8 @@ export default function CarDetailForm(props: any) {
                         value={formik.values.manifacture}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        variant="outlined"
-                        placeholder='Manifacture *'
+                         variant="filled"
+                        label='Manufacture *'
                         fullWidth />
                     <span className="error">{formik.touched.manifacture && formik.errors.manifacture}</span>
                 </Grid>
@@ -84,8 +84,8 @@ export default function CarDetailForm(props: any) {
                         value={formik.values.model}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        variant="outlined"
-                        placeholder='Modal *'
+                         variant="filled"
+                        label='Modal *'
                         fullWidth />
                     <span className="error">{formik.touched.model && formik.errors.model}</span>
                 </Grid>
@@ -96,8 +96,8 @@ export default function CarDetailForm(props: any) {
                         value={formik.values.kmTraveled}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        variant="outlined"
-                        placeholder="Km Traveled *"
+                         variant="filled"
+                        label="Km Traveled *"
                         fullWidth />
                     <span className="error">{formik.touched.kmTraveled && formik.errors.kmTraveled}</span>
                 </Grid>
@@ -107,8 +107,8 @@ export default function CarDetailForm(props: any) {
                         value={formik.values.fuelType}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        variant="outlined"
-                        placeholder='fuelType *'
+                         variant="filled"
+                        label='Fule Type *'
                         fullWidth />
                     <span className="error">{formik.touched.fuelType && formik.errors.fuelType}</span>
                 </Grid>
@@ -118,8 +118,8 @@ export default function CarDetailForm(props: any) {
                         value={formik.values.Name}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        variant="outlined"
-                        placeholder={carFields.label}
+                         variant="filled"
+                        label={carFields.label}
                         fullWidth />
                     <span className="error">{formik.touched.Name && formik.errors.Name}</span>
                 </Grid> */}

@@ -10,6 +10,7 @@ import OtpForm from '../form/otpForm'
 import MakeOffer from '../form/makeOffer'
 import Alert from '@mui/material/Alert';
 import StyledStepper from '../stepper/stepper';
+import MediaQuery from 'react-responsive';
 
 const steps = ['Shipping address', 'step2', 'step3'];
 export default function BookTrail() {
@@ -106,20 +107,16 @@ export default function BookTrail() {
         <section className="book-trail">
             <Container maxWidth="lg" >
                 <h3>Book Trail</h3>
-                <Grid container spacing={2} sx={{ justifyContent: 'center !important' }}>
-                    <Grid item lg={6} className="order-md-2">
-                        {/* <Box sx={{ maxWidth: '200px', marginBottom: '10px' }}>
-                            <Stepper activeStep={activeStep} connector={<QontoConnector />} >
-                                {
-                                    steps.map(label => (
-                                        <Step key={label}>
-                                            <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
-                                        </Step>
-                                    ))
-                                }
-                            </Stepper>
-                        </Box> */}
-                        <StyledStepper activeStep={activeStep} steps={steps} />
+                <Grid 
+                container 
+                spacing={2} 
+                sx={{' @media(maxWidth:767px)':{
+                    justifyContent: 'center !important' 
+                } }}>
+                    <Grid item xs={12} md={6} className="order-md-2">
+                        <MediaQuery query="(min-width: 992px)">
+                            <StyledStepper activeStep={activeStep} steps={steps} />
+                        </MediaQuery>
                         <h5>Make an offer and book a trail</h5>
 
                         {activeStep === steps.length ? (
@@ -173,6 +170,9 @@ export default function BookTrail() {
                         )}
                     </Grid>
                     <Grid item lg={6} className="order-md-1">
+                        <MediaQuery query="(max-width: 992px)">
+                            <StyledStepper activeStep={activeStep} steps={steps} />
+                        </MediaQuery>
                         <Grid item lg={9} sx={{ margin: '0 auto' }}>
                             <CarCards variant="card2" hideButton={true} style={{ marginBottom: '10px' }} />
                         </Grid>

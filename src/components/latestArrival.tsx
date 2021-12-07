@@ -20,7 +20,7 @@ export default function LatestArrival() {
             <Container maxWidth="lg">
                 <div className="flex-container">
                     <h3 className="section-title">
-                        Our Latest <span>Arrival</span>
+                        Latest <span>Arrival</span>
                     </h3>
                     <SiteButton text="SHOW ALL" onClick={handelClick} arrow={true} />
                 </div>

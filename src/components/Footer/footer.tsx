@@ -9,10 +9,10 @@ import TwitterLogo from '../../../public/twitter.svg'
 import YoutubeLogo from '../../../public/youtube.svg'
 import CtaBanner from '../CtaBanner'
 
-export default function Footer({ className }: any) {
+export default function Footer({ className ,ctaTitle,ctaAction,ctaBtnText}: any) {
     return (
         <div className={`${className} d-flex`} style={{ flexDirection: 'column', justifyContent: 'end', alignItems: 'unset' }}>
-            <CtaBanner />
+            <CtaBanner catTitle={ctaTitle} ctaAction={ctaAction} ctaText={ctaBtnText} />
             <FooterWrapper>
                 <Container maxWidth="lg">
                     <Grid container spacing={2}>

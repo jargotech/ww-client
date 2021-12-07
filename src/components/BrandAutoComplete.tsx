@@ -13,7 +13,7 @@ export default function BrandAutoComplete() {
             options={BrandName}
             fullWidth={true}
             sx={{ margin: '20px 0px' }}
-            renderInput={(params) => <TextField {...params} placeholder="Brands" />}
+            renderInput={(params) => <TextField {...params} variant="filled" label="Brands" />}
         />
     );
 }

@@ -10,19 +10,19 @@ export default function HowItWorks() {
                 <h3>How it works</h3>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={4} sx={{ marginBottom: '15px' }}>
-                        <Image src={CreateLogo} height={160} width={200} alt="createLogo" />
-                        <h4>Browse our Collection</h4>
-                        <p>Create an account to get started.</p>
+                        {/* <Image src={CreateLogo} height={160} width={200} alt="createLogo" /> */}
+                        <h4>List your car</h4>
+                        <p>You can list your car by filling out a short form, we serve in Mumbai, Pune and Nagpur  </p>
                     </Grid>
                     <Grid item xs={12} md={4} sx={{ marginBottom: '15px' }}>
-                        <Image src={CreateLogo} height={160} width={200} alt="createLogo" />
-                        <h4>Browse our Collection</h4>
-                        <p>Create an account to get started.</p>
+                        {/* <Image src={CreateLogo} height={160} width={200} alt="createLogo" /> */}
+                        <h4>Inspection</h4>
+                        <p>We provide doorstep inspection, our team will inspect within 24 hours</p>
                     </Grid>
                     <Grid item xs={12} md={4} sx={{ marginBottom: '15px' }}>
-                        <Image src={CreateLogo} height={160} width={200} alt="createLogo" />
-                        <h4>Browse our Collection</h4>
-                        <p>Create an account to get started.</p>
+                        {/* <Image src={CreateLogo} height={160} width={200} alt="createLogo" /> */}
+                        <h4>Evaluation</h4>
+                        <p>As the team evaluates the value of asset, and reverts back with prices.</p>
                     </Grid>
                 </Grid>
             </Container>

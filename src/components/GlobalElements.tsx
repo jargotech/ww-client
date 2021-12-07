@@ -9,12 +9,13 @@ border-radius: 4px 4px 0px 0px;
  & fieldset{
     border:none;
  }
- input{ 
+ & input{ 
     color: #000 !important;
 }
-input::placeholder{
+& input::placeholder{
     color: #000 !important;
 }
+
 `;
 export const StyledTextField = styled(TextField)`
 background: rgba(33, 33, 33, 0.08);

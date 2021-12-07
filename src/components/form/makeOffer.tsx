@@ -13,7 +13,7 @@ export default function MakeOffer(props: any) {
     return (
         <div>
             <FormControl variant="standard">
-                <InputLabel htmlFor="input-with-icon-adornment">
+                <InputLabel className="bold-label" htmlFor="input-with-icon-adornment">
                     make your offer
                 </InputLabel>
                 {/* <MaskedInput
