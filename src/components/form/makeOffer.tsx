@@ -6,12 +6,21 @@ import Image from 'next/image'
 
 
 export default function MakeOffer(props: any) {
-    const {
-        formik
+    // States
 
-    } = props;
+    // Variable
+    const { formik, carInfo } = props;
+    const minPrice = carInfo[0]?.Car_Detail.minPrice;
+    const maxPrice = carInfo[0]?.Car_Detail.maxPrice;
+
+    // Function
+
+    // Effects
+
     return (
         <div>
+            <p>minPrice: {minPrice}</p>
+            <p>maxPrice: {maxPrice}</p>
             <FormControl variant="standard">
                 <InputLabel className="bold-label" htmlFor="input-with-icon-adornment">
                     make your offer
@@ -43,8 +52,28 @@ export default function MakeOffer(props: any) {
                         </InputAdornment>
                     }
                 />
+
             </FormControl>
-            <p className="light-text">How much would you like  to buy this car for</p>
+            {
+                formik?.values?.makeOffer !== 0 && formik?.values?.makeOffer
+                    ?
+                    formik?.values?.makeOffer > maxPrice && formik?.values?.makeOffer
+                        ?
+                        <p className="success-text">Too High</p>
+                        :
+                        formik?.values?.makeOffer >= minPrice && formik?.values?.makeOffer
+                            ?
+                            <p className="success-text">Good Deal</p>
+                            :
+                            formik?.values?.makeOffer < minPrice && formik?.values?.makeOffer
+                                ?
+                                <p className="error-text">Bad Deal</p>
+                                :
+                                <></>
+                    :
+                    <p className="light-text">How much would you like  to buy this car for</p>
+            }
+
         </div>
     )
 }

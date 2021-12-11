@@ -32,19 +32,20 @@ text-transform: uppercase ;
 
 
 interface SiteButtonTypes {
-    text?: string,
+    text?: String,
     arrow?: Boolean,
     onClick?: any,
-    buttonVariant?: string,
+    buttonVariant?: String,
     styles?: any
     disabled?: boolean
+    type?:any
 }
 
-export default function SiteButton({ text, arrow, onClick, buttonVariant, styles, disabled }: SiteButtonTypes) {
+export default function SiteButton({ text, arrow, onClick, buttonVariant, styles, disabled , type}: SiteButtonTypes) {
     return (
         <StyledButton
             disabled={disabled}
-            type="submit"
+            type={type}
             className={buttonVariant == null || buttonVariant == 'primary' ? 'primary-btn' : buttonVariant == 'secondary' ? 'secondary-btn' : ''}
             onClick={onClick}
             sx={styles}>

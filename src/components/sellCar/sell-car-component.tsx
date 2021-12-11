@@ -93,7 +93,7 @@ export default function SellCarComponent() {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    const RedirectHomePage = () =>{
+    const RedirectHomePage = () => {
         router.push('/')
     }
     async function _submitForm(values: any, actions: any) {
@@ -105,7 +105,7 @@ export default function SellCarComponent() {
         // actions.setSubmitting(false);
 
         setActiveStep(activeStep + 1);
-       
+
     }
 
     function _handleSubmit(values: any, actions: any) {
@@ -128,12 +128,14 @@ export default function SellCarComponent() {
         <section className="book-trail">
             <Container maxWidth="lg" >
                 <h3>Sell Car</h3>
-                <Grid 
-                container 
-                spacing={2} 
-                sx={{' @media(maxWidth:767px)':{
-                    justifyContent: 'center !important' 
-                } }}>
+                <Grid
+                    container
+                    spacing={2}
+                    sx={{
+                        ' @media(maxWidth:767px)': {
+                            justifyContent: 'center !important'
+                        }
+                    }}>
                     <Grid item lg={6} className="order-md-2">
                         <MediaQuery query="(min-width: 992px)">
                             <StyledStepper activeStep={activeStep} steps={steps} />
@@ -144,7 +146,7 @@ export default function SellCarComponent() {
                             (
                                 <Alert variant="outlined" severity="success">
                                     This is a success alert — check it out!
-                                    { RedirectHomePage()}
+                                    {RedirectHomePage()}
                                 </Alert>
                             )
                         ) : (
@@ -178,6 +180,7 @@ export default function SellCarComponent() {
                                         }
                                         <div style={{ position: 'relative', display: 'table', margin: '20px 0 0 auto' }}>
                                             <SiteButton
+                                                type="submit"
                                                 styles={{ marginLeft: 'auto' }}
                                                 disabled={!(props.isValid && props.dirty)}
                                                 text={isLastStep ? 'Done' : activeStep == 1 ? 'Book' : 'Next'}

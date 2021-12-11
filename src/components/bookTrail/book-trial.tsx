@@ -2,7 +2,7 @@ import { Box, Button, CircularProgress, Container, FormControl, Grid, Input, Inp
 import SiteButton from '../Button'
 import CarCards from '../carCards'
 import { QontoConnector, QontoStepIcon } from '../stepper/stepperElements'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import UserForm from '../form/userForm'
@@ -13,14 +13,17 @@ import StyledStepper from '../stepper/stepper';
 import MediaQuery from 'react-responsive';
 
 const steps = ['Shipping address', 'step2', 'step3'];
-export default function BookTrail() {
+export default function BookTrail({ carData }: any) {
 
+    // States
     const [activeStep, setActiveStep] = useState(0);
     const [data, setData] = useState();
-    const isLastStep = activeStep === steps.length - 1;
 
+
+    // Variable
+    const isLastStep = activeStep === steps.length - 1;
     const BookTrailInitialValues = {
-        makeOffer: '',
+        makeOffer: 0,
         firstName: '',
         lastName: '',
         mobile: '',
@@ -39,9 +42,13 @@ export default function BookTrail() {
     }
 
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
+    const minPrice = carData[0]?.Car_Detail.minPrice;
+    const maxPrice = carData[0]?.Car_Detail.maxPrice;
+
     const BookTrialSchema = [
         Yup.object().shape({
-            makeOffer: Yup.number().required(),
+            makeOffer: Yup.number().min(minPrice).required(),
         }),
 
         Yup.object().shape({
@@ -73,6 +80,10 @@ export default function BookTrail() {
     const currentValidationSchema = BookTrialSchema[activeStep];
 
 
+
+
+    // Functions
+
     function _sleep(ms: any) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
@@ -103,16 +114,29 @@ export default function BookTrail() {
     }
 
 
+    // Effects
+    useEffect(() => {
+        if (steps?.length == activeStep) {
+            // This is last step
+            setTimeout(()=>{
+                console.log('redirecting...')
+            },2000);
+        }
+    }, [activeStep]);
+
+
     return (
         <section className="book-trail">
             <Container maxWidth="lg" >
                 <h3>Book Trail</h3>
-                <Grid 
-                container 
-                spacing={2} 
-                sx={{' @media(maxWidth:767px)':{
-                    justifyContent: 'center !important' 
-                } }}>
+                <Grid
+                    container
+                    spacing={2}
+                    sx={{
+                        ' @media(maxWidth:767px)': {
+                            justifyContent: 'center !important'
+                        }
+                    }}>
                     <Grid item xs={12} md={6} className="order-md-2">
                         <MediaQuery query="(min-width: 992px)">
                             <StyledStepper activeStep={activeStep} steps={steps} />
@@ -138,7 +162,7 @@ export default function BookTrail() {
                                             activeStep == 0
                                                 ?
                                                 (
-                                                    <MakeOffer formik={props} />
+                                                    <MakeOffer carInfo={carData} formik={props} />
                                                 )
                                                 :
                                                 activeStep == 1
@@ -152,6 +176,7 @@ export default function BookTrail() {
                                         }
                                         <div style={{ position: 'relative', display: 'table', margin: '20px 0 0 auto' }}>
                                             <SiteButton
+                                                type="submit"
                                                 styles={{ marginLeft: 'auto' }}
                                                 disabled={!(props.isValid && props.dirty)}
                                                 text={isLastStep ? 'Done' : activeStep == 1 ? 'Book' : 'Next'}
@@ -174,7 +199,7 @@ export default function BookTrail() {
                             <StyledStepper activeStep={activeStep} steps={steps} />
                         </MediaQuery>
                         <Grid item lg={9} sx={{ margin: '0 auto' }}>
-                            <CarCards variant="card2" hideButton={true} style={{ marginBottom: '10px' }} />
+                            <CarCards Car_Images={carData[0]?.Car_Images} Car_Detail={carData[0]?.Car_Detail} variant="card2" hideButton={true} style={{ marginBottom: '10px' }} />
                         </Grid>
                     </Grid>
                 </Grid>

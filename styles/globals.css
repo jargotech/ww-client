@@ -502,7 +502,8 @@ input[type="number"] {
   font-weight: 500;
   font-size: 18px;
   text-align: center;
-  color: #203b4e;
+  /* color: #203b4e; */
+  color: #191919;
 }
 .site-nav ul li a::after {
   content: "";
@@ -510,7 +511,7 @@ input[type="number"] {
   height: 2px;
   border-radius: 2px;
   display: block !important;
-  background: #000;
+  background: #191919;
   transition: 0.3s ease-in-out;
 }
 .site-nav ul li:hover a::after {
@@ -562,7 +563,7 @@ input[type="number"] {
   height: 3px;
   right: 0;
   border-radius: 10px;
-  background: #000;
+  background: #191919;
   display: inline-block;
   position: absolute;
   -webkit-transform: rotate(0deg);
@@ -940,6 +941,7 @@ input[type="number"] {
   cursor: pointer;
   box-shadow: none;
   transition: 0.5s ease;
+  min-height: 457px;
 }
 .cars-cards:hover {
   border-color: transparent;
@@ -967,6 +969,9 @@ input[type="number"] {
   display: block !important;
   margin-bottom: 8px !important;
 }
+.cars-cards img {
+  object-fit: cover !important;
+}
 
 .cars-cards .car-summary-header {
   font-weight: 300;
@@ -986,8 +991,8 @@ input[type="number"] {
 .cars-cards .price {
   font-family: var(--secondary-fonts);
   font-weight: 700;
-  font-size: 26px;
-  color: #000000;
+  font-size: 22px;
+  color: #191919;
   margin: 0px;
 }
 
@@ -1015,6 +1020,9 @@ input[type="number"] {
 @media (max-width: 576px) {
   .car-listing {
     padding: 0px 0px 30px 0px;
+  }
+  .cars-cards button {
+    margin: 0px 0px 0px auto !important;
   }
 }
 /* car-listing */
@@ -1069,12 +1077,14 @@ input[type="number"] {
   position: relative;
   margin-right: 0;
 }
-.filter-list input[type="radio"] {
+.filter-list input[type="radio"],
+.filter-list input[type="checkbox"] {
   width: 0px;
   height: 0px;
   position: absolute;
 }
-.filter-list input[type="radio"]:checked + label {
+.filter-list input[type="radio"]:checked + label,
+.filter-list input[type="checkbox"]:checked + label {
   color: #fff;
   background-color: var(--secondary--color);
 }
@@ -1108,7 +1118,7 @@ input[type="number"] {
   padding: 50px 0px;
   margin: 0px 0px 50px 0px;
 }
-.faq-section h3 {
+.faq-section h3.faq-section-title {
   font-family: var(--secondary-fonts);
   font-weight: 700;
   font-size: 50px;
@@ -1119,7 +1129,7 @@ input[type="number"] {
   padding-left: 20px;
 }
 
-.faq-section h3::before {
+.faq-section h3.faq-section-title::before {
   content: "";
   background: url("../public/yellow-circle-2.svg") no-repeat center left;
   position: absolute;
@@ -1131,14 +1141,14 @@ input[type="number"] {
   z-index: -1;
 }
 
-.faq-wrapper ul {
+.faq-wrapper ul.faq-list {
   list-style: none;
   background: #ffffff;
   box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);
   padding-left: 0;
   margin-left: 0;
 }
-.faq-wrapper ul li {
+.faq-wrapper ul.faq-list li {
   display: flex;
   align-items: center;
   font-size: 16px;
@@ -1154,19 +1164,19 @@ input[type="number"] {
   justify-content: flex-start;
   text-align: left;
 }
-.faq-wrapper ul li span {
+.faq-wrapper ul.faq-list li span {
   display: none !important;
 }
-.faq-wrapper ul .MuiTabs-scroller > span {
+.faq-wrapper ul.faq-list .MuiTabs-scroller > span {
   display: none;
 }
-.faq-wrapper ul .MuiTabs-flexContainer {
+.faq-wrapper ul.faq-list .MuiTabs-flexContainer {
   display: block;
 }
-.faq-wrapper ul li:not(:last-child) {
+.faq-wrapper ul.faq-list li:not(:last-child) {
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
-.faq-wrapper ul li::before {
+.faq-wrapper ul.faq-list li::before {
   content: " ";
   background: rgba(100, 14, 39, 0.65);
   width: 24px;
@@ -1180,32 +1190,32 @@ input[type="number"] {
   left: 16px;
 }
 
-.faq-wrapper ul li::after {
+.faq-wrapper ul.faq-list li::after {
   content: "";
   width: 10px;
   height: 10px;
   position: absolute;
   right: 24px;
-  top: 50%;
+  /* top: 50%; */
   border-radius: 2px;
-  transform: rotate(135deg) translateY(-50%);
+  transform: rotate(135deg);
   border-top: 2px solid #a5a6f6;
   border-left: 2px solid #a5a6f6;
   transition: 0.3s ease;
 }
 
-.faq-wrapper ul li:hover,
-.faq-wrapper ul li[aria-selected="true"] {
+.faq-wrapper ul.faq-list li:hover,
+.faq-wrapper ul.faq-list li[aria-selected="true"] {
   background: #fafbff;
 }
-.faq-wrapper ul li:hover:after,
-.faq-wrapper ul li[aria-selected="true"]:after {
+.faq-wrapper ul.faq-list li:hover:after,
+.faq-wrapper ul.faq-list li[aria-selected="true"]:after {
   border-top: 2px solid var(--secondary--color);
   border-left: 2px solid var(--secondary--color);
 }
 
-.faq-wrapper ul li:hover::before,
-.faq-wrapper ul li[aria-selected="true"]:before {
+.faq-wrapper ul.faq-list li:hover::before,
+.faq-wrapper ul.faq-list li[aria-selected="true"]:before {
   background: var(--secondary--color);
 }
 
@@ -1217,7 +1227,9 @@ input[type="number"] {
   position: absolute;
   left: -20%;
   right: 0;
-  top: 0;
+  height: fit-content;
+  top: 50%;
+  transform: translateY(-50%);
   bottom: 0;
   z-index: -1;
 }
@@ -1440,6 +1452,11 @@ input:focus-visible {
 .car-detail {
   padding: 50px 0px 0px 0px;
 }
+@media (min-width: 768px) {
+  .car-detail {
+    padding: 50px 0px 120px 0px;
+  }
+}
 .car-detail h3 {
   font-family: var(--secondary-fonts);
   font-weight: 700;
@@ -1460,13 +1477,20 @@ input:focus-visible {
   z-index: -1;
 }
 .car-detail-img {
-  display: table;
-  max-width: calc(100% - 80px);
-  margin: 0 0 30px auto;
+  display: block;
+  /* max-width: calc(100% - 80px); */
+  margin: 15px 15px 30px 15px;
+
   overflow: hidden;
+  height: 400px;
 }
 .car-detail-img img {
   border-radius: 12px;
+  object-fit: cover;
+}
+.car-detail-img > span {
+  width: 100% !important;
+  height: 100% !important;
 }
 .car-detail h6 {
   font-family: var(--secondary-fonts);
@@ -1494,7 +1518,7 @@ input:focus-visible {
   opacity: 1 !important;
 }
 .accordion-wrapper {
-  margin: 20px 0px;
+  margin: 20px 0px 120px 0px;
 }
 .accordion-wrapper h5 {
   font-weight: 500;
@@ -1613,7 +1637,6 @@ input:focus-visible {
     width: 150px;
     background-size: contain;
   }
-  .car-detail,
   .book-trail,
   .car-listing {
     padding: 10px 0px 30px 0px;
@@ -1639,6 +1662,9 @@ input:focus-visible {
 }
 
 @media (max-width: 768px) {
+  .cars-cards .price {
+    font-size: 20px;
+  }
   .header-links-wrapper {
     position: fixed;
     top: 84px;
@@ -1917,12 +1943,12 @@ input:focus-visible {
   .car-detail-img + button {
     margin: 0 0 0 auto !important;
   }
-  .faq-section h3 {
+  .faq-section h3.faq-section-title {
     font-size: 24px;
     margin: 0px 0px 20px;
   }
 
-  .faq-section h3::before {
+  .faq-section h3.faq-section-title::before {
     content: "";
     background: url(/_next/static/media/yellow-circle-2.9b7edf38.svg) no-repeat
       center left;
@@ -1942,3 +1968,38 @@ input:focus-visible {
     padding: 0px;
   }
 }
+
+/* slick slider css */
+.slick-prev, .slick-next{
+  z-index: 2;
+}
+.slick-prev:before,
+.slick-next:before {
+  content: "" !important;
+  font-family: unset !important;
+  width: 25px;
+  height: 25px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 2px;
+  /* border: 2px solid rgba(225, 225, 225, .75); */
+}
+
+.slick-next:before {
+  transform: rotate(135deg);
+  border-top: 3px solid #fff !important;
+  border-left: 3px solid #fff !important;
+}
+.slick-prev {
+  left: 5% !important;
+}
+.slick-next {
+  right: 5% !important;
+}
+
+.slick-prev:before {
+  transform: rotate(315deg);
+  border-top: 3px solid #fff !important;
+  border-left: 3px solid #fff !important;
+}
+/* slick slider css */

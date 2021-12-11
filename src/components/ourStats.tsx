@@ -1,7 +1,7 @@
 import { Container, Grid } from '@mui/material'
 import React from 'react'
 
-export default function OurStats() {
+export default function OurStats({serviceCities,numberOfCars}:any) {
     return (
         <section className="site-section d-flex align-items-center">
             <div className="our-stats">
@@ -11,13 +11,15 @@ export default function OurStats() {
                     <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
                         <Grid item xs={8} md={3} sx={{ marginBottom: '20px' }}>
                             <div className="stats-list">
-                                <h4>3</h4>
+                                <h4>{serviceCities || 0}</h4>
+                                {/* <h4>3</h4> */}
                                 <p>Service Cities</p>
                             </div>
                         </Grid>
                         <Grid item xs={8} md={3} sx={{ marginBottom: '20px' }}>
                             <div className="stats-list">
-                                <h4>30+</h4>
+                                {/* <h4>30+</h4> */}
+                                <h4>{numberOfCars || 0}+</h4>
                                 <p>Cars</p>
                             </div>
                         </Grid>

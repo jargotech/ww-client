@@ -3,10 +3,13 @@ import React from 'react'
 import SiteButton from './Button'
 import { useRouter } from 'next/router'
 
-export default function MakeOfferCta() {
+export default function MakeOfferCta({carId}:any) {
     const router = useRouter();
     const makeOffer = () => {
-        router.push('/book-car')
+        router.push({
+            pathname: '/book-car',
+            query: { carId: carId }
+        })
     }
     return (
         <div className="make-offer-cta">

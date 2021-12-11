@@ -4,10 +4,10 @@ import SiteButton from './Button'
 import CarCards from './carCards'
 import BrandAutoComplete from '../components/BrandAutoComplete'
 import DeletableChips from './deletableChips'
-import { AllCityService } from '../services/carService'
 import Image from 'next/image'
 import BackLogo from '../../public/backArrow.svg'
-
+import { Field, Form, Formik } from 'formik'
+import * as CONSTANTS from '../CONSTANTS'
 
 
 const StyledGrid = styled(Grid)`
@@ -25,12 +25,14 @@ const StyledDrawer = styled(Drawer)`
 `;
 
 
-export default function CarListing() {
+export default function CarListing({ allCars }: any) {
 
     // States
-    const [cars, setCars] = useState([1, 2, 4, 5, 6, 7, 8, 9, 10]);
     const [open, setOpen] = useState(false)
-    const cityService = new AllCityService();
+    const [registrationYearOptions, setRegistrationYearOptions] = useState<any[]>([])
+    const [kmsDrivenOptions, setKmsDrivenOptions] = useState<any[]>([])
+    const [budgetOptions, setBudgetOptions] = useState<any[]>([])
+    const [bodyOptions, setBodyOptions] = useState<any[]>([])
 
     // Functions
     const toggleDrawer = (open: boolean) => (event: any) => {
@@ -41,32 +43,18 @@ export default function CarListing() {
         setOpen(open);
     };
 
-    const _getAllCity = () => {
-        const data = cityService.getAllCollection();
-        data.then((res) => {
-            console.log(res);
-        })
+    const ClearFilter = () =>{
+        console.log('ClearFilters')
     }
 
-    // useEffect(() => {
-    //     _getAllCity();
-    // }, [])
+    // Effects
+    useEffect(() => {
+        setRegistrationYearOptions(CONSTANTS.registrationYearList);
+        setKmsDrivenOptions(CONSTANTS.kmsDrivenList);
+        setBudgetOptions(CONSTANTS.budgetList);
+        setBodyOptions(CONSTANTS.bodyList);
 
-    // const _getAllCars = () => {
-    //     const data = carService.getAllCollection();
-
-    //     data.then((res) => {
-    //         // console.log(res.data);
-    //         const filtered = res.data.splice(0, 10);
-    //         setCars(filtered);
-    //     })
-    // console.log(res);
-    // }
-
-    // useEffect(() => {
-    //     _getAllCars();
-    // }, [])
-
+    }, []);
     return (
         <section className="car-listing">
             <Container maxWidth="lg">
@@ -91,121 +79,104 @@ export default function CarListing() {
                             </IconButton>
                             <h4>Filters</h4>
                         </div>
-                        <div className="filter">
-                            <h5>Registration Year</h5>
-                            <ul className="filter-list">
-                                <li>
-                                    <input type="radio" value="2000-2000" id="2000-2000" name="registration_year" />
-                                    <label htmlFor="2000-2000">2000 - 2010</label>
-                                </li>
-                                <li>
-                                    <input type="radio" value="2010-2015" id="2010-2015" name="registration_year" />
-                                    <label htmlFor="2010-2015">2010 - 2015</label>
-                                </li>
-                                <li>
-                                    <input type="radio" value="2015-2022" id="2015-2022" name="registration_year" />
-                                    <label htmlFor="2015-2022">2015 - 2022</label>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="filter">
-                            <h5>KMS</h5>
-                            <ul className="filter-list">
-                                <li>
-                                    <input type="radio" value="0-5000" id="0-5000" name="kms" />
-                                    <label htmlFor="0-5000">0 - 5000</label>
-                                </li>
-                                <li>
-                                    <input type="radio" value="5000-10000" id="5000-10000" name="kms" />
-                                    <label htmlFor="5000-10000">5000 - 10000</label>
-                                </li>
-                                <li>
-                                    <input type="radio" value="10000-150000" id="10000-150000" name="kms" />
-                                    <label htmlFor="10000-150000">10000 - 150000</label>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="filter">
-                            <h5>Budget</h5>
-                            <ul className="filter-list">
-                                <li>
-                                    <input type="radio" value="under-50-l" id="under-50-" name="Budget" />
-                                    <label htmlFor="under-50-">Under 50 L</label>
-                                </li>
-                                <li>
-                                    <input type="radio" value="50L-1Cr" id="50L-1Cr" name="Budget" />
-                                    <label htmlFor="50L-1Cr">50L - 1Cr</label>
-                                </li>
-                                <li>
-                                    <input type="radio" value="1Cr-2Cr" id="1Cr-2Cr" name="Budget" />
-                                    <label htmlFor="1Cr-2Cr">1Cr - 2Cr</label>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="filter">
-                            <h5>Body</h5>
-                            <ul className="filter-list">
-                                <li>
-                                    <input type="radio" value="suv" id="suv" name="body" />
-                                    <label htmlFor="suv">SUV</label>
-                                </li>
-                                <li>
-                                    <input type="radio" value="sedan" id="sedan" name="body" />
-                                    <label htmlFor="sedan">Sedan</label>
-                                </li>
-                                <li>
-                                    <input type="radio" value="hatchback" id="hatchback" name="body" />
-                                    <label htmlFor="hatchback">HatchBack</label>
-                                </li>
-                                <li>
-                                    <input type="radio" value="convertable" id="convertable" name="body" />
-                                    <label htmlFor="convertable">Convertable</label>
-                                </li>
-                            </ul>
-                            <BrandAutoComplete />
-                        </div>
-                        <div className="filter-footer">
-                            <SiteButton text="Clear Filters" buttonVariant="secondary" />
-                            <SiteButton text="Apply Changes" />
-                        </div>
+                        <Formik
+                            initialValues={{
+                                registrationYear: '',
+                                kmsDriven: [],
+                                budget: '',
+                                body: '',
+                                brands: [],
+                            }}
+                            onSubmit={async (values) => {
+                                const { minYear, maxYear } = (JSON.parse(values.registrationYear)?.dbValue);
+                                // alert(`${minYear} - ${maxYear}`);
+                                alert(JSON.stringify(values, null, 2));
+                            }}
+                        >
+                            {(formik: any) => (
+                                <Form>
+                                    <div className="filter">
+                                        <h5>Registration Year</h5>
+                                        <ul className="filter-list">
+                                            {
+                                                registrationYearOptions &&
+
+                                                registrationYearOptions.map((year, index) => (
+                                                    <li key={index}>
+                                                        <Field type="radio" value={JSON.stringify(year)} id={year?.label} name="registrationYear" />
+                                                        <label htmlFor={year?.label}>{year?.label}</label>
+                                                    </li>
+                                                ))
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div className="filter">
+                                        <h5>KMS</h5>
+                                        <ul className="filter-list">
+                                            {
+                                                kmsDrivenOptions &&
+
+                                                kmsDrivenOptions.map((kms, index) => (
+                                                    <li key={index}>
+                                                        <Field type="checkbox" value={JSON.stringify(kms)} id={kms?.label} name="kmsDriven" />
+                                                        <label htmlFor={kms?.label}>{kms?.label}</label>
+                                                    </li>
+                                                ))
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div className="filter">
+                                        <h5>Budget</h5>
+                                        <ul className="filter-list">
+                                        {
+                                                budgetOptions &&
+
+                                                budgetOptions.map((budget, index) => (
+                                                    <li key={index}>
+                                                        <Field type="radio" value={JSON.stringify(budget)} id={budget?.label} name="budget" />
+                                                        <label htmlFor={budget?.label}>{budget?.label}</label>
+                                                    </li>
+                                                ))
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div className="filter">
+                                        <h5>Body</h5>
+                                        <ul className="filter-list">
+                                        {
+                                                bodyOptions &&
+
+                                                bodyOptions.map((body, index) => (
+                                                    <li key={index}>
+                                                        <Field type="radio" value={JSON.stringify(body)} id={body?.label} name="body" />
+                                                        <label htmlFor={body?.label}>{body?.label}</label>
+                                                    </li>
+                                                ))
+                                            }
+                                        </ul>
+                                        <BrandAutoComplete data={formik} />
+                                    </div>
+                                    <div className="filter-footer">
+                                        <SiteButton text="Clear Filters" onClick={ClearFilter} buttonVariant="secondary" />
+                                        <SiteButton type="submit" text="Apply Changes" />
+                                    </div>
+                                </Form>
+                            )}
+                        </Formik>
 
                     </div>
                 </StyledDrawer>
                 <StyledGrid container rowSpacing={3} spacing={2}>
                     {
-                        cars.map((car: any, index) => (
+                        allCars.map((car: any, index: number) => (
                             <Grid key={index} item sm={6} lg={4}>
-                                <CarCards variant="card2" />
+                                <CarCards {...car} variant="card2" />
                             </Grid>
                         ))
                     }
 
-                    {/* <Grid item  sm={6} lg={4}>
-                        <CarCards variant="card2" />
-                    </Grid>
-                    <Grid item sm={6} lg={4}>
-                        <CarCards variant="card2" />
-                    </Grid>
-                    <Grid item  sm={6} lg={4}>
-                        <CarCards variant="card2" />
-                    </Grid>
-                    <Grid item  sm={6} lg={4}>
-                        <CarCards variant="card2" />
-                    </Grid>
-                    <Grid item  sm={6} lg={4}>
-                        <CarCards variant="card2" />
-                    </Grid>
-                    <Grid item  sm={6} lg={4}>
-                        <CarCards variant="card2" />
-                    </Grid>
-                    <Grid item  sm={6} lg={4}>
-                        <CarCards variant="card2" />
-                    </Grid>
-                    <Grid item  sm={6} lg={4}>
-                        <CarCards variant="card2" />
-                    </Grid> */}
                 </StyledGrid>
             </Container>
-        </section>
+        </section >
     )
 }
