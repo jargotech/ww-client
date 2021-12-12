@@ -27,6 +27,8 @@ font-size: 16px;
 letter-spacing: 0.15px;
 input{ 
     color: #000 !important;
+    padding-right:0px !important;
+    padding-left:0px !important;
 }
 input::placeholder{
     color: #000 !important;

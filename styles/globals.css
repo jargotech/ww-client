@@ -485,7 +485,7 @@ input[type="number"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 0px;
+  padding: 6px 0px;
   transition: 0.3s ease;
 }
 .site-header.is-active .site-header-wrapper {
@@ -941,13 +941,13 @@ input[type="number"] {
   cursor: pointer;
   box-shadow: none;
   transition: 0.5s ease;
-  min-height: 457px;
 }
 .cars-cards:hover {
   border-color: transparent;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 .cars-cards.card2 {
+  min-height: 457px;
   transition: 0.5s ease-in-out;
 }
 .cars-cards.card2:hover {
@@ -968,6 +968,19 @@ input[type="number"] {
 .cars-cards > span {
   display: block !important;
   margin-bottom: 8px !important;
+}
+@media (max-width: 768px) {
+  .cars-cards > span {
+    height: 245px !important;
+  }
+}
+@media (max-width: 576px) {
+  .cars-cards > span {
+    height: 215px !important;
+  }
+  .book-trail .cars-cards.card2 {
+    min-height: unset;
+  }
 }
 .cars-cards img {
   object-fit: cover !important;
@@ -1354,9 +1367,9 @@ input[type="number"] {
   max-width: 100%;
 }
 .book-trail input {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
-  color: #8b849b;
+  color: #191919;
   margin-left: 16px;
 }
 .book-trail .light-text {
@@ -1443,7 +1456,7 @@ input:focus-visible {
   }
   .book-trail h5 {
     font-size: 24px;
-    margin: 0px 0px 20px 0px;
+    margin: 20px 0px;
   }
 }
 /* Book Trail */
@@ -1909,6 +1922,22 @@ input:focus-visible {
 .error {
   font-size: 12px;
   color: tomato;
+  position: absolute;
+  bottom: -15px;
+  left: 15px;
+}
+.required:after {
+  content: " *";
+  color: red;
+}
+@media (max-width: 768px) {
+  .error {
+    left: 30px;
+  }
+}
+.book-trail-form-field {
+  position: relative;
+  margin-bottom: 4px;
 }
 
 .filter-chips {
@@ -1970,7 +1999,8 @@ input:focus-visible {
 }
 
 /* slick slider css */
-.slick-prev, .slick-next{
+.slick-prev,
+.slick-next {
   z-index: 2;
 }
 .slick-prev:before,
@@ -2003,3 +2033,30 @@ input:focus-visible {
   border-left: 3px solid #fff !important;
 }
 /* slick slider css */
+
+.moneyFeild-group {
+  background: #ffffff;
+  border: 1px solid #d5d4dc;
+  box-sizing: border-box;
+  border-radius: 8px;
+  max-width: 330px;
+  padding: 15px 20px;
+  display:flex;
+  align-items: center;
+  margin: 10px 0px;
+
+}
+.moneyFeild-group span {
+  font-size: 20px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.moneyFeild-group input {
+  font-weight: 500;
+  font-size: 16px;
+  color: #8b849b;
+  width: 100%;
+  display: inline-block;
+  border: none;
+}

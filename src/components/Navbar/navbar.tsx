@@ -47,8 +47,8 @@ export default function Navbar() {
                                 <Image
                                     src={Logo}
                                     alt="siteLogo"
-                                    width={50}
-                                    height={50}
+                                    width={70}
+                                    height={70}
                                 />
                             </a>
                         </Link>

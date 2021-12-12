@@ -12,63 +12,77 @@ export default function UserForm(props: any) {
     return (
         <div>
             <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={6} md={6} className="book-trail-form-field">
                     <StyledTextField
+                        required
+                        inputProps={{
+                            autoComplete: 'off'
+                         }}
                         name='firstName'
                         value={formik.values.firstName}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="filled"
-                        label="First Name *"
+                        error
+                        label="First Name"
+                        // helperText={formik.touched.firstName && formik.errors.firstName}
                         fullWidth />
                     <span className="error">{formik.touched.firstName && formik.errors.firstName}</span>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={6} md={6} className="book-trail-form-field">
                     <StyledTextField
+                        required
                         name='lastName'
                         value={formik.values.lastName}
+                        error
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="filled"
-                        label="Last Name *"
+                        label="Last Name"
                         fullWidth />
                     <span className="error">{formik.errors.lastName && formik.touched.lastName ? formik.errors.lastName : null}</span>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={6} md={6} className="book-trail-form-field">
                     <StyledTextField
+                        required
                         name='mobile'
+                        error
                         value={formik.values.mobile}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="filled"
-                        label="Mobile *"
+                        label="Mobile"
                         fullWidth />
                     <span className="error">{formik.touched.mobile && formik.errors.mobile}</span>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={6} md={6} className="book-trail-form-field">
                     <StyledTextField
+                        required
                         name='email'
+                        error
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="filled"
-                        label="Email *"
+                        label="Email"
                         fullWidth />
                     <span className="error">{formik.touched.email && formik.errors.email}</span>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} className="book-trail-form-field">
                     <StyledTextField
+                        required
                         name='address1'
+                        error
                         multiline
                         value={formik.values.address1}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="filled"
-                        label="Address Line 1 *"
+                        label="Address Line 1"
                         fullWidth />
                     <span className="error">{formik.touched.address1 && formik.errors.address1}</span>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} className="book-trail-form-field">
                     <StyledTextField
                         name='address2'
                         multiline
@@ -76,11 +90,11 @@ export default function UserForm(props: any) {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="filled"
-                        label="Address Line 2 "
+                        label="Address Line 2"
                         fullWidth />
                     <span className="error">{formik.touched.address2 && formik.errors.address2}</span>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={6} md={6} className="book-trail-form-field">
                     <StyledAutoComplete
                         autoComplete={false}
                         disablePortal
@@ -96,7 +110,7 @@ export default function UserForm(props: any) {
                                 value !== null ? value : formik.initialValues.city
                             );
                         }}
-                        renderInput={(params) => <TextField name="city" variant="filled" {...params} label="City *" />}
+                        renderInput={(params) => <TextField error name="city" required variant="filled" {...params} label="City" />}
                     />
                     <span className="error">{formik.touched.city && formik.errors.city}</span>
                 </Grid>

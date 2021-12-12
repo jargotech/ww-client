@@ -6,3 +6,7 @@ export const currencyFormatter = (num: any) => {
     return `₹ ${convertedValue}`;
 }
 
+export const convertToNum = (str: any) => {
+    const value = str.replaceAll(',', '');
+    return Number(value);
+}

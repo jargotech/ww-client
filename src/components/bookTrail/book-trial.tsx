@@ -11,6 +11,8 @@ import MakeOffer from '../form/makeOffer'
 import Alert from '@mui/material/Alert';
 import StyledStepper from '../stepper/stepper';
 import MediaQuery from 'react-responsive';
+import router from 'next/router';
+import { convertToNum } from '../../utils/currecyFormatter';
 
 const steps = ['Shipping address', 'step2', 'step3'];
 export default function BookTrail({ carData }: any) {
@@ -18,12 +20,13 @@ export default function BookTrail({ carData }: any) {
     // States
     const [activeStep, setActiveStep] = useState(0);
     const [data, setData] = useState();
+    const [diableButton, setDisableButton]= useState(true);
 
 
     // Variable
     const isLastStep = activeStep === steps.length - 1;
     const BookTrailInitialValues = {
-        makeOffer: 0,
+        makeOffer: '',
         firstName: '',
         lastName: '',
         mobile: '',
@@ -48,23 +51,22 @@ export default function BookTrail({ carData }: any) {
 
     const BookTrialSchema = [
         Yup.object().shape({
-            makeOffer: Yup.number().min(minPrice).required(),
+            makeOffer: Yup.string(),
         }),
-
         Yup.object().shape({
             firstName: Yup.string()
                 .min(2, 'Too Short!')
                 .max(50, 'Too Long!')
-                .required('Required'),
+                .required('Field cannot be blank'),
             lastName: Yup.string()
                 .min(2, 'Too Short!')
                 .max(50, 'Too Long!')
-                .required('Required'),
-            mobile: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
+                .required('Field cannot be blank'),
+            mobile: Yup.string().matches(phoneRegExp, 'Phone number is not valid').required('Field cannot be blank'),
             email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-            address1: Yup.string().required('required'),
+            address1: Yup.string().required('Field cannot be blank'),
             address2: Yup.string(),
-            city: Yup.object().required('required')
+            city: Yup.object().required('Field cannot be blank')
         }),
 
         Yup.object().shape({
@@ -94,6 +96,13 @@ export default function BookTrail({ carData }: any) {
         // _createBooking(myPost);
         // setData(values);
         console.log(JSON.stringify(values, null, 2));
+        const otp = 
+            `
+            ${values.otp1}${values.otp2}${values.otp3}${values.otp4}${values.otp5}${values.otp6}
+            `
+        
+        console.log(otp.toString());
+        
         // actions.setSubmitting(false);
 
         setActiveStep(activeStep + 1);
@@ -113,16 +122,39 @@ export default function BookTrail({ carData }: any) {
         setActiveStep(activeStep - 1);
     }
 
+    const  childtoParent = (value:any)=>{
+        // setDisableButton(value);
+        // console.log(value);
+        if(convertToNum(value) > minPrice  ){
+            setDisableButton(false);
+        }
+        else{
+            setDisableButton(true);
+        }
+    }
+
+    const handleDisableButton = (activeStep:any,props:any) =>{
+        if(activeStep == 0){
+            return diableButton;
+        }
+        else{
+            return !(props.isValid && props.dirty)
+        }
+    }
+
 
     // Effects
     useEffect(() => {
         if (steps?.length == activeStep) {
             // This is last step
             setTimeout(()=>{
-                console.log('redirecting...')
+                // console.log('redirecting...')
+                router.push('/');
             },2000);
         }
     }, [activeStep]);
+    
+
 
 
     return (
@@ -162,7 +194,7 @@ export default function BookTrail({ carData }: any) {
                                             activeStep == 0
                                                 ?
                                                 (
-                                                    <MakeOffer carInfo={carData} formik={props} />
+                                                    <MakeOffer childtoParent={childtoParent} carInfo={carData} formik={props} />
                                                 )
                                                 :
                                                 activeStep == 1
@@ -178,7 +210,8 @@ export default function BookTrail({ carData }: any) {
                                             <SiteButton
                                                 type="submit"
                                                 styles={{ marginLeft: 'auto' }}
-                                                disabled={!(props.isValid && props.dirty)}
+                                                disabled={handleDisableButton(activeStep,props)}
+                                                // disabled={!(props.isValid && props.dirty)}
                                                 text={isLastStep ? 'Done' : activeStep == 1 ? 'Book' : 'Next'}
                                                 arrow={isLastStep ? false : true}
                                             />
@@ -194,7 +227,7 @@ export default function BookTrail({ carData }: any) {
                             </Formik>
                         )}
                     </Grid>
-                    <Grid item lg={6} className="order-md-1">
+                    <Grid item xs={12} lg={6} className="order-md-1">
                         <MediaQuery query="(max-width: 992px)">
                             <StyledStepper activeStep={activeStep} steps={steps} />
                         </MediaQuery>

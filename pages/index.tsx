@@ -35,10 +35,10 @@ export default function Home() {
         // #1. First section 
         setLandingDetail(res.data.data);
         // #2. Second section (stats section)
-        setStats({
-          serviceCities: landingDetail?.NoOfCity,
-          numberOfCars: landingDetail?.NoOfCar,
-        })
+        // setStats({
+        //   serviceCities: landingDetail?.NoOfCity,
+        //   numberOfCars: landingDetail?.NoOfCar,
+        // })
       }
     })
 
@@ -63,6 +63,15 @@ export default function Home() {
     _getAllLandingDetail();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if(landingDetail){
+      setStats({
+        serviceCities: landingDetail?.NoOfCity,
+        numberOfCars: landingDetail?.NoOfCar,
+      })
+    }
+  }, [landingDetail]);
   return (
     <>
       <Head>
@@ -71,6 +80,7 @@ export default function Home() {
       <LandingSection
       {...landingDetail?.dashboardData[0]}
       />
+      {/* {landingDetail?.NoOfCity} */}
       <OurStats
       {...stats}
        />

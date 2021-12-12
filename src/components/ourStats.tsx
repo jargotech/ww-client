@@ -5,6 +5,9 @@ export default function OurStats({serviceCities,numberOfCars}:any) {
     return (
         <section className="site-section d-flex align-items-center">
             <div className="our-stats">
+            
+                {serviceCities}
+                {numberOfCars}
                 <Container maxWidth="lg">
                     <h3>Some count that matters</h3>
                     <p>Our achievement in the journey depicted in numbers</p>
