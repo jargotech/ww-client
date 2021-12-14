@@ -8,6 +8,8 @@ import Image from 'next/image'
 import BackLogo from '../../public/backArrow.svg'
 import { Field, Form, Formik } from 'formik'
 import * as CONSTANTS from '../CONSTANTS'
+import { CarFilter } from '../services/cars/carFilter'
+import { CarService } from '../services/cars/carService'
 
 
 const StyledGrid = styled(Grid)`
@@ -33,28 +35,125 @@ export default function CarListing({ allCars }: any) {
     const [kmsDrivenOptions, setKmsDrivenOptions] = useState<any[]>([])
     const [budgetOptions, setBudgetOptions] = useState<any[]>([])
     const [bodyOptions, setBodyOptions] = useState<any[]>([])
+    const [filterData, setFilterData] = useState<any>()
+    const [brandList, setBrandList] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    // Variables
+    const carFilterService = new CarFilter();
+    const _allBrandService = new CarService();
+    const filterInitialValue = {
+        registrationYear: '',
+        kmsDriven: [],
+        budget: '',
+        bodyType: '',
+        brands: [
+        ],
+    }
 
     // Functions
-    const toggleDrawer = (open: boolean) => (event: any) => {
+
+    const toggleDrawer = (currentDrawerState: boolean) => (event: any) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
-
-        setOpen(open);
+        setOpen(currentDrawerState);
     };
 
-    const ClearFilter = () =>{
-        console.log('ClearFilters')
+    const handleReset = (form: any) => {
+        console.log(form);
+        form.resetForm();
+        // setOpen(false);
     }
 
+    const handleSubmit = (values: any) => {
+        const { registrationYear, budget, bodyType, brands } = values;
+        let brandlist: any[] = [];
+        let minYear;
+        let maxYear;
+        let minBudget;
+        let maxBudget;
+        let body;
+
+        if (registrationYear) {
+            minYear = (JSON.parse(registrationYear.minYear)?.dbValue);
+            maxYear = (JSON.parse(registrationYear.maxYear)?.dbValue);
+        }
+
+        if (budget) {
+            console.log(budget);
+            const tupleData = JSON.parse(budget)?.dbValue;
+            console.log(tupleData);
+            minBudget = (tupleData?.minBudget);
+            maxBudget = (tupleData.maxBudget);
+        }
+
+        if (bodyType) {
+            body = (JSON.parse(bodyType)?.value);
+        }
+        if (brands) {
+            brandlist = brands;
+        }
+
+        const convertedFilterValue = {
+            "minYear": minYear,
+            "maxYear": maxYear,
+            "minBudget": minBudget,
+            "maxBudget": maxBudget,
+            "body": body,
+            "brand": brandlist,
+            // "brand": brandlist?.length > 0 ? brandlist : undefined,
+        }
+        console.log(convertedFilterValue);
+
+        setFilterData(convertedFilterValue)
+    }
+
+    const _postFilter = (data: any) => {
+        setIsLoading(true);
+        const postFilterList = carFilterService.postAllFilter(data);
+        postFilterList.then((res) => {
+            setIsLoading(false);
+            console.log(res.data);
+            setOpen(false);
+        })
+    }
+
+    // API Calls
+    const _getAllBrands = () => {
+        const brands = _allBrandService.getAllBrands();
+        brands.then((res) => {
+            if (res.status == 200) {
+                // console.log(res.data.data)
+                // #1. Add the data to the brand list
+                const data = res?.data?.data;
+                setBrandList(data);
+            }
+        })
+    }
     // Effects
     useEffect(() => {
         setRegistrationYearOptions(CONSTANTS.registrationYearList);
         setKmsDrivenOptions(CONSTANTS.kmsDrivenList);
         setBudgetOptions(CONSTANTS.budgetList);
         setBodyOptions(CONSTANTS.bodyList);
-
+        _getAllBrands();
     }, []);
+
+    // Detect Drawer States
+    useEffect(() => {
+        console.log(`drawer is ${open}`);
+
+    }, [open]);
+
+    useEffect(() => {
+        if (filterData) {
+            _postFilter(filterData);
+        }
+
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterData]);
     return (
         <section className="car-listing">
             <Container maxWidth="lg">
@@ -80,17 +179,9 @@ export default function CarListing({ allCars }: any) {
                             <h4>Filters</h4>
                         </div>
                         <Formik
-                            initialValues={{
-                                registrationYear: '',
-                                kmsDriven: [],
-                                budget: '',
-                                body: '',
-                                brands: [],
-                            }}
+                            initialValues={filterInitialValue}
                             onSubmit={async (values) => {
-                                const { minYear, maxYear } = (JSON.parse(values.registrationYear)?.dbValue);
-                                // alert(`${minYear} - ${maxYear}`);
-                                alert(JSON.stringify(values, null, 2));
+                                handleSubmit(values)
                             }}
                         >
                             {(formik: any) => (
@@ -128,7 +219,7 @@ export default function CarListing({ allCars }: any) {
                                     <div className="filter">
                                         <h5>Budget</h5>
                                         <ul className="filter-list">
-                                        {
+                                            {
                                                 budgetOptions &&
 
                                                 budgetOptions.map((budget, index) => (
@@ -143,22 +234,26 @@ export default function CarListing({ allCars }: any) {
                                     <div className="filter">
                                         <h5>Body</h5>
                                         <ul className="filter-list">
-                                        {
+                                            {
                                                 bodyOptions &&
 
                                                 bodyOptions.map((body, index) => (
                                                     <li key={index}>
-                                                        <Field type="radio" value={JSON.stringify(body)} id={body?.label} name="body" />
+                                                        <Field type="radio" value={JSON.stringify(body)} id={body?.label} name="bodyType" />
                                                         <label htmlFor={body?.label}>{body?.label}</label>
                                                     </li>
                                                 ))
                                             }
                                         </ul>
-                                        <BrandAutoComplete data={formik} />
+                                        <BrandAutoComplete formikData={formik} apiData={brandList} />
                                     </div>
                                     <div className="filter-footer">
-                                        <SiteButton text="Clear Filters" onClick={ClearFilter} buttonVariant="secondary" />
-                                        <SiteButton type="submit" text="Apply Changes" />
+                                        <SiteButton text="Clear Filters"
+                                            // onClick={handleReset.bind(null, formik)}
+                                            onClick={() => handleReset(formik)}
+                                            type="button"
+                                            buttonVariant="secondary" />
+                                        <SiteButton type="submit" disabled={isLoading} text={isLoading ? 'Loading...' : 'Apply Changes'} />
                                     </div>
                                 </Form>
                             )}

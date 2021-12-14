@@ -76,8 +76,8 @@ export default function Navbar() {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/car-listing">
-                                            <a className={router.pathname == "/car-listing" ? "is-active" : ""}>About Us</a>
+                                        <Link href="/about-us">
+                                            <a className={router.pathname == "/about-us" ? "is-active" : ""}>About Us</a>
                                         </Link>
                                     </li>
                                     {/* <li>

@@ -8,7 +8,7 @@ export default function Layout({ children }: any) {
   return (
     <>
       <Navbar />
-      <main className={router.pathname == '/' ? "site-main" : ""}>{children}</main>
+      <main className={router.pathname == '/' || router.pathname == '/about-us' ? "site-main" : ""}>{children}</main>
     </>
   )
 }

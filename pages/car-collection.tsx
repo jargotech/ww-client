@@ -34,7 +34,6 @@ export default function CarCollection() {
                 setCars(data);
             }
         })
-
     }
 
     // Effects
@@ -47,8 +46,8 @@ export default function CarCollection() {
             <Head>
                 <title>Wish Wheels | Car Collection</title>
             </Head>
-            <CarListing 
-            allCars={cars}
+            <CarListing
+                allCars={cars}
             />
             <Footer
                 ctaTitle="Looking for something specific ?"

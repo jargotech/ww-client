@@ -1,26 +1,43 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { StyledAutoComplete } from './GlobalElements';
+import { CarService } from '../services/cars/carService';
 
-export default function BrandAutoComplete({data}:any) {
+export default function BrandAutoComplete({ formikData, apiData }: any) {
+    // States 
+
+
+    // Varible
+
+
+    // Function
+
+
+    // Effects
     return (
         <StyledAutoComplete
             disablePortal
             multiple
             limitTags={2}
             id="all-brands"
-            options={BrandName}
+            options={
+                apiData &&
+                apiData.map((brand: any) => (
+                    brand.name
+                ))
+            }
             onChange={(e, value) => {
                 // consol e.log(value);
-                data.setFieldValue(
+                formikData.setFieldValue(
                     "brands",
-                    value !== null ? value : data.initialValues.brands
+                    value !== null ? value : formikData.initialValues.brands
                 );
             }}
             fullWidth={true}
             sx={{ margin: '20px 0px' }}
-            renderInput={(params) => <TextField {...params} name="brands" variant="filled" label="Brands" />}
+            // renderInput={(params) => <TextField {...params} name="brands" variant="filled" label="Brands" />}
+            renderInput={(params) => <TextField {...params} name="brands" placeholder="Brands" />}
         />
     );
 }

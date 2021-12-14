@@ -5,9 +5,13 @@ export class CarService {
     async getAllCollection() {
         return axios.get(`${APIURL}/car/complete/car/detail`)
     }
-    async getCarDetailById(carId:any){
+    async getCarDetailById(carId: any) {
         return axios.get(`${APIURL}/car/completeCarDetailById/${carId}`)
     }
+    async getAllBrands() {
+        return axios.get(`${APIURL}/carMake`)
+    }
+
 
 
     // async addPost(postDetail: any) {
