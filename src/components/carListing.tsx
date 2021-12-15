@@ -38,13 +38,14 @@ export default function CarListing({ allCars }: any) {
     const [filterData, setFilterData] = useState<any>()
     const [brandList, setBrandList] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [rawData, setRawData] = useState<any>();
 
     // Variables
     const carFilterService = new CarFilter();
     const _allBrandService = new CarService();
     const filterInitialValue = {
         registrationYear: '',
-        kmsDriven: [],
+        kmsDriven: '',
         budget: '',
         bodyType: '',
         brands: [
@@ -67,29 +68,34 @@ export default function CarListing({ allCars }: any) {
     }
 
     const handleSubmit = (values: any) => {
-        const { registrationYear, budget, bodyType, brands } = values;
+        const { registrationYear, budget, bodyType, brands, kmsDriven } = values;
         let brandlist: any[] = [];
         let minYear;
         let maxYear;
         let minBudget;
         let maxBudget;
         let body;
+        let minKm;
+        let maxKm;
 
         if (registrationYear) {
-            minYear = (JSON.parse(registrationYear.minYear)?.dbValue);
-            maxYear = (JSON.parse(registrationYear.maxYear)?.dbValue);
+            minYear = JSON.parse(registrationYear)?.dbValue?.minYear;
+            maxYear = JSON.parse(registrationYear)?.dbValue?.maxYear;
+        }
+        if (kmsDriven) {
+            minKm = JSON.parse(kmsDriven)?.dbValue?.minKm;
+            maxKm = JSON.parse(kmsDriven)?.dbValue?.maxKm;
+
         }
 
         if (budget) {
-            console.log(budget);
             const tupleData = JSON.parse(budget)?.dbValue;
-            console.log(tupleData);
-            minBudget = (tupleData?.minBudget);
-            maxBudget = (tupleData.maxBudget);
+            minBudget = tupleData?.minBudget;
+            maxBudget = tupleData.maxBudget;
         }
 
         if (bodyType) {
-            body = (JSON.parse(bodyType)?.value);
+            body = JSON.parse(bodyType)?.value;
         }
         if (brands) {
             brandlist = brands;
@@ -98,15 +104,18 @@ export default function CarListing({ allCars }: any) {
         const convertedFilterValue = {
             "minYear": minYear,
             "maxYear": maxYear,
+            "minKm": minKm,
+            "maxKm": maxKm,
             "minBudget": minBudget,
             "maxBudget": maxBudget,
             "body": body,
             "brand": brandlist,
             // "brand": brandlist?.length > 0 ? brandlist : undefined,
         }
-        console.log(convertedFilterValue);
+        // console.log(convertedFilterValue);
 
-        setFilterData(convertedFilterValue)
+        setFilterData(convertedFilterValue);
+        setRawData(values);
     }
 
     const _postFilter = (data: any) => {
@@ -114,8 +123,9 @@ export default function CarListing({ allCars }: any) {
         const postFilterList = carFilterService.postAllFilter(data);
         postFilterList.then((res) => {
             setIsLoading(false);
-            console.log(res.data);
+            // console.log(res.data);
             setOpen(false);
+
         })
     }
 
@@ -140,20 +150,23 @@ export default function CarListing({ allCars }: any) {
         _getAllBrands();
     }, []);
 
-    // Detect Drawer States
-    useEffect(() => {
-        console.log(`drawer is ${open}`);
-
-    }, [open]);
-
     useEffect(() => {
         if (filterData) {
             _postFilter(filterData);
+
         }
 
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filterData]);
+
+    useEffect(() => {
+        if (rawData) {
+            // Storing the form value to local storage
+            localStorage.setItem('filterRawData', JSON.stringify(rawData));
+        }
+
+    }, [rawData]);
     return (
         <section className="car-listing">
             <Container maxWidth="lg">
@@ -164,7 +177,7 @@ export default function CarListing({ allCars }: any) {
                     <SiteButton text="Filter" arrow={true} onClick={toggleDrawer(true)} />
                 </div>
                 <div>
-                    <DeletableChips />
+                    <DeletableChips rawData={rawData} />
                 </div>
                 <StyledDrawer
                     anchor="right"
@@ -209,7 +222,7 @@ export default function CarListing({ allCars }: any) {
 
                                                 kmsDrivenOptions.map((kms, index) => (
                                                     <li key={index}>
-                                                        <Field type="checkbox" value={JSON.stringify(kms)} id={kms?.label} name="kmsDriven" />
+                                                        <Field type="radio" value={JSON.stringify(kms)} id={kms?.label} name="kmsDriven" />
                                                         <label htmlFor={kms?.label}>{kms?.label}</label>
                                                     </li>
                                                 ))

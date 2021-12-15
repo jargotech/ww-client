@@ -696,8 +696,8 @@ input[type="number"] {
 .landign-section .MuiContainer-root .MuiGrid-item .img-wrapper {
   position: absolute !important;
   /* top: 50% !important; */
-  /* transform: translate(0%, -50%); */
-  transform: translateX(-50%);
+  transform: translate(0%, -50%);
+  /* transform: translateX(-50%); */
   left: 0 !important;
   z-index: 1;
   animation-name: carAnimation;

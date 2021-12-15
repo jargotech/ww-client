@@ -22,10 +22,11 @@ export default function BrandAutoComplete({ formikData, apiData }: any) {
             limitTags={2}
             id="all-brands"
             options={
-                apiData &&
-                apiData.map((brand: any) => (
-                    brand.name
-                ))
+                BrandName
+                // apiData &&
+                // apiData.map((brand: any) => (
+                //     brand.name
+                // ))
             }
             onChange={(e, value) => {
                 // consol e.log(value);
