@@ -12,6 +12,8 @@ import CarDetailForm from '../form/car-detail-form';
 import UploadInput from '../form/upload/uploadInput';
 import MediaQuery from 'react-responsive';
 import { useRouter } from 'next/router'
+import Image from 'next/image'
+import HelloImage from '../../../public/Hello-bro.svg'
 
 const steps = ['step1', 'step2', 'step3', 'step4'];
 export default function SellCarComponent() {
@@ -28,7 +30,8 @@ export default function SellCarComponent() {
         email: '',
         address1: '',
         address2: '',
-        city: { name: "", id: null },
+        city: {},
+        trailDate:null,
         year: '',
         manifacture: '',
         model: '',
@@ -52,16 +55,18 @@ export default function SellCarComponent() {
             firstName: Yup.string()
                 .min(2, 'Too Short!')
                 .max(50, 'Too Long!')
-                .required('Required'),
+                .required('Field cannot be blank'),
             lastName: Yup.string()
                 .min(2, 'Too Short!')
                 .max(50, 'Too Long!')
-                .required('Required'),
-            mobile: Yup.string().matches(phoneRegExp, 'Phone number is not valid').required('required'),
-            email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-            address1: Yup.string().required('required'),
+                .required('Field cannot be blank'),
+            mobile: Yup.string().matches(phoneRegExp, 'Phone number is not valid').required('Field cannot be blank'),
+            email: Yup.string().email('Must be a valid email').max(255).required('Field cannot be blank'),
+            address1: Yup.string().required('Field cannot be blank'),
             address2: Yup.string(),
-            city: Yup.object().required('required')
+            city: Yup.object({
+                name: Yup.string().required('Field cannot be blank'),
+            })
         }),
 
         Yup.object().shape({
@@ -69,11 +74,11 @@ export default function SellCarComponent() {
             manifacture: Yup.string()
                 .min(2, 'Too Short!')
                 .max(50, 'Too Long!')
-                .required('Required'),
+                .required('Field cannot be blank'),
             model: Yup.string()
-                .required('Required'),
-            kmTraveled: Yup.number().min(3).required(),
-            fuelType: Yup.string().required('Required'),
+                .required('Field cannot be blank'),
+            kmTraveled: Yup.number().min(3).required('Field cannot be blank'),
+            fuelType: Yup.string().required('Field cannot be blank'),
         }),
 
         Yup.object().shape({
@@ -202,8 +207,9 @@ export default function SellCarComponent() {
                         <MediaQuery query="(max-width: 992px)">
                             <StyledStepper activeStep={activeStep} steps={steps} />
                         </MediaQuery>
-                        <Grid item lg={9} sx={{ margin: '0 auto' }}>
-                            <CarCards variant="card2" hideButton={true} style={{ marginBottom: '10px' }} />
+                        <Grid item lg={9} sx={{ margin: '0 auto', alignItems: 'center' }} >
+                            {/* <CarCards variant="card2" hideButton={true} style={{ marginBottom: '10px' }} /> */}
+                            <Image src={HelloImage} height={480} width={560} alt="image" />
                         </Grid>
                     </Grid>
                 </Grid>

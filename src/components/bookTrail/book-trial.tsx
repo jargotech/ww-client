@@ -13,14 +13,22 @@ import StyledStepper from '../stepper/stepper';
 import MediaQuery from 'react-responsive';
 import router from 'next/router';
 import { convertToNum } from '../../utils/currecyFormatter';
+import { OtpService } from '../../services/user/otpService';
+import { BookTrialService } from '../../services/bookTrial/bookTrialService';
 
-const steps = ['Shipping address', 'step2', 'step3'];
+const steps = ['step1', 'step2', 'step3'];
 export default function BookTrail({ carData }: any) {
 
     // States
     const [activeStep, setActiveStep] = useState(0);
     const [data, setData] = useState();
-    const [diableButton, setDisableButton]= useState(true);
+    const [diableButton, setDisableButton] = useState(true);
+    const [emailId, setEmailId] = useState<any>();
+    const [otpNumber, setOtpNumber] = useState<any>();
+    const [isVeryfiedUser, setIsVeryfiedUser] = useState<any>();
+    const [trialBooking, setTrialBooking] = useState<any>();
+    const [bookTrial, setBookTrial] = useState<any>();
+
 
 
     // Variable
@@ -33,7 +41,8 @@ export default function BookTrail({ carData }: any) {
         email: '',
         address1: '',
         address2: '',
-        city: { name: "", id: null },
+        trailDate: null,
+        city: { name: '' },
         otp1: '',
         otp2: '',
         otp3: '',
@@ -66,7 +75,10 @@ export default function BookTrail({ carData }: any) {
             email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
             address1: Yup.string().required('Field cannot be blank'),
             address2: Yup.string(),
-            city: Yup.object().required('Field cannot be blank')
+            city: Yup.object({
+                name: Yup.string().required('Field cannot be blank'),
+            }),
+            trailDate: Yup.date().nullable().required('Field cannot be blank')
         }),
 
         Yup.object().shape({
@@ -80,6 +92,8 @@ export default function BookTrail({ carData }: any) {
     ]
 
     const currentValidationSchema = BookTrialSchema[activeStep];
+    const otpService = new OtpService();
+    const bookTrialService = new BookTrialService();
 
 
 
@@ -95,23 +109,45 @@ export default function BookTrail({ carData }: any) {
         // alert(JSON.stringify(values, null, 2));
         // _createBooking(myPost);
         // setData(values);
-        console.log(JSON.stringify(values, null, 2));
-        const otp = 
+        // console.log(JSON.stringify(values, null, 2));
+        const otp =
             `
             ${values.otp1}${values.otp2}${values.otp3}${values.otp4}${values.otp5}${values.otp6}
             `
-        
-        console.log(otp.toString());
-        
-        // actions.setSubmitting(false);
 
-        setActiveStep(activeStep + 1);
+        console.log(otp.toString());
+
+        const bookingTrialData = {
+            userId: "617adf4b4e038fb89273f6e3",
+            carId: carData[0]?.Car_Detail?._id,
+            cityId: values?.city?.stateId,
+            Address1: values?.address1,
+            pincode: "401107",
+            bookOnDateTime: values?.trailDate,
+            status: "Available"
+        }
+        setTrialBooking(bookingTrialData)
+        // actions.setSubmitting(false);
+        // console.log(trialBooking);
+        // console.log(bookingTrialData);
+
+        // Uncomment after testing
+        // setActiveStep(activeStep + 1);
     }
 
     function _handleSubmit(values: any, actions: any) {
         if (isLastStep) {
             _submitForm(values, actions);
-        } else {
+        }
+        else if (activeStep == 1) {
+            console.log(values.email);
+            setActiveStep(activeStep + 1);
+            actions.setTouched({});
+            actions.setSubmitting(false);
+            setEmailId(values.email)
+
+        }
+        else {
             setActiveStep(activeStep + 1);
             actions.setTouched({});
             actions.setSubmitting(false);
@@ -122,39 +158,92 @@ export default function BookTrail({ carData }: any) {
         setActiveStep(activeStep - 1);
     }
 
-    const  childtoParent = (value:any)=>{
+    const childtoParent = (value: any) => {
         // setDisableButton(value);
         // console.log(value);
-        if(convertToNum(value) > minPrice  ){
+        if (convertToNum(value) > minPrice) {
             setDisableButton(false);
         }
-        else{
+        else {
             setDisableButton(true);
         }
     }
 
-    const handleDisableButton = (activeStep:any,props:any) =>{
-        if(activeStep == 0){
+    const handleDisableButton = (activeStep: any, props: any) => {
+        if (activeStep == 0) {
             return diableButton;
         }
-        else{
+        else {
             return !(props.isValid && props.dirty)
         }
     }
 
+    const _generateOtp = (emailData: any) => {
+        const payload = {
+            emailId: emailData
+        };
+        const optData = otpService.generateOtp(payload);
+        optData.then((res: any) => {
+            if (res.status == 200) {
+                console.log(res.data.data);
+            }
+        })
+    }
+    const _verifyOtp = (otp: any) => {
+        const payload = {
+            emailId: emailId,
+            otp: otp
+        };
+        const optData = otpService.verifyOtp(payload);
+        optData.then((res: any) => {
+            if (res.status == 200) {
+                console.log(res.data.data);
+                // store jwt in the localStorage
+                // localStorage.setItem('jwt', res.data.data);
+                setIsVeryfiedUser(true);
+
+            }
+        })
+    }
+
+    const _bookTrialService = (payload: any) => {
+        const bookTrialServiceData = bookTrialService.bookTrialService(payload);
+        bookTrialServiceData.then((res) => {
+            if (res.status == 200) {
+                console.log(res.data.data);
+            }
+        })
+    }
 
     // Effects
     useEffect(() => {
         if (steps?.length == activeStep) {
             // This is last step
-            setTimeout(()=>{
+            setTimeout(() => {
                 // console.log('redirecting...')
                 router.push('/');
-            },2000);
+            }, 2000);
         }
     }, [activeStep]);
-    
 
+    useEffect(() => {
+        if (emailId) {
+            _generateOtp(emailId);
+        }
+    }, [emailId]);
+
+    useEffect(() => {
+        if (isVeryfiedUser) {
+
+        }
+    }, [isVeryfiedUser]);
+
+    useEffect(() => {
+        console.log(trialBooking);
+        if (trialBooking)
+            _bookTrialService(trialBooking)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [trialBooking]);
 
 
     return (
@@ -210,7 +299,7 @@ export default function BookTrail({ carData }: any) {
                                             <SiteButton
                                                 type="submit"
                                                 styles={{ marginLeft: 'auto' }}
-                                                disabled={handleDisableButton(activeStep,props)}
+                                                disabled={handleDisableButton(activeStep, props)}
                                                 // disabled={!(props.isValid && props.dirty)}
                                                 text={isLastStep ? 'Done' : activeStep == 1 ? 'Book' : 'Next'}
                                                 arrow={isLastStep ? false : true}

@@ -8,7 +8,7 @@ export default function OtpForm(props: any) {
 
     } = props;
     const inputfocus = (elmnt: any) => {
-        console.log(elmnt.target.value);
+        // console.log(elmnt.target.value);
         if (elmnt.target.value != '') {
 
             if (elmnt.key === "Delete" || elmnt.key === "Backspace") {
@@ -38,7 +38,7 @@ export default function OtpForm(props: any) {
                     value={formik.values.otp1}
                     onChange={formik.handleChange}
                     type="number"
-                    autoComplete="off"
+
                     className="otpInput"
                     maxLength={1}
                     tabIndex={1}
@@ -50,7 +50,7 @@ export default function OtpForm(props: any) {
                     value={formik.values.otp2}
                     onChange={formik.handleChange}
                     type="number"
-                    autoComplete="off"
+
                     className="otpInput"
                     maxLength={1}
                     tabIndex={2}
@@ -62,7 +62,7 @@ export default function OtpForm(props: any) {
                     value={formik.values.otp3}
                     onChange={formik.handleChange}
                     type="number"
-                    autoComplete="off"
+
                     className="otpInput"
                     maxLength={1}
                     tabIndex={3}
@@ -74,7 +74,7 @@ export default function OtpForm(props: any) {
                     value={formik.values.otp4}
                     onChange={formik.handleChange}
                     type="number"
-                    autoComplete="off"
+
                     className="otpInput"
                     maxLength={1}
                     tabIndex={4}
@@ -86,7 +86,7 @@ export default function OtpForm(props: any) {
                     value={formik.values.otp5}
                     onChange={formik.handleChange}
                     type="number"
-                    autoComplete="off"
+
                     className="otpInput"
                     maxLength={1}
                     tabIndex={5}
@@ -97,7 +97,7 @@ export default function OtpForm(props: any) {
                     value={formik.values.otp6}
                     onChange={formik.handleChange}
                     type="number"
-                    autoComplete="off"
+
                     className="otpInput"
                     maxLength={1}
                     tabIndex={6}

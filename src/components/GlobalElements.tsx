@@ -4,7 +4,6 @@ import { Chip } from '@mui/material';
 import { TextField } from '@mui/material'
 
 export const StyledAutoComplete = styled(Autocomplete)`
-background: rgba(33, 33, 33, 0.08);
 border-radius: 4px 4px 0px 0px;
  & fieldset{
     border:none;

@@ -25,7 +25,7 @@ export default function DeletableChips({ rawData }: any) {
         { key: 3, label: 'HatchBack' },
     ]);
     const [filterRawDataFLS, setFilterRawDataFLS] = useState<any>([]);
-    const [reFilteredData, setRefilterData] = useState<any>();
+    const [secondTimeInitilized, setSecondTimeInitilized] = useState<any>(false);
     const [filterDataObject, setFilterDataObject] = useState<any>();
 
     // Variable
@@ -45,14 +45,8 @@ export default function DeletableChips({ rawData }: any) {
 
     const handleDelete = (chipToDelete: any) => () => {
         console.log(chipToDelete);
-
         setFilterRawDataFLS((filterRawDataFLS: any) => filterRawDataFLS.filter((cp: any) => cp.key !== chipToDelete.key));
-        //    console.log(convertArrayToObject(filterRawDataFLS, 'key'));
-        // console.log(filterRawDataFLS);
-        //    const filterDataObject = convertArrayToObject(filterRawDataFLS, 'key');
-
-        //    console.log(filterDataObject);
-
+        setSecondTimeInitilized(!secondTimeInitilized);
 
 
     };
@@ -114,60 +108,7 @@ export default function DeletableChips({ rawData }: any) {
         setFilterDataObject(convertArrayToObject(filterRawDataFLS, 'key'))
         console.log(filterDataObject);
         console.log(filterRawDataFLS);
-        if (filterRawDataFLS) {
-            // setFilterDataObject(convertArrayToObject(filterRawDataFLS, 'key'))
-            // console.log(filterRawDataFLS);
-            // console.log(filterDataObject);
-
-
-            // const { registrationYear, budget, bodyType, kmsDriven } = filterDataObject;
-            // let brandlist: any[] = [];
-            // let minYear;
-            // let maxYear;
-            // let minBudget;
-            // let maxBudget;
-            // let body;
-            // let minKm;
-            // let maxKm;
-
-            // if (registrationYear) {
-            //     minYear = registrationYear?.dbValue?.minYear;
-            //     maxYear = registrationYear?.dbValue?.maxYear;
-            // }
-            // if (kmsDriven) {
-            //     minKm = kmsDriven?.dbValue?.minKm;
-            //     maxKm = kmsDriven?.dbValue?.maxKm;
-
-            // }
-
-            // if (budget) {
-            //     const tupleData = budget?.dbValue;
-            //     minBudget = tupleData?.minBudget;
-            //     maxBudget = tupleData.maxBudget;
-            // }
-
-            // if (bodyType) {
-            //     body = bodyType?.dbValue.value;
-            // }
-            // // if (brands) {
-            // //     brandlist = brands;
-            // // }
-
-            // const convertedFilterValue = {
-            //     "minYear": minYear,
-            //     "maxYear": maxYear,
-            //     "minKm": minKm,
-            //     "maxKm": maxKm,
-            //     "minBudget": minBudget,
-            //     "maxBudget": maxBudget,
-            //     "body": body,
-            //     // "brand": brandlist,
-            //     // "brand": brandlist?.length > 0 ? brandlist : undefined,
-            // }
-            // console.log(convertedFilterValue);
-            // console.log(filterRawDataFLS)
-        }
-    }, [filterRawDataFLS]);
+    }, [secondTimeInitilized]);
 
     return (
         <div

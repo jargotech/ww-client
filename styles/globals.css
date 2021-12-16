@@ -1501,7 +1501,7 @@ input[type="number"] {
   max-width: 100%;
 }
 .book-trail input {
-  font-weight: 600;
+  font-weight: 400;
   font-size: 16px;
   color: #191919;
   margin-left: 16px;
@@ -1559,6 +1559,9 @@ input[type="number"] {
   border: 0;
   text-align: center;
   margin: 0px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #191919;
 }
 input:focus,
 input:focus-visible {
@@ -2079,6 +2082,9 @@ input:focus-visible {
   flex-wrap: wrap;
   list-style: none;
   margin: 10px 0px 20px 0px;
+}
+.book-trail-form-field .MuiFormControl-root{
+  background: rgba(0, 0, 0, 0.06) ;
 }
 
 @media (max-width: 576px) {

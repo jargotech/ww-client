@@ -37,7 +37,11 @@ export default function CarCards({ _id, variant, hideButton, img, style, Car_Det
     }
 
     const bookTrail = () => {
-        router.push('/book-car')
+        // router.push('/book-car')
+        router.push({
+            pathname: '/book-car',
+            query: { carId: _id }
+        })
     }
 
     // Effects
