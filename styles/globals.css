@@ -395,7 +395,8 @@ input[type="number"] {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: block;
+  display: flex;
+  align-items: center;
 }
 .position-relative {
   position: relative;
@@ -2083,8 +2084,8 @@ input:focus-visible {
   list-style: none;
   margin: 10px 0px 20px 0px;
 }
-.book-trail-form-field .MuiFormControl-root{
-  background: rgba(0, 0, 0, 0.06) ;
+.book-trail-form-field .MuiFormControl-root {
+  background: rgba(0, 0, 0, 0.06);
 }
 
 @media (max-width: 576px) {
@@ -2292,3 +2293,50 @@ input:focus-visible {
   }
 }
 /* PAGE ABOUT US */
+
+/* Authentication */
+.authenticationTabs{
+  margin-bottom: 15px;
+}
+.authenticate-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 500px;
+  width: 100%;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 5px lightgray;
+  padding: 30px 15px;
+  /* min-height: 300px; */
+}
+.authenticate-wrapper .btn-wrapper{
+  padding-top: 15px;
+}
+.authentication-form-field {
+  position: relative;
+  /* padding: 0px 0px 20px 0px; */
+}
+.authentication-form-field .error {
+  left: 25px !important;
+}
+.authentication-form-field input {
+  padding-top: 25px !important;
+  padding-right: 12px !important;
+  padding-bottom: 8px !important;
+  padding-left: 12px !important;
+}
+
+.otp-authentication-wrapper .otpContainer{
+  margin-bottom: 0px;
+}
+.otp-authentication-wrapper{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  max-width:360px;
+  margin: 0 auto;
+  height:100%;
+}
+/* Authentication */

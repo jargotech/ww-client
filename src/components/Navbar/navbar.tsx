@@ -1,18 +1,28 @@
-import { Container, Chip } from '@mui/material'
+import { Container, Chip, Avatar, Box, Modal, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Logo from '../../../public/wishwheels-logo.svg'
 import Link from 'next/link'
 import { LocationChip } from '../Navbar/navbarElement'
 import { useRouter } from 'next/router';
+import Authenticate from '../authenticate/authenticate'
+import OtpAuthentication from '../authenticate/otp-authentication'
+import { OtpService } from '../../services/user/otpService'
 
 export default function Navbar() {
+    // State 
     const [isActive, setIsActive] = useState(false);
     const [navbarScroll, setNavbarScroll] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [open, setOpen] = React.useState(false);
+
+
+
+    // Variable
     const router = useRouter();
+    const otpService = new OtpService();
 
     // functions 
-
     const handleSidebar = () => {
         setIsActive(!isActive)
         if (!isActive) {
@@ -30,6 +40,60 @@ export default function Navbar() {
             setNavbarScroll(false);
         }
     }
+    function stringToColor(string: string) {
+        let hash = 0;
+        let i;
+
+        /* eslint-disable no-bitwise */
+        for (i = 0; i < string.length; i += 1) {
+            hash = string.charCodeAt(i) + ((hash << 5) - hash);
+        }
+
+        let color = '#';
+
+        for (i = 0; i < 3; i += 1) {
+            const value = (hash >> (i * 8)) & 0xff;
+            color += `00${value.toString(16)}`.substr(-2);
+        }
+        /* eslint-enable no-bitwise */
+
+        return color;
+    }
+    function stringAvatar(name: string) {
+        return {
+            sx: {
+                bgcolor: stringToColor(name),
+            },
+            children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+        };
+    }
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false)
+
+
+    const _generateOtp = (payload: any) => {
+        const generateOtpData = otpService.generateOtp(payload);
+        generateOtpData.then((res: any) => {
+            if (res.status == 200) {
+                console.log(res?.data?.data);
+                console.log(res?.data?.message);
+            }
+        })
+    }
+    const _verifyOtp = (otp: any, emailId: any) => {
+        const payload = {
+            emailId: otp,
+            otp: emailId
+        }
+        const verifyOtpData = otpService.verifyOtp(payload);
+        verifyOtpData.then((res: any) => {
+            if (res.status == 200) {
+                console.log(res?.data?.message);
+            }
+        })
+    }
+
+    // UseEffect
     useEffect(() => {
         ScrollBackground();
         window.addEventListener('scroll', ScrollBackground);
@@ -80,15 +144,33 @@ export default function Navbar() {
                                             <a className={router.pathname == "/about-us" ? "is-active" : ""}>About Us</a>
                                         </Link>
                                     </li>
-                                    {/* <li>
-                                        <LocationChip label="Mumbai" />
-                                    </li> */}
+                                    <li>
+                                        {
+                                            loggedIn &&
+                                                loggedIn
+                                                ?
+                                                <Avatar {...stringAvatar('Kent Dodds')} />
+                                                :
+                                                <Avatar onClick={handleOpen} src="/broken-image.jpg" />
+
+                                        }
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
                     </div>
                 </Container>
             </header>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box className="authenticate-wrapper">
+                    <Authenticate generateOtp={_generateOtp} verifyOtp={_verifyOtp} />
+                </Box>
+            </Modal>
         </>
 
     )

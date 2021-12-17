@@ -7,6 +7,6 @@ export class OtpService{
     }
 
     verifyOtp(payload: any){
-        return axios.post(`${APIURL}/verifyOtp`, payload)
+        return axios.post(`${APIURL}/otp/verifyOtp`, payload)
     }
 }

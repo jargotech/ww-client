@@ -7,23 +7,28 @@ export default function OtpForm(props: any) {
         formik
 
     } = props;
+
+    const handleMaxLength = (elmnt:any)=>{
+        if (elmnt.target.value.length > elmnt.target.maxLength) elmnt.target.value = elmnt.target.value.slice(0, elmnt.target.maxLength);
+        
+    }
     const inputfocus = (elmnt: any) => {
-        // console.log(elmnt.target.value);
-        if (elmnt.target.value != '') {
+        // if (elmnt.target.value != '') {
+        //     console.log(elmnt);
+           
+        // }
+        if (elmnt.key === "Delete" || elmnt.key === "Backspace") {
+            const next = elmnt.target.tabIndex - 2;
+            if (next > -1) {
 
-            if (elmnt.key === "Delete" || elmnt.key === "Backspace") {
-                const next = elmnt.target.tabIndex - 2;
-                if (next > -1) {
-
-                    elmnt.target.parentNode.childNodes[next].focus()
-                }
+                elmnt.target.parentNode.childNodes[next].focus()
             }
-            else {
+        }
+        else {
 
-                const next = elmnt.target.tabIndex;
-                if (next < 6) {
-                    elmnt.target.parentNode.childNodes[next].focus()
-                }
+            const next = elmnt.target.tabIndex;
+            if (next < 6) {
+                elmnt.target.parentNode.childNodes[next].focus()
             }
         }
 
@@ -38,8 +43,8 @@ export default function OtpForm(props: any) {
                     value={formik.values.otp1}
                     onChange={formik.handleChange}
                     type="number"
-
                     className="otpInput"
+                    onInput={e => handleMaxLength(e)}
                     maxLength={1}
                     tabIndex={1}
                     onKeyUp={e => inputfocus(e)}
@@ -50,7 +55,6 @@ export default function OtpForm(props: any) {
                     value={formik.values.otp2}
                     onChange={formik.handleChange}
                     type="number"
-
                     className="otpInput"
                     maxLength={1}
                     tabIndex={2}
@@ -62,10 +66,10 @@ export default function OtpForm(props: any) {
                     value={formik.values.otp3}
                     onChange={formik.handleChange}
                     type="number"
-
                     className="otpInput"
                     maxLength={1}
                     tabIndex={3}
+                    onInput={e => handleMaxLength(e)}
                     onKeyUp={e => inputfocus(e)}
 
                 />
@@ -74,10 +78,10 @@ export default function OtpForm(props: any) {
                     value={formik.values.otp4}
                     onChange={formik.handleChange}
                     type="number"
-
                     className="otpInput"
                     maxLength={1}
                     tabIndex={4}
+                    onInput={e => handleMaxLength(e)}
                     onKeyUp={e => inputfocus(e)}
                 />
 
@@ -86,10 +90,10 @@ export default function OtpForm(props: any) {
                     value={formik.values.otp5}
                     onChange={formik.handleChange}
                     type="number"
-
                     className="otpInput"
                     maxLength={1}
                     tabIndex={5}
+                    onInput={e => handleMaxLength(e)}
                     onKeyUp={e => inputfocus(e)}
                 />
                 <input
@@ -97,10 +101,10 @@ export default function OtpForm(props: any) {
                     value={formik.values.otp6}
                     onChange={formik.handleChange}
                     type="number"
-
                     className="otpInput"
                     maxLength={1}
                     tabIndex={6}
+                    onInput={e => handleMaxLength(e)}
                     onKeyUp={e => inputfocus(e)}
                 />
             </div>

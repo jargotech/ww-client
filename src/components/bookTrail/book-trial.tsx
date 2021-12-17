@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Button, CircularProgress, Container, FormControl, Grid, Input, InputAdornment, InputLabel, Step, StepLabel, Stepper } from '@mui/material'
 import SiteButton from '../Button'
 import CarCards from '../carCards'
@@ -23,7 +24,7 @@ export default function BookTrail({ carData }: any) {
     const [activeStep, setActiveStep] = useState(0);
     const [data, setData] = useState();
     const [diableButton, setDisableButton] = useState(true);
-    const [emailId, setEmailId] = useState<any>();
+    const [otpData, setOtpData] = useState<any>();
     const [otpNumber, setOtpNumber] = useState<any>();
     const [isVeryfiedUser, setIsVeryfiedUser] = useState<any>();
     const [trialBooking, setTrialBooking] = useState<any>();
@@ -42,7 +43,7 @@ export default function BookTrail({ carData }: any) {
         address1: '',
         address2: '',
         trailDate: null,
-        city: { name: '' },
+        city: { city: '' },
         otp1: '',
         otp2: '',
         otp3: '',
@@ -114,9 +115,9 @@ export default function BookTrail({ carData }: any) {
             `
             ${values.otp1}${values.otp2}${values.otp3}${values.otp4}${values.otp5}${values.otp6}
             `
-
         console.log(otp.toString());
 
+        setOtpNumber(otp.toString())
         const bookingTrialData = {
             userId: "617adf4b4e038fb89273f6e3",
             carId: carData[0]?.Car_Detail?._id,
@@ -144,7 +145,7 @@ export default function BookTrail({ carData }: any) {
             setActiveStep(activeStep + 1);
             actions.setTouched({});
             actions.setSubmitting(false);
-            setEmailId(values.email)
+            setOtpData(values)
 
         }
         else {
@@ -178,9 +179,10 @@ export default function BookTrail({ carData }: any) {
         }
     }
 
-    const _generateOtp = (emailData: any) => {
+    const _generateOtp = (otpData: any) => {
         const payload = {
-            emailId: emailData
+            emailId: otpData?.email,
+            phoneNumber: otpData?.mobile
         };
         const optData = otpService.generateOtp(payload);
         optData.then((res: any) => {
@@ -189,9 +191,9 @@ export default function BookTrail({ carData }: any) {
             }
         })
     }
-    const _verifyOtp = (otp: any) => {
+    const _verifyOtp = (otp: any, otpData: any) => {
         const payload = {
-            emailId: emailId,
+            emailId: otpData?.email,
             otp: otp
         };
         const optData = otpService.verifyOtp(payload);
@@ -227,10 +229,16 @@ export default function BookTrail({ carData }: any) {
     }, [activeStep]);
 
     useEffect(() => {
-        if (emailId) {
-            _generateOtp(emailId);
+        if (otpData) {
+            _generateOtp(otpData);
         }
-    }, [emailId]);
+    }, [otpData]);
+    
+    useEffect(() => {
+        if (otpNumber) {
+            _verifyOtp(otpNumber, otpData)
+        }
+    }, [otpNumber]);
 
     useEffect(() => {
         if (isVeryfiedUser) {
@@ -242,8 +250,10 @@ export default function BookTrail({ carData }: any) {
         console.log(trialBooking);
         if (trialBooking)
             _bookTrialService(trialBooking)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [trialBooking]);
+
+
 
 
     return (
