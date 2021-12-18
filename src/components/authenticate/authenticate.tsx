@@ -116,7 +116,7 @@ export default function Authenticate({ closeModal, generateOtp, verifyOtp }: any
 
     useEffect(() => {
         if (otpData) {
-            verifyOtp(loggedInData.emailId, otpData)
+            verifyOtp(otpData,loggedInData)
         }
     }, [otpData]);
     return (

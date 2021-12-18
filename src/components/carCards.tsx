@@ -36,13 +36,13 @@ export default function CarCards({ _id, variant, hideButton, img, style, Car_Det
 
     }
 
-    const bookTrail = () => {
-        // router.push('/book-car')
-        router.push({
-            pathname: '/book-car',
-            query: { carId: _id }
-        })
-    }
+    // const bookTrail = () => {
+    //     // router.push('/book-car')
+    //     router.push({
+    //         pathname: '/book-car',
+    //         query: { carId: _id }
+    //     })
+    // }
 
     // Effects
     useEffect(() => {
@@ -86,10 +86,10 @@ export default function CarCards({ _id, variant, hideButton, img, style, Car_Det
                                 <Grid item xs={6} sx={{ display: 'flex', alignItems: 'center' }}>
                                     <p className="price" >{currencyFormatter(Car_Detail?.maxPrice)}</p>
                                 </Grid>
-                                <Grid item xs={6} sx={{ textAlign: 'right' }}>
+                                {/* <Grid item xs={6} sx={{ textAlign: 'right' }}>
                                     {!hideButton ? (<SiteButton text="bOOK tRAIL" arrow={true} onClick={bookTrail} />) : null}
 
-                                </Grid>
+                                </Grid> */}
                             </Grid>
                         )
                         : null

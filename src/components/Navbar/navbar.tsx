@@ -8,19 +8,23 @@ import { useRouter } from 'next/router';
 import Authenticate from '../authenticate/authenticate'
 import OtpAuthentication from '../authenticate/otp-authentication'
 import { OtpService } from '../../services/user/otpService'
+import { AuthenticationService } from '../../services/user/authenticationService'
+import { log } from 'console'
 
 export default function Navbar() {
     // State 
     const [isActive, setIsActive] = useState(false);
     const [navbarScroll, setNavbarScroll] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [userName, setUserName] = useState<any>();
 
 
 
     // Variable
     const router = useRouter();
     const otpService = new OtpService();
+    const authenticationService = new AuthenticationService();
 
     // functions 
     const handleSidebar = () => {
@@ -80,17 +84,50 @@ export default function Navbar() {
             }
         })
     }
-    const _verifyOtp = (otp: any, emailId: any) => {
+    const _verifyOtp = (otp: any, loggedInData: any) => {
         const payload = {
-            emailId: otp,
-            otp: emailId
+            emailId: loggedInData.emailId,
+            otp: otp
+        }
+        const userSingInData = {
+            phoneNumber: loggedInData.phoneNumber
         }
         const verifyOtpData = otpService.verifyOtp(payload);
         verifyOtpData.then((res: any) => {
             if (res.status == 200) {
                 console.log(res?.data?.message);
+                if (res?.data?.message == 'OTP Verifed') {
+                    _userSingIn(userSingInData);
+                    // console.log(userSingInData);
+
+
+                }
             }
         })
+    }
+    const _userSingIn = (payload: any) => {
+        const userSingInData = authenticationService.userSingIn(payload);
+        userSingInData.then((res) => {
+            if (res.status == 200) {
+                const jwtData = {
+                    firstName: res?.data?.firstName,
+                    userId: res?.data?.id,
+                    accessToken: res?.data?.accessToken
+                }
+                localStorage.setItem('jwt', JSON.stringify(jwtData));
+                console.log(jwtData);
+                let userNameData = JSON.parse(localStorage.getItem('jwt') || '')
+                setUserName(userNameData.firstName)
+                console.log();
+
+                setLoggedIn(true);
+                handleClose();
+
+
+
+            }
+        })
+
     }
 
     // UseEffect
@@ -99,6 +136,13 @@ export default function Navbar() {
         window.addEventListener('scroll', ScrollBackground);
     }, []);
 
+    useEffect(() => {
+        if (loggedIn) {
+
+            console.log(userName);
+
+        }
+    }, [loggedIn]);
 
     return (
         <>
@@ -149,9 +193,16 @@ export default function Navbar() {
                                             loggedIn &&
                                                 loggedIn
                                                 ?
-                                                <Avatar {...stringAvatar('Kent Dodds')} />
+                                                <Avatar
+                                                    sx={{ bgcolor: 'orange', textTransform:'uppercase' }}
+                                                    alt={userName}
+                                                    src="/broken-image.jpg"
+                                                />
                                                 :
-                                                <Avatar onClick={handleOpen} src="/broken-image.jpg" />
+                                                <Avatar 
+                                                onClick={handleOpen} 
+                                                src="/broken-image.jpg" 
+                                                />
 
                                         }
                                     </li>
@@ -168,7 +219,7 @@ export default function Navbar() {
                 aria-describedby="modal-modal-description"
             >
                 <Box className="authenticate-wrapper">
-                    <Authenticate generateOtp={_generateOtp} verifyOtp={_verifyOtp} />
+                    <Authenticate generateOtp={_generateOtp} verifyOtp={_verifyOtp} userSingIn={_userSingIn} />
                 </Box>
             </Modal>
         </>
