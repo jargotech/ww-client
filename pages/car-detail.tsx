@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import CarDetailComponent from '../src/components/carDetail/car-detail-component'
 import Head from 'next/head'
