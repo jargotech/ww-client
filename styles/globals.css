@@ -1600,20 +1600,21 @@ input:focus-visible {
 /* Book Trail */
 
 /* Car Detail */
-.car-detail {
+/* .car-detail {
   padding: 50px 0px 0px 0px;
-}
+} */
 @media (min-width: 768px) {
-  .car-detail {
+  /* .car-detail {
     padding: 50px 0px 120px 0px;
-  }
+  } */
 }
 .car-detail h3 {
   font-family: var(--secondary-fonts);
   font-weight: 700;
-  font-size: 50px;
+  font-size: 42px;
   color: #191919;
   margin: 0px 0px 24px 0px;
+  padding-left: 15px;
   position: relative;
 }
 .car-detail h3::before {
@@ -1636,6 +1637,8 @@ input:focus-visible {
   height: 400px;
 }
 .car-detail-img img {
+  width: 100%;
+  height: 100%;
   border-radius: 12px;
   object-fit: cover;
 }
@@ -1713,6 +1716,62 @@ input:focus-visible {
   color: #5c5c5c;
   text-align: right;
 }
+.all-summary-of-car {
+  margin-top: 50px;
+  margin-bottom: 80px;
+  background: rgba(196, 196, 196, 0.1);
+  border-radius: 20px;
+  padding: 20px 25px;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 30px;
+}
+.all-summary-of-car.v-2 {
+  display: block;
+}
+.all-summary-of-car h6 {
+  font-weight: 700;
+  font-size: 16px;
+  color: #000000;
+}
+.all-summary-of-car ul {
+  padding: 15px 0px 0px 20px;
+  margin: 0px;
+}
+.all-summary-of-car li {
+  font-size: 16px;
+  color: #000000;
+  line-height: 20px;
+}
+.all-summary-of-car .img-wrapper {
+  padding: 10px;
+  border: 1px solid #640e27;
+  box-sizing: border-box;
+  border-radius: 8px;
+  display: inline-block;
+}
+.car-summary-group {
+  display: flex;
+  align-items: center;
+}
+.car-summary-title {
+  font-weight: 500;
+  font-size: 14px;
+  color: #5c5c5c;
+  margin-bottom: 5px;
+}
+.car-summary-wrapper {
+  margin-left: 15px;
+}
+.car-summary-wrapper .content {
+  font-weight: 700;
+  font-size: 16px;
+  color: #191919;
+}
+.card-slider {
+  position: sticky;
+  top: 86px;
+}
 @media (max-width: 900px) {
   .car-detail h3 {
     font-size: 50px;
@@ -1737,26 +1796,67 @@ input:focus-visible {
 /* make an offer cta */
 .make-offer-cta {
   background: #0b0d17;
-  padding: 30px 0px;
+  padding: 12px 0px;
   position: fixed;
   width: 100%;
   bottom: 0;
+  z-index: 2;
   /* margin: 20px 0px; */
 }
 .make-offer-cta h4 {
   font-family: var(--secondary-fonts);
   font-weight: 700;
   font-size: 36px;
-  margin: 0px;
+  margin: 0px 0px 15px 0px;
   color: #f7f3d0;
 }
+.make-offer-cta h5 {
+  font-weight: 700;
+  font-size: 28px;
+  color: #f4f4f4;
+  margin: 0px 0px 15px 0px;
+}
+
 .make-offer-cta .flex-container {
   margin-bottom: 0px;
+}
+.car-detail-container {
+  min-height: calc(100vh - 210px);
+  padding: 50px 0px 150px 0px;
+}
+
+.car-meta-deatil {
+  max-width: 360px;
+}
+
+.car-meta-deatil ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.car-meta-deatil ul li {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.car-meta-deatil ul li img {
+  display: inline-block;
+  margin-right: 8px;
+  max-width: 20px;
+}
+.car-meta-deatil ul li span {
+  font-weight: 700;
+  font-size: 16px;
+  color: #f4f4f4;
+  display: inline-block;
 }
 
 @media (max-width: 768px) {
   .make-offer-cta {
-    position: unset;
+    position: fixed;
   }
   .make-offer-cta h4 {
     font-size: 24px;
@@ -1767,6 +1867,15 @@ input:focus-visible {
   .car-detail h3::before {
     width: 200px;
     background-size: contain;
+  }
+  .car-description-detail {
+    display: none;
+  }
+  .car-price-detail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
 }
 @media (max-width: 576px) {
@@ -1791,6 +1900,9 @@ input:focus-visible {
   .book-trail,
   .car-listing {
     padding: 10px 0px 30px 0px;
+  }
+  .car-detail-container{
+    padding: 30px 0px 50px 0px;
   }
 }
 /* make an offer cta */
@@ -1909,12 +2021,12 @@ input:focus-visible {
 }
 
 /* test css */
-.car-detail-container {
+/* .car-detail-container {
   height: 300px;
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
-}
+} */
 .car-details-info {
   /* padding: 20px 0px; */
   height: 100%;
@@ -2295,8 +2407,12 @@ input:focus-visible {
 /* PAGE ABOUT US */
 
 /* Authentication */
-.authenticationTabs{
+.authenticationTabs {
   margin-bottom: 15px;
+}
+.authenticate-wrapper:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
 .authenticate-wrapper {
   position: absolute;
@@ -2311,7 +2427,7 @@ input:focus-visible {
   padding: 30px 15px;
   /* min-height: 300px; */
 }
-.authenticate-wrapper .btn-wrapper{
+.authenticate-wrapper .btn-wrapper {
   padding-top: 15px;
 }
 .authentication-form-field {
@@ -2328,15 +2444,15 @@ input:focus-visible {
   padding-left: 12px !important;
 }
 
-.otp-authentication-wrapper .otpContainer{
+.otp-authentication-wrapper .otpContainer {
   margin-bottom: 0px;
 }
-.otp-authentication-wrapper{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  max-width:360px;
+.otp-authentication-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 360px;
   margin: 0 auto;
-  height:100%;
+  height: 100%;
 }
 /* Authentication */

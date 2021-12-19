@@ -141,7 +141,7 @@ export default function Authenticate({ closeModal, generateOtp, verifyOtp }: any
                                                 <div className="btn-wrapper">
                                                     <SiteButton
                                                         type="submit"
-                                                        text="Sing In"
+                                                        text="Sign In"
                                                         styles={{ marginLeft: 'auto' }}
                                                         // disabled={!(props.isValid && props.dirty)}
                                                         arrow={false}
@@ -159,8 +159,8 @@ export default function Authenticate({ closeModal, generateOtp, verifyOtp }: any
 
                         <div className="authentication-user-form">
                             <Tabs value={value} onChange={handleChange} className="authenticationTabs">
-                                <Tab label="Sing In" />
-                                <Tab label="Sing Up" />
+                                <Tab label="Sign In" />
+                                <Tab label="Sign Up" />
 
                             </Tabs>
                             <TabPanel value={value} index={0}>
@@ -206,7 +206,7 @@ export default function Authenticate({ closeModal, generateOtp, verifyOtp }: any
                                             <div className="btn-wrapper">
                                                 <SiteButton
                                                     type="submit"
-                                                    text="Sing In"
+                                                    text="Sign In"
                                                     styles={{ marginLeft: 'auto' }}
                                                     // disabled={!(props.isValid && props.dirty)}
                                                     arrow={false}
@@ -327,7 +327,7 @@ export default function Authenticate({ closeModal, generateOtp, verifyOtp }: any
                                             <div className="btn-wrapper">
                                                 <SiteButton
                                                     type="submit"
-                                                    text="Sing Up"
+                                                    text="Sign Up"
                                                     styles={{ marginLeft: 'auto' }}
                                                     // disabled={!(props.isValid && props.dirty)}
                                                     arrow={false}
