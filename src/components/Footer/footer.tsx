@@ -65,22 +65,22 @@ export default function Footer({ className ,ctaTitle,ctaAction,ctaBtnText}: any)
                                     <FooterLinkTitle>Company</FooterLinkTitle>
                                     <FooterLinkContainer>
                                         <li>
-                                            <Link href="/car-listing">
-                                                <a>About Page</a>
+                                            <Link href="/about-us">
+                                                <a>About Us</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/car-listing">
+                                            <Link href="/sell-car">
                                                 <a>Sell car</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/car-listing">
-                                                <a>Talk to us</a>
+                                            <Link href="/car-collection">
+                                                <a>Browse Car</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/car-listing">
+                                            <Link href="/faq">
                                                 <a>FAQ</a>
                                             </Link>
                                         </li>
