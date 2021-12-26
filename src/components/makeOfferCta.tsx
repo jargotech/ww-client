@@ -1,20 +1,39 @@
 /* eslint-disable @next/next/no-img-element */
 import { Container } from '@mui/material'
-import React from 'react'
+import React, { useContext } from 'react'
 import SiteButton from './Button'
 import { useRouter } from 'next/router'
 import Fuel from '../../public/fuel.svg'
 import Gauge from '../../public/gauge.svg'
 import User from '../../public/user.svg'
+import AuthContext from '../context/AuthContext'
 
 export default function MakeOfferCta({ carId }: any) {
+
+    // States
+
+    // Variable
     const router = useRouter();
+
+    // Context
+    const { authenticated, setAuthenticated } = useContext(AuthContext);
+
+    // Function
     const makeOffer = () => {
-        router.push({
-            pathname: '/book-car',
-            query: { carId: carId }
-        })
+        if (localStorage.getItem('jwt')) {
+            setAuthenticated(false);
+            router.push({
+                pathname: '/book-car',
+                query: { carId: carId }
+            })
+        }
+        else{
+            setAuthenticated(true);
+        }
+        
     }
+
+    // Effects
     return (
         <div className="make-offer-cta">
             <Container maxWidth="lg">

@@ -2456,3 +2456,9 @@ input:focus-visible {
   height: 100%;
 }
 /* Authentication */
+
+@media (max-width:576px) {
+  .list-style-none{
+    display: block;
+  }
+}

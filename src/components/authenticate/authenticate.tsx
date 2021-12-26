@@ -29,12 +29,13 @@ function TabPanel(props: any) {
 }
 
 
-export default function Authenticate({ closeModal, generateOtp, verifyOtp }: any) {
+export default function Authenticate({ userSignIn, generateOtp, verifyOtp, userSingUp }: any) {
     // States
     const [value, setValue] = useState(0);
     const [loggedInData, setLoggedInData] = useState<any>();
     const [otpModal, setOptModal] = useState(false);
     const [otpData, setOtpData] = useState<any>();
+    const [createUserData, setCreateUserData] = useState<any>();
 
     // Variable
     const validationSchema1 = Yup.object().shape({
@@ -81,18 +82,35 @@ export default function Authenticate({ closeModal, generateOtp, verifyOtp }: any
         setValue(newValue);
     };
 
-    const handelSubmit1 = (values: any) => {
+    const signInHandelSubmit = (values: any) => {
         console.log(values)
         setLoggedInData(values);
         handleOtpOpen();
 
     }
-    const handelSubmit2 = (values: any) => {
+    const signUpHandelSubmit = (values: any) => {
         console.log(values)
+        const userSingUpData = {
+            emailId: "ak8433786864@gmail.com",
+            firstName: "first",
+            lastName: "last",
+            phoneNumber: "23232",
+            cityId: "61798f7ffc6c04fffc6ba6f7",
+            pincode: "401107",
+            Address1: "test1",
+            Address2: "test2"
+          }
+        const newUserOtpData = {
+            emailId: "ak8433786864@gmail.com",
+            phoneNumber: "23232",
+        }
+          userSingUp(userSingUpData);
+          setLoggedInData(newUserOtpData);
+          handleOtpOpen();
 
     }
 
-    const handelSubmit3 = (values: any) => {
+    const otpHandelSubmit = (values: any) => {
         console.log(values)
         const otp =
             `
@@ -119,6 +137,7 @@ export default function Authenticate({ closeModal, generateOtp, verifyOtp }: any
             verifyOtp(otpData,loggedInData)
         }
     }, [otpData]);
+
     return (
         <>
             {
@@ -131,7 +150,7 @@ export default function Authenticate({ closeModal, generateOtp, verifyOtp }: any
                             <Formik
                                 initialValues={initialValues3}
                                 // validationSchema={validationSchema}
-                                onSubmit={handelSubmit3}
+                                onSubmit={otpHandelSubmit}
                             >
                                 {(formik) => (
                                     <Form autoComplete="off">
@@ -167,7 +186,7 @@ export default function Authenticate({ closeModal, generateOtp, verifyOtp }: any
                                 <Formik
                                     initialValues={initialValues1}
                                     validationSchema={validationSchema1}
-                                    onSubmit={handelSubmit1}
+                                    onSubmit={signInHandelSubmit}
                                 >
                                     {(formik) => (
                                         <Form autoComplete="off">
@@ -221,7 +240,7 @@ export default function Authenticate({ closeModal, generateOtp, verifyOtp }: any
                                 <Formik
                                     initialValues={initialValues2}
                                     validationSchema={validationSchema2}
-                                    onSubmit={handelSubmit2}
+                                    onSubmit={signUpHandelSubmit}
                                 >
                                     {(formik) => (
                                         <Form autoComplete="off">

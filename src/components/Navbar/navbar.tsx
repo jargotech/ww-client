@@ -1,5 +1,6 @@
-import { Container, Chip, Avatar, Box, Modal, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Container, Chip, Avatar, Box, Modal, Typography, Menu, MenuItem, IconButton } from '@mui/material'
+import React, { useEffect, useState, useContext } from 'react'
 import Image from 'next/image'
 import Logo from '../../../public/wishwheels-logo.svg'
 import Link from 'next/link'
@@ -9,7 +10,9 @@ import Authenticate from '../authenticate/authenticate'
 import OtpAuthentication from '../authenticate/otp-authentication'
 import { OtpService } from '../../services/user/otpService'
 import { AuthenticationService } from '../../services/user/authenticationService'
-import { log } from 'console'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
+import AuthContext from '../../context/AuthContext'
+
 
 export default function Navbar() {
     // State 
@@ -18,6 +21,12 @@ export default function Navbar() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [open, setOpen] = useState(false);
     const [userName, setUserName] = useState<any>();
+    const [verifedOtp, setVerifedOtp] = useState(false);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [jwt, setJwt] = useLocalStorage("jwt", null);
+
+    // Context
+    const { authenticated, setAuthenticated } = useContext(AuthContext);
 
 
 
@@ -25,6 +34,7 @@ export default function Navbar() {
     const router = useRouter();
     const otpService = new OtpService();
     const authenticationService = new AuthenticationService();
+    const accountMenu = Boolean(anchorEl);
 
     // functions 
     const handleSidebar = () => {
@@ -63,17 +73,16 @@ export default function Navbar() {
 
         return color;
     }
-    function stringAvatar(name: string) {
-        return {
-            sx: {
-                bgcolor: stringToColor(name),
-            },
-            children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-        };
-    }
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false)
 
+    // const handleOpen = () => setOpen(true);
+    const handleOpen = () => {
+        setAuthenticated(true);
+        setOpen(true)
+    };
+    const handleClose = () => {
+        setAuthenticated(false);
+        setOpen(false);
+    }
 
     const _generateOtp = (payload: any) => {
         const generateOtpData = otpService.generateOtp(payload);
@@ -97,43 +106,89 @@ export default function Navbar() {
             if (res.status == 200) {
                 console.log(res?.data?.message);
                 if (res?.data?.message == 'OTP Verifed') {
-                    _userSingIn(userSingInData);
+                    _userSignIn(userSingInData);
+                    setVerifedOtp(true)
                     // console.log(userSingInData);
-
-
                 }
             }
         })
     }
-    const _userSingIn = (payload: any) => {
-        const userSingInData = authenticationService.userSingIn(payload);
-        userSingInData.then((res) => {
+    const _userSignIn = (payload: any) => {
+        const userSingInData = authenticationService.userSignIn(payload);
+        userSingInData.then((res: any) => {
             if (res.status == 200) {
                 const jwtData = {
                     firstName: res?.data?.firstName,
                     userId: res?.data?.id,
                     accessToken: res?.data?.accessToken
                 }
-                localStorage.setItem('jwt', JSON.stringify(jwtData));
+                // localStorage.setItem('jwt', JSON.stringify(jwtData));
+                setJwt(jwtData);
                 console.log(jwtData);
-                let userNameData = JSON.parse(localStorage.getItem('jwt') || '')
-                setUserName(userNameData.firstName)
+                // let userNameData = JSON.parse(localStorage.getItem('jwt') || '')
+                // setUserName(userNameData.firstName)
                 console.log();
-
-                setLoggedIn(true);
+                // setLoggedIn(true);
                 handleClose();
-
-
-
             }
         })
 
+    }
+
+    const _userSignUp = (payload: any) => {
+        const userSingInData = authenticationService.userSignUp(payload);
+        userSingInData.then((res: any) => {
+            // if (!res.data.error) {
+            //     console.log(res.data.data);
+            // }
+            if(res.data.message != 'Invalid'){
+                console.log(res.data.data);
+            }else{
+                return 'error'
+            }
+        })
+    }
+
+    const verifyAuth = () => {
+        if (localStorage.getItem('jwt')) {
+            // go to your dashboard or home route
+            setLoggedIn(true);
+        }
+        else {
+            setLoggedIn(false);
+        }
+        // stay on this route since the user is not authenticated
+    }
+
+    const accountMenuHandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const accountMenuHandleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const logoutHandle = () => {
+        // localStorage.setItem('jwt', 'null')
+        setJwt(null);
+        setAnchorEl(null);
+    }
+
+    const displayUserName = () =>{
+        let userName = localStorage.getItem('jwt')
+        if(userName){
+            return JSON.parse(userName)?.firstName
+        }
+        else{
+            return '';
+        }
     }
 
     // UseEffect
     useEffect(() => {
         ScrollBackground();
         window.addEventListener('scroll', ScrollBackground);
+        verifyAuth();
     }, []);
 
     useEffect(() => {
@@ -143,6 +198,12 @@ export default function Navbar() {
 
         }
     }, [loggedIn]);
+
+    useEffect(() => {
+        verifyAuth();
+    }, [jwt]);
+
+
 
     return (
         <>
@@ -167,10 +228,14 @@ export default function Navbar() {
                         </button>
                         <div className={isActive ? "header-links-wrapper is-active" : "header-links-wrapper"}>
                             <nav className="site-nav">
+
                                 <ul className="list-style-none">
                                     <li>
                                         <Link href="/sell-car">
-                                            <a className={router.pathname == "/sell-car" ? "is-active" : ""}>Sell Car</a>
+                                            <a className={router.pathname == "/sell-car" ? "is-active" : ""}>
+                                                Sell Car
+                                                {/* {JSON.stringify(authenticated)} */}
+                                            </a>
                                         </Link>
                                     </li>
                                     <li>
@@ -193,17 +258,34 @@ export default function Navbar() {
                                             loggedIn &&
                                                 loggedIn
                                                 ?
-                                                <Avatar
-                                                    sx={{ bgcolor: 'orange', textTransform:'uppercase' }}
-                                                    alt={userName}
-                                                    src="/broken-image.jpg"
-                                                />
+                                                <Box>
+                                                    <IconButton onClick={accountMenuHandleClick}>
+                                                        <Avatar
+                                                            sx={{ bgcolor: 'orange', textTransform: 'uppercase' }}
+                                                            alt={displayUserName()}
+                                                            src="/broken-image.jpg"
+                                                        />
+                                                    </IconButton>
+                                                    <Menu
+                                                        id="basic-menu"
+                                                        anchorEl={anchorEl}
+                                                        open={accountMenu}
+                                                        onClose={accountMenuHandleClose}
+                                                        MenuListProps={{
+                                                            'aria-labelledby': 'basic-button',
+                                                        }}
+                                                    >
+                                                        <MenuItem onClick={accountMenuHandleClose}>Profile</MenuItem>
+                                                        <MenuItem onClick={accountMenuHandleClose}>My account</MenuItem>
+                                                        <MenuItem onClick={logoutHandle}>Logout</MenuItem>
+                                                    </Menu>
+                                                </Box>
                                                 :
-                                                <Avatar 
-                                                onClick={handleOpen} 
-                                                src="/broken-image.jpg" 
-                                                />
-
+                                                <IconButton onClick={handleOpen}>
+                                                    <Avatar
+                                                        src="/broken-image.jpg"
+                                                    />
+                                                </IconButton>
                                         }
                                     </li>
                                 </ul>
@@ -213,16 +295,17 @@ export default function Navbar() {
                 </Container>
             </header>
             <Modal
-                open={open}
+                open={authenticated}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
                 <Box className="authenticate-wrapper">
-                    <Authenticate generateOtp={_generateOtp} verifyOtp={_verifyOtp} userSingIn={_userSingIn} />
+                    <Authenticate generateOtp={_generateOtp} verifyOtp={_verifyOtp} userSignIn={_userSignIn} userSingUp={_userSignUp} />
                 </Box>
             </Modal>
         </>
 
     )
 }
+
