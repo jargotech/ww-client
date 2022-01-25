@@ -359,6 +359,15 @@ input[type="number"] {
   display: flex;
   align-items: center;
 }
+.site-main::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.site-main {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 @media (max-width: 768px) {
   .site-main {
     height: unset;
@@ -495,6 +504,19 @@ input[type="number"] {
 }
 .site-header.is-active .header-links-wrapper {
   top: 73px;
+}
+.flex-box {
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .flex-box .btn-nav-toggler {
+    order: 2;
+  }
+
+  .flex-box .MuiAvatar-root {
+    margin-right: 15px;
+  }
 }
 
 .site-header.fixed {
@@ -1068,25 +1090,17 @@ input[type="number"] {
 
 /* cars-cards component */
 .cars-cards {
-  background: #ffffff;
-  filter: none;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid lightgray;
   cursor: pointer;
-  box-shadow: none;
-  transition: 0.5s ease;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px #e0e0e0;
+  transition: 0.3s ease;
+  overflow: hidden;
 }
 .cars-cards:hover {
-  border-color: transparent;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-.cars-cards.card2 {
-  min-height: 457px;
-  transition: 0.5s ease-in-out;
-}
-.cars-cards.card2:hover {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  /* border-color: transparent; */
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .cars-cards .content {
@@ -1901,7 +1915,7 @@ input:focus-visible {
   .car-listing {
     padding: 10px 0px 30px 0px;
   }
-  .car-detail-container{
+  .car-detail-container {
     padding: 30px 0px 50px 0px;
   }
 }
@@ -1917,7 +1931,7 @@ input:focus-visible {
     border-left: 1px solid #ffffff !important;
   }
   .our-stats .MuiGrid-item:nth-child(odd) {
-    border-left: 1px solid transparent !important;
+    border-left: none !important;
   }
   .cars-cards .price {
     font-size: 22px;
@@ -2457,8 +2471,16 @@ input:focus-visible {
 }
 /* Authentication */
 
-@media (max-width:576px) {
-  .list-style-none{
+/* Default page */
+.default-page {
+  padding: 50px 0px;
+}
+.default-page h3 {
+}
+/* Default page */
+
+@media (max-width: 768px) {
+  .list-style-none {
     display: block;
   }
 }
