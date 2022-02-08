@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
@@ -29,8 +30,10 @@ import router from "next/router";
 import { convertToNum } from "../../utils/currecyFormatter";
 import { OtpService } from "../../services/user/otpService";
 import { BookTrialService } from "../../services/bookTrial/bookTrialService";
+import SuccesBookingPng from "../../../public/success-booking.png";
+import Link from "next/link";
 
-const steps = ["step1", "step2", "step3"];
+const steps = ["step1", "step2"];
 export default function BookTrail({ carData }: any) {
   // States
   const [activeStep, setActiveStep] = useState(0);
@@ -46,20 +49,10 @@ export default function BookTrail({ carData }: any) {
   const isLastStep = activeStep === steps.length - 1;
   const BookTrailInitialValues = {
     makeOffer: "",
-    firstName: "",
-    lastName: "",
-    mobile: "",
-    email: "",
     address1: "",
     address2: "",
     trailDate: null,
     city: { city: "" },
-    otp1: "",
-    otp2: "",
-    otp3: "",
-    otp4: "",
-    otp5: "",
-    otp6: "",
   };
 
   const phoneRegExp =
@@ -73,21 +66,6 @@ export default function BookTrail({ carData }: any) {
       makeOffer: Yup.string(),
     }),
     Yup.object().shape({
-      firstName: Yup.string()
-        .min(2, "Too Short!")
-        .max(50, "Too Long!")
-        .required("Field cannot be blank"),
-      lastName: Yup.string()
-        .min(2, "Too Short!")
-        .max(50, "Too Long!")
-        .required("Field cannot be blank"),
-      mobile: Yup.string()
-        .matches(phoneRegExp, "Phone number is not valid")
-        .required("Field cannot be blank"),
-      email: Yup.string()
-        .email("Must be a valid email")
-        .max(255)
-        .required("Email is required"),
       address1: Yup.string().required("Field cannot be blank"),
       address2: Yup.string(),
       city: Yup.object({
@@ -95,20 +73,9 @@ export default function BookTrail({ carData }: any) {
       }),
       trailDate: Yup.date().nullable().required("Field cannot be blank"),
     }),
-
-    Yup.object().shape({
-      otp1: Yup.number().required(),
-      otp2: Yup.number().required(),
-      otp3: Yup.number().required(),
-      otp4: Yup.number().required(),
-      otp5: Yup.number().required(),
-      otp6: Yup.number().required(),
-    }),
   ];
 
   const currentValidationSchema = BookTrialSchema[activeStep];
-  const otpService = new OtpService();
-  const bookTrialService = new BookTrialService();
 
   // Functions
 
@@ -122,43 +89,16 @@ export default function BookTrail({ carData }: any) {
 
   async function _submitForm(values: any, actions: any) {
     await _sleep(1000);
-    // alert(JSON.stringify(values, null, 2));
-    // _createBooking(myPost);
-    // setData(values);
-    // console.log(JSON.stringify(values, null, 2));
-    const otp = `
-            ${values.otp1}${values.otp2}${values.otp3}${values.otp4}${values.otp5}${values.otp6}
-            `;
-    console.log(otp.toString());
-
-    setOtpNumber(otp.toString());
-    const bookingTrialData = {
-      userId: "617adf4b4e038fb89273f6e3",
-      carId: carData[0]?.Car_Detail?._id,
-      cityId: values?.city?.stateId,
-      Address1: values?.address1,
-      pincode: "401107",
-      bookOnDateTime: values?.trailDate,
-      status: "Available",
-    };
-    setTrialBooking(bookingTrialData);
-    // actions.setSubmitting(false);
-    // console.log(trialBooking);
-    // console.log(bookingTrialData);
-
-    // Uncomment after testing
-    // setActiveStep(activeStep + 1);
+    console.log(values);
   }
 
   function _handleSubmit(values: any, actions: any) {
     if (isLastStep) {
       _submitForm(values, actions);
-    } else if (activeStep == 1) {
-      console.log(values.email);
       setActiveStep(activeStep + 1);
-      actions.setTouched({});
+    } else if (activeStep == 1) {
+      setActiveStep(activeStep + 1);
       actions.setSubmitting(false);
-      setOtpData(values);
     } else {
       setActiveStep(activeStep + 1);
       actions.setTouched({});
@@ -184,80 +124,33 @@ export default function BookTrail({ carData }: any) {
     if (activeStep == 0) {
       return diableButton;
     } else {
-      return !(props.isValid && props.dirty);
+      return !(props.isValid && props.dirty && !props.isSubmitting);
     }
   };
 
-  const _generateOtp = (otpData: any) => {
-    const payload = {
-      emailId: otpData?.email,
-      phoneNumber: otpData?.mobile,
-    };
-    const optData = otpService.generateOtp(payload);
-    optData.then((res: any) => {
-      if (res.status == 200) {
-        console.log(res.data.data);
-      }
-    });
-  };
-  const _verifyOtp = (otp: any, otpData: any) => {
-    const payload = {
-      emailId: otpData?.email,
-      otp: otp,
-    };
-    const optData = otpService.verifyOtp(payload);
-    optData.then((res: any) => {
-      if (res.status == 200) {
-        console.log(res.data.data);
-        // store jwt in the localStorage
-        // localStorage.setItem('jwt', res.data.data);
-        setIsVeryfiedUser(true);
-      }
-    });
-  };
-
-  const _bookTrialService = (payload: any) => {
-    const bookTrialServiceData = bookTrialService.bookTrialService(payload);
-    bookTrialServiceData.then((res) => {
-      if (res.status == 200) {
-        console.log(res.data.data);
-      }
-    });
+  const overflowHidden = (hide: any) => {
+    if (hide) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
   };
 
   // Effects
   useEffect(() => {
     if (steps?.length == activeStep) {
       // This is last step
-      setTimeout(() => {
-        // console.log('redirecting...')
-        router.push("/");
-      }, 2000);
+      // setTimeout(() => {
+      //   router.push("/");
+      //   overflowHidden(false);
+      // }, 2000);
     }
   }, [activeStep]);
-
-  useEffect(() => {
-    if (otpData) {
-      _generateOtp(otpData);
-    }
-  }, [otpData]);
-
-  useEffect(() => {
-    if (otpNumber) {
-      _verifyOtp(otpNumber, otpData);
-    }
-  }, [otpNumber]);
 
   useEffect(() => {
     if (isVeryfiedUser) {
     }
   }, [isVeryfiedUser]);
-
-  useEffect(() => {
-    console.log(trialBooking);
-    if (trialBooking) _bookTrialService(trialBooking);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trialBooking]);
 
   return (
     <section className="book-trail">
@@ -276,12 +169,21 @@ export default function BookTrail({ carData }: any) {
             <MediaQuery query="(min-width: 992px)">
               <StyledStepper activeStep={activeStep} steps={steps} />
             </MediaQuery>
-            <h5>Make an offer</h5>
-
+            <h5>{activeStep == 0 ? "Make an offer" : "Help us to know you"}</h5>
             {activeStep === steps.length ? (
-              <Alert variant="outlined" severity="success">
-                This is a success alert — check it out!
-              </Alert>
+              <div>
+                <div className="dropbox"></div>
+                <div className="succes-card">
+                  {overflowHidden(true)}
+                  <img src={SuccesBookingPng.src} alt="succes booking" />
+                  <h4>You’ve sucessfully booked trail!</h4>
+                  <p>
+                    You will be receiving a confirmation on your registered
+                    mobile number & email.
+                  </p>
+                  <Link href="/">Explore Collection</Link>
+                </div>
+              </div>
             ) : (
               <Formik
                 initialValues={BookTrailInitialValues}
@@ -289,11 +191,7 @@ export default function BookTrail({ carData }: any) {
                 onSubmit={_handleSubmit}
               >
                 {(props: any) => (
-                  <Form
-                    id="book-trail"
-                    autoComplete="off"
-                    className={isLastStep ? "car-form is-active" : "car-from"}
-                  >
+                  <Form id="book-trail" autoComplete="off" className="car-from">
                     {/* {_renderStepContent(activeStep)} */}
                     {activeStep == 0 ? (
                       <MakeOffer
@@ -301,15 +199,14 @@ export default function BookTrail({ carData }: any) {
                         carInfo={carData}
                         formik={props}
                       />
-                    ) : activeStep == 1 ? (
+                    ) : isLastStep ? (
                       <UserForm formik={props} />
-                    ) : activeStep == 2 ? (
-                      <OtpForm formik={props} />
                     ) : null}
                     <div
                       style={{
                         position: "relative",
-                        display: "table",
+                        display: "flex",
+                        justifyContent: "space-between",
                         margin: "20px 0 0 auto",
                       }}
                     >
@@ -319,33 +216,35 @@ export default function BookTrail({ carData }: any) {
                         text="Back"
                       />
 
-                      <SiteButton
-                        type="submit"
-                        styles={{ marginLeft: "auto" }}
-                        disabled={handleDisableButton(activeStep, props)}
-                        // disabled={!(props.isValid && props.dirty)}
-                        text={
-                          isLastStep
-                            ? "Done"
-                            : activeStep == 1
-                            ? "Book"
-                            : "Next"
-                        }
-                        arrow={isLastStep ? false : true}
-                      />
-
-                      {props.isSubmitting && (
-                        <CircularProgress
-                          sx={{
-                            position: "absolute",
-                            top: "25%",
-                            left: "40%",
-                            transform: "translate(-50%,-50%)",
-                            color: "#640E27",
-                          }}
-                          size={24}
+                      <div className="position-relative">
+                        <SiteButton
+                          type="submit"
+                          styles={{ marginLeft: "auto" }}
+                          disabled={handleDisableButton(activeStep, props)}
+                          // disabled={!(props.isValid && props.dirty)}
+                          text={
+                            isLastStep
+                              ? "Done"
+                              : activeStep == 1
+                              ? "Book"
+                              : "Next"
+                          }
+                          arrow={isLastStep ? false : true}
                         />
-                      )}
+
+                        {props.isSubmitting && (
+                          <CircularProgress
+                            sx={{
+                              position: "absolute",
+                              top: "25%",
+                              left: "40%",
+                              transform: "translate(-50%,-50%)",
+                              color: "#640E27",
+                            }}
+                            size={24}
+                          />
+                        )}
+                      </div>
                     </div>
                   </Form>
                 )}

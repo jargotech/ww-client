@@ -60,6 +60,13 @@ export default function Home() {
     _getAllLandingDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const overflowHidden = (hide: any) => {
+    if (hide) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  };
 
   useEffect(() => {
     if (landingDetail) {
@@ -69,6 +76,11 @@ export default function Home() {
       });
     }
   }, [landingDetail]);
+
+  useEffect(() => {
+    overflowHidden(false);
+  }, []);
+
   return (
     <>
       <Head>
