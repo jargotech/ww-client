@@ -348,7 +348,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 .site-main {
-  height: calc(100vh - 84px);
+  height: calc(100vh - 64px);
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
@@ -368,7 +368,7 @@ input[type="number"] {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-@media (max-width: 768px) {
+@media (max-width: 840px) {
   .site-main {
     height: unset;
     overflow-y: auto;
@@ -508,6 +508,18 @@ input[type="number"] {
 .flex-box {
   display: flex;
   align-items: center;
+}
+.site-brand {
+  display: flex;
+  align-items: center;
+}
+.site-brand > span {
+  margin-right: 7px !important;
+}
+.site-brand h1 {
+  margin: 0px;
+  font-size: 30px;
+  line-height: normal;
 }
 @media (max-width: 768px) {
   .flex-box .btn-nav-toggler {
@@ -753,7 +765,7 @@ input[type="number"] {
   animation-delay: 1s;
   animation-fill-mode: forwards;
 }
-@media (max-width: 768px) {
+@media (max-width: 840px) {
   .tire {
     height: 135px;
     width: 135px;
@@ -773,7 +785,7 @@ input[type="number"] {
     max-width: 100%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 840px) {
   .tire {
     display: block;
   }
@@ -856,7 +868,7 @@ input[type="number"] {
     margin: 0 auto;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 840px) {
   .landign-section h3 {
     font-size: 50px;
     margin-bottom: 10px;
@@ -864,6 +876,9 @@ input[type="number"] {
   }
   .landign-section p {
     margin-bottom: 30px;
+  }
+  .site-brand h1 {
+    font-size: 24px;
   }
 }
 @media (max-width: 576px) {
@@ -914,7 +929,7 @@ input[type="number"] {
 .cta-banner {
   padding: 70px 0px;
   background: #191919;
-  margin: 45px 0px;
+  margin: 40px 0px 20px 0px;
   position: relative;
 }
 
@@ -929,14 +944,16 @@ input[type="number"] {
   font-weight: bold;
   font-size: 62px;
   color: #ffffff;
-  margin: 0px 0px 30px 0px;
+  max-width: calc(100% - 200px);
+  text-align: center;
+  margin: 0px auto;
 }
 
 @media (max-width: 992px) {
-  .cta-banner h3 {
+  /* .cta-banner h3 {
     padding: 200px 0px 0px 0px;
     text-align: center;
-  }
+  } */
   .section-title {
     font-size: 28px;
   }
@@ -944,11 +961,11 @@ input[type="number"] {
 @media (max-width: 767px) {
   .cta-banner h3 {
     font-size: 38px;
-    padding: 130px 0px 0px 0px;
+    /* padding: 130px 0px 0px 0px; */
   }
-  .cta-banner .MuiContainer-root > span {
+  /* .cta-banner .MuiContainer-root > span {
     width: 150px !important;
-  }
+  } */
   .section-title {
     font-size: 24px;
   }
@@ -1129,6 +1146,10 @@ input[type="number"] {
   }
   .book-trail .cars-cards.card2 {
     min-height: unset;
+  }
+  .cta-banner h3 {
+    font-size: 24px;
+    max-width: 80%;
   }
 }
 .cars-cards img {
@@ -1858,8 +1879,11 @@ input:focus-visible {
 }
 .car-meta-deatil ul li img {
   display: inline-block;
-  margin-right: 8px;
+  margin-right: 5px;
   max-width: 20px;
+}
+.car-meta-deatil ul li:not(:last-child) {
+  margin-right: 15px;
 }
 .car-meta-deatil ul li span {
   font-weight: 700;
@@ -1874,6 +1898,7 @@ input:focus-visible {
   }
   .make-offer-cta h4 {
     font-size: 24px;
+    margin: 0px;
   }
   .car-detail h3 {
     font-size: 30px;
@@ -1944,7 +1969,7 @@ input:focus-visible {
   }
   .header-links-wrapper {
     position: fixed;
-    top: 84px;
+    top: 65px;
     right: -100%;
     bottom: 0;
     padding: 40px;
@@ -2031,6 +2056,9 @@ input:focus-visible {
   }
   .how-it-works {
     padding: 30px 0px;
+  }
+  .all-summary-of-car {
+    grid-template-columns: auto;
   }
 }
 
@@ -2379,6 +2407,7 @@ input:focus-visible {
 .about-us-page .section-title {
   margin-bottom: 50px;
 }
+
 @media (max-width: 992px) {
   .about-us-page .img-wrapper {
     text-align: center;

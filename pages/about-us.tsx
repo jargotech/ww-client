@@ -7,7 +7,7 @@ import Care from "../public/care.svg";
 import Client from "../public/client.svg";
 import WhatWeDo from "../public/what-we-do.svg";
 import HowWeDo from "../public/how-we-do.svg";
-import BackToBak from "../public/back-to-back.gif";
+// import BackToBak from "../public/back-to-back.gif";
 import HighFive from "../public/high-five.gif";
 import WebinerImg from "../public/webinar.gif";
 
@@ -50,7 +50,7 @@ export default function AboutUs() {
               <div className="three-c-wrapper">
                 <Image
                   loading="lazy"
-                  src={WebinerImg}
+                  src={Client}
                   width={335}
                   height={290}
                   alt="car"
@@ -75,7 +75,7 @@ export default function AboutUs() {
               <div className="three-c-wrapper">
                 <Image
                   loading="lazy"
-                  src={BackToBak}
+                  src={Care}
                   width={335}
                   height={290}
                   alt="car"

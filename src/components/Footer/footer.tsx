@@ -53,7 +53,11 @@ export default function Footer({
         alignItems: "unset",
       }}
     >
-      {/* <CtaBanner catTitle={ctaTitle} ctaAction={ctaAction} ctaText={ctaBtnText} /> */}
+      <CtaBanner
+        catTitle={ctaTitle}
+        ctaAction={ctaAction}
+        ctaText={ctaBtnText}
+      />
       <FooterWrapper>
         <Container maxWidth="lg">
           <Grid container spacing={2}>

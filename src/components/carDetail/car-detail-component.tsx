@@ -38,6 +38,8 @@ export default function CarDetailComponent({ carData }: any) {
   // Variables
   const carImage = carData && carData[0]?.Car_Images;
   const carId = carData && carData[0]?._id;
+  const carDetail = carData && carData[0]?.Car_Detail;
+  const carAdditionalInfo = carData && carData[0]?.Car_Equipments;
 
   const settings = {
     dots: false,
@@ -68,7 +70,7 @@ export default function CarDetailComponent({ carData }: any) {
         <Container maxWidth="lg">
           {/* <h3>Car Title </h3> */}
           {/* <h3>{carData[0]?.Car_Detail?.name} </h3> */}
-          {/* {JSON.stringify(carId)} */}
+          {/* {JSON.stringify(carData)} */}
           <Grid
             container
             spacing={2}
@@ -84,7 +86,9 @@ export default function CarDetailComponent({ carData }: any) {
                     </div>
                     <div className="car-summary-wrapper">
                       <div className="car-summary-title">Registration Year</div>
-                      <div className="content">2017</div>
+                      <div className="content">
+                        {(carDetail && carDetail?.year) || `-`}
+                      </div>
                     </div>
                   </div>
                   <div className="car-summary-group">
@@ -93,7 +97,9 @@ export default function CarDetailComponent({ carData }: any) {
                     </div>
                     <div className="car-summary-wrapper">
                       <div className="car-summary-title">Ownership</div>
-                      <div className="content">2nd</div>
+                      <div className="content">
+                        {(carDetail && carDetail?.ownerShip) || `-`}
+                      </div>
                     </div>
                   </div>
                   <div className="car-summary-group">
@@ -102,7 +108,9 @@ export default function CarDetailComponent({ carData }: any) {
                     </div>
                     <div className="car-summary-wrapper">
                       <div className="car-summary-title">Fuel</div>
-                      <div className="content">Diesel</div>
+                      <div className="content">
+                        {(carDetail && carDetail?.fuelType) || `-`}
+                      </div>
                     </div>
                   </div>
                   <div className="car-summary-group">
@@ -111,7 +119,9 @@ export default function CarDetailComponent({ carData }: any) {
                     </div>
                     <div className="car-summary-wrapper">
                       <div className="car-summary-title">KM Driven</div>
-                      <div className="content">55,000</div>
+                      <div className="content">
+                        {(carDetail && carDetail?.kmDriven) || `-`}
+                      </div>
                     </div>
                   </div>
                   <div className="car-summary-group">
@@ -120,7 +130,9 @@ export default function CarDetailComponent({ carData }: any) {
                     </div>
                     <div className="car-summary-wrapper">
                       <div className="car-summary-title">Color</div>
-                      <div className="content">White with Beige</div>
+                      <div className="content">
+                        {(carDetail && carDetail?.color) || `-`}
+                      </div>
                     </div>
                   </div>
                   <div className="car-summary-group">
@@ -129,7 +141,9 @@ export default function CarDetailComponent({ carData }: any) {
                     </div>
                     <div className="car-summary-wrapper">
                       <div className="car-summary-title">Vehicle No.</div>
-                      <div className="content">MH-02-JH-6714 </div>
+                      <div className="content">
+                        {(carDetail && carDetail?.carNumber) || `-`}
+                      </div>
                     </div>
                   </div>
 
@@ -142,7 +156,7 @@ export default function CarDetailComponent({ carData }: any) {
                       <div className="content">Sept 2022</div>
                     </div>
                   </div>
-                  <div className="car-summary-group">
+                  {/* <div className="car-summary-group">
                     <div className="img-wrapper">
                       <img src={Setting.src} height={28} width={28} alt="" />
                     </div>
@@ -150,7 +164,7 @@ export default function CarDetailComponent({ carData }: any) {
                       <div className="car-summary-title">Service Package</div>
                       <div className="content">Sept 2022</div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div>
@@ -160,169 +174,15 @@ export default function CarDetailComponent({ carData }: any) {
                     follows:
                   </h6>
                   <ul>
-                    <li>Ambient Lighting</li>
-                    <li>Bose Surround System</li>
-                    <li>Rear Entertainment</li>
-                    <li>Extra Wheel at the boot</li>
-                    <li>Adaptive Air Suspensions</li>
-                    <li>Multiple Driver Select</li>
-                    <li>Virtual Cockpit</li>
-                    <li>Dual Zone Climate Control</li>
-                    <li>Auto boot close</li>
-                    <li>Panaromic Sunroof</li>
+                    {carAdditionalInfo &&
+                      carAdditionalInfo.map((item: any, index: number) => (
+                        <li key={`additional-info-${index}`}>
+                          {item?.description}
+                        </li>
+                      ))}
                   </ul>
                 </div>
               </div>
-
-              {/* <div className="flex-container">
-                                <h6>Summary</h6>
-
-                                <IconButton aria-label="toggler" onClick={toggleDisplay} >
-                                    <Image src={AccordionIcon} alt="accordian" height={30} width={30} />
-                                </IconButton>
-                            </div>
-                            {
-                                displayToggle
-                                    ?
-                                    (
-                                        <div className="car-detail-container">
-                                            <div className="car-details-info">
-                                                <div className="car-info">
-                                                    <h6>FUEL TYPE </h6>
-                                                    <p>PETROL</p>
-                                                </div>
-                                                <div className="car-info">
-                                                    <h6>MODEL </h6>
-                                                    <p>2015
-                                                    </p>
-                                                </div>
-                                                <div className="car-info">
-                                                    <h6>KMS </h6>
-                                                    <p>40,000</p>
-                                                </div>
-                                                <div className="car-info">
-                                                    <h6>Color </h6>
-                                                    <p>Navy Blue</p>
-                                                </div>
-
-                                            </div>
-                                            <div className="car-details-info">
-                                                <div className="car-info">
-                                                    <h6>Seating Capacity </h6>
-                                                    <p>4</p>
-                                                </div>
-                                                <div className="car-info">
-                                                    <h6>Transmition </h6>
-                                                    <p>Automatic
-                                                    </p>
-                                                </div>
-                                                <div className="car-info">
-                                                    <h6>KMS</h6>
-                                                    <p>40,000</p>
-                                                </div>
-
-                                            </div>
-                                            <div className="car-details-info">
-                                                <div className="car-info">
-                                                    <h6>FUEL TYPE </h6>
-                                                    <p>PETROL</p>
-                                                </div>
-                                                <div className="car-info">
-                                                    <h6>MODEL </h6>
-                                                    <p>2015
-                                                    </p>
-                                                </div>
-                                                <div className="car-info">
-                                                    <h6>KMS</h6>
-                                                    <p>40,000</p>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    )
-                                    :
-                                    (
-                                        <div className="accordion-wrapper">
-                                            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                                    <h5>Exterior</h5>
-                                                </AccordionSummary>
-                                                <AccordionDetails>
-                                                    <div className="accordion-content">
-                                                        <table>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th>Seating Capacity</th>
-                                                                    <td>4</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Transmition</th>
-                                                                    <td>Auto</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>KMS</th>
-                                                                    <td>40,000</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </AccordionDetails>
-                                            </Accordion>
-                                            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                                    <h5>Interior</h5>
-                                                </AccordionSummary>
-                                                <AccordionDetails>
-                                                    <div className="accordion-content">
-                                                        <table>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th>Seating Capacity</th>
-                                                                    <td>4</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Transmition</th>
-                                                                    <td>Auto</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>KMS</th>
-                                                                    <td>40,000</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </AccordionDetails>
-                                            </Accordion>
-                                            <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                                    <h5>Hood</h5>
-                                                </AccordionSummary>
-                                                <AccordionDetails>
-                                                    <div className="accordion-content">
-                                                        <table>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th>Seating Capacity</th>
-                                                                    <td>4</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Transmition</th>
-                                                                    <td>Auto</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>KMS</th>
-                                                                    <td>40,000</td>
-                                                                </tr>
-                                                            </tbody>
-
-                                                        </table>
-                                                    </div>
-                                                </AccordionDetails>
-                                            </Accordion>
-                                        </div>
-                                    )
-                            } */}
             </Grid>
             <Grid item xs={12} md={7} className="order-md-1">
               <div className="card-slider">
@@ -353,19 +213,12 @@ export default function CarDetailComponent({ carData }: any) {
                   onClose={() => setIsOpen(false)}
                 />
               </div>
-
-              {/* <div className="car-detail-img">
-                            <Image
-                                onClick={() => { setIsOpen(true) }}
-                                src={CarImage} alt="car-img"
-                                height={300} width={600} />
-                        </div> */}
             </Grid>
           </Grid>
         </Container>
       </div>
 
-      <MakeOfferCta carId={carId} />
+      <MakeOfferCta carId={carId} carData={carDetail} />
     </section>
   );
 }

@@ -222,8 +222,9 @@ export default function Navbar() {
         <Container maxWidth="lg">
           <div className="site-header-wrapper">
             <Link href="/">
-              <a>
-                <Image src={Logo} alt="siteLogo" width={70} height={70} />
+              <a className="site-brand">
+                <Image src={Logo} alt="siteLogo" width={50} height={50} />
+                <h1>Wish Wheels</h1>
               </a>
             </Link>
 
