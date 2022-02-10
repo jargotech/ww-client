@@ -95,7 +95,7 @@ export default function BookTrail({ carData }: any) {
   function _handleSubmit(values: any, actions: any) {
     if (isLastStep) {
       _submitForm(values, actions);
-      setActiveStep(activeStep + 1);
+      // setActiveStep(activeStep + 1);
     } else if (activeStep == 1) {
       setActiveStep(activeStep + 1);
       actions.setSubmitting(false);

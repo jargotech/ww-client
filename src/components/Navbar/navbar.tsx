@@ -164,6 +164,19 @@ export default function Navbar() {
     // stay on this route since the user is not authenticated
   };
 
+  const sellcar = () => {
+    if (localStorage.getItem("jwt")) {
+      // setAuthenticated(false);
+      router.push({
+        pathname: "/sell-car",
+      });
+    } else {
+      // setAuthenticated(true);
+    }
+    router.push({
+      pathname: "/sell-car",
+    });
+  };
   const accountMenuHandleClick = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -249,16 +262,15 @@ export default function Navbar() {
                 <nav className="site-nav">
                   <ul className="list-style-none">
                     <li>
-                      <Link href="/sell-car">
-                        <a
-                          className={
-                            router.pathname == "/sell-car" ? "is-active" : ""
-                          }
-                        >
-                          Sell Car
-                          {/* {JSON.stringify(authenticated)} */}
-                        </a>
-                      </Link>
+                      <a
+                        onClick={sellcar}
+                        className={
+                          router.pathname == "/sell-car" ? "is-active" : ""
+                        }
+                      >
+                        Sell Car
+                        {/* {JSON.stringify(authenticated)} */}
+                      </a>
                     </li>
                     <li>
                       <Link href="/car-collection">
