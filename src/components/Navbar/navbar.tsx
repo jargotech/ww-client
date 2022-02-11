@@ -33,6 +33,9 @@ export default function Navbar() {
   const [verifedOtp, setVerifedOtp] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [jwt, setJwt] = useLocalStorage("jwt", null);
+  const [authenticationError, setAuthenticationError] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [otpModal, setOptModal] = useState(false);
 
   // Context
   const { authenticated, setAuthenticated } = useContext(AuthContext);
@@ -90,68 +93,74 @@ export default function Navbar() {
     setOpen(false);
   };
 
-  const _generateOtp = (payload: any) => {
-    const generateOtpData = otpService.generateOtp(payload);
-    generateOtpData.then((res: any) => {
-      if (res.status == 200) {
-        console.log(res?.data?.data);
-        console.log(res?.data?.message);
-      }
-    });
-  };
-  const _verifyOtp = (otp: any, loggedInData: any) => {
-    const payload = {
-      emailId: loggedInData.emailId,
-      otp: otp,
-    };
-    const userSingInData = {
-      phoneNumber: loggedInData.phoneNumber,
-    };
-    const verifyOtpData = otpService.verifyOtp(payload);
-    verifyOtpData.then((res: any) => {
-      if (res.status == 200) {
-        console.log(res?.data?.message);
-        if (res?.data?.message == "OTP Verifed") {
-          _userSignIn(userSingInData);
-          setVerifedOtp(true);
-          // console.log(userSingInData);
-        }
-      }
-    });
-  };
-  const _userSignIn = (payload: any) => {
-    const userSingInData = authenticationService.userSignIn(payload);
-    userSingInData.then((res: any) => {
-      if (res.status == 200) {
-        const jwtData = {
-          firstName: res?.data?.firstName,
-          userId: res?.data?.id,
-          accessToken: res?.data?.accessToken,
-        };
-        // localStorage.setItem('jwt', JSON.stringify(jwtData));
-        setJwt(jwtData);
-        console.log(jwtData);
-        // let userNameData = JSON.parse(localStorage.getItem('jwt') || '')
-        // setUserName(userNameData.firstName)
-        console.log();
-        // setLoggedIn(true);
-        handleClose();
-      }
-    });
+  // This Function if for generating otp
+
+  const _generateOtp = async (payload: any) => {
+    setOptModal(false);
+    setLoading(true);
+    try {
+      const generateOtpData = await otpService.generateOtp(payload);
+      console.log(generateOtpData);
+      setOptModal(true);
+      setLoading(false);
+    } catch (error: any) {
+      console.log(error?.request);
+      let errorResponse = JSON.parse(error?.request?.response);
+      console.log(errorResponse?.message);
+      setAuthenticationError(errorResponse?.message);
+      setLoading(false);
+      setOptModal(false);
+    }
   };
 
-  const _userSignUp = (payload: any) => {
-    const userSingInData = authenticationService.userSignUp(payload);
-    userSingInData.then((res: any) => {
-      // if (!res.data.error) {
-      //     console.log(res.data.data);
-      // }
-      if (res.data.message != "Invalid") {
-        console.log(res.data.data);
+  // This Funtion is for verify otp
+  const _verifyOtp = async (otp: any, loggedInData: any) => {
+    setLoading(true);
+    const payload = {
+      userData: loggedInData?.userData,
+      otp: otp,
+    };
+    try {
+      const verifyOtpApiCall = await otpService.verifyOtp(payload);
+      if (!verifyOtpApiCall.data.error) {
+        console.log(verifyOtpApiCall);
+        setJwt(verifyOtpApiCall.data);
+        setOptModal(false);
+        handleClose();
+        setLoading(false);
       } else {
-        return "error";
+        setAuthenticationError(verifyOtpApiCall.data.message);
+        setLoading(false);
       }
-    });
+    } catch (error: any) {
+      console.log(error);
+      console.log(error?.request);
+      let errorResponse = JSON.parse(error?.request?.response);
+      console.log(errorResponse?.message);
+      setAuthenticationError(errorResponse?.message);
+      setLoading(false);
+    }
+  };
+
+  const _userSignUp = async (payload: any) => {
+    setLoading(true);
+    try {
+      const signUpApiCall = await authenticationService.userSignUp(payload);
+      if (!signUpApiCall.data.error) {
+        console.log(signUpApiCall.data);
+        setLoading(false);
+      } else {
+        setAuthenticationError(signUpApiCall.data.message);
+        setLoading(false);
+      }
+    } catch (error: any) {
+      console.log(error);
+      console.log(error?.request);
+      let errorResponse = JSON.parse(error?.request?.response);
+      console.log(errorResponse?.message);
+      setAuthenticationError(errorResponse?.message);
+      setLoading(false);
+    }
   };
 
   const verifyAuth = () => {
@@ -160,22 +169,20 @@ export default function Navbar() {
       setLoggedIn(true);
     } else {
       setLoggedIn(false);
+      checkThePageIsRistricated();
     }
     // stay on this route since the user is not authenticated
   };
 
   const sellcar = () => {
     if (localStorage.getItem("jwt")) {
-      // setAuthenticated(false);
+      setAuthenticated(false);
       router.push({
         pathname: "/sell-car",
       });
     } else {
-      // setAuthenticated(true);
+      setAuthenticated(true);
     }
-    router.push({
-      pathname: "/sell-car",
-    });
   };
   const accountMenuHandleClick = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -199,6 +206,15 @@ export default function Navbar() {
       return JSON.parse(userName)?.firstName;
     } else {
       return "";
+    }
+  };
+
+  const checkThePageIsRistricated = () => {
+    if (router.pathname == "/sell-car") {
+      router.push("/");
+    }
+    if (router.pathname == "/book-car") {
+      router.push("/");
     }
   };
 
@@ -265,7 +281,9 @@ export default function Navbar() {
                       <a
                         onClick={sellcar}
                         className={
-                          router.pathname == "/sell-car" ? "is-active" : ""
+                          router.pathname == "/sell-car"
+                            ? "cursor-pointer is-active "
+                            : "cursor-pointer"
                         }
                       >
                         Sell Car
@@ -315,10 +333,7 @@ export default function Navbar() {
                 <Box>
                   <IconButton onClick={accountMenuHandleClick}>
                     <Avatar
-                      sx={{
-                        bgcolor: "orange",
-                        textTransform: "uppercase",
-                      }}
+                      className="name-avatar"
                       alt={displayUserName()}
                       src="/broken-image.jpg"
                     />
@@ -332,12 +347,6 @@ export default function Navbar() {
                       "aria-labelledby": "basic-button",
                     }}
                   >
-                    <MenuItem onClick={accountMenuHandleClose}>
-                      Profile
-                    </MenuItem>
-                    <MenuItem onClick={accountMenuHandleClose}>
-                      My account
-                    </MenuItem>
                     <MenuItem onClick={logoutHandle}>Logout</MenuItem>
                   </Menu>
                 </Box>
@@ -358,10 +367,13 @@ export default function Navbar() {
       >
         <Box className="authenticate-wrapper">
           <Authenticate
+            userSignUp={_userSignUp}
             generateOtp={_generateOtp}
             verifyOtp={_verifyOtp}
-            userSignIn={_userSignIn}
-            userSingUp={_userSignUp}
+            authenticationError={authenticationError}
+            setAuthenticationError={setAuthenticationError}
+            loading={loading}
+            otpModal={otpModal}
           />
         </Box>
       </Modal>

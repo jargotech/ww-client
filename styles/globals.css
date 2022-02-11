@@ -321,6 +321,7 @@
 :root {
   --primary-fonts: "SF Compact Display";
   --secondary-fonts: "SF Pro Display";
+  --primary-color: #f7f3d0;
   --secondary--color: #640e27;
 }
 html {
@@ -1386,6 +1387,9 @@ input[type="number"] {
   border-left: 2px solid #a5a6f6;
   transition: 0.3s ease;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
 
 .faq-wrapper ul.faq-list li:hover,
 .faq-wrapper ul.faq-list li[aria-selected="true"] {
@@ -2284,6 +2288,9 @@ input:focus-visible {
   bottom: -15px;
   left: 30px;
 }
+.Authentication-error.error {
+  position: unset;
+}
 
 .required:after {
   content: " *";
@@ -2486,6 +2493,12 @@ input:focus-visible {
 }
 .about-us-page .section-title {
   margin-bottom: 50px;
+}
+
+.name-avatar {
+  border: 1px solid var(--secondary--color);
+  color: var(--secondary--color);
+  background: var(--primary-color);
 }
 
 @media (max-width: 992px) {

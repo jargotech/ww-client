@@ -26,19 +26,21 @@ function TabPanel(props: any) {
 }
 
 export default function Authenticate({
-  userSignIn,
   generateOtp,
   verifyOtp,
-  userSingUp,
+  authenticationError,
+  setAuthenticationError,
+  loading,
+  userSignUp,
+  otpModal,
 }: any) {
   // States
   const [value, setValue] = useState(0);
   const [loggedInData, setLoggedInData] = useState<any>();
-  const [otpModal, setOptModal] = useState(false);
+  // const [otpModal, setOptModal] = useState(false);
   const [otpData, setOtpData] = useState<any>();
-  const [createUserData, setCreateUserData] = useState<any>();
   const [signInError, setSignInError] = useState<any>(true);
-  const [loading, setLoading] = useState<any>(false);
+  const [signUpData, setSignData] = useState<any>();
 
   // Variable
   const phoneRegExp =
@@ -52,10 +54,17 @@ export default function Authenticate({
   const validationSchema2 = Yup.object().shape({
     firstName: Yup.string().required("Field cannot be blank"),
     lastName: Yup.string(),
-    email: Yup.string().required("Field cannot be blank"),
-    phone: Yup.string().required("Field cannot be blank"),
+    emailId: Yup.string().required("Field cannot be blank"),
+    phoneNumber: Yup.string().required("Field cannot be blank"),
   });
-  const validationSchema3 = {};
+  const validationSchema3 = Yup.object().shape({
+    otp1: Yup.number().required(),
+    otp2: Yup.number().required(),
+    otp3: Yup.number().required(),
+    otp4: Yup.number().required(),
+    otp5: Yup.number().required(),
+    otp6: Yup.number().required(),
+  });
 
   const initialValues1 = {
     userData: "",
@@ -63,11 +72,8 @@ export default function Authenticate({
   const initialValues2 = {
     firstName: "",
     lastName: "",
-    email: "",
-    phone: "",
-    address1: "",
-    address2: "",
-    pincode: "",
+    emailId: "",
+    phoneNumber: "",
   };
 
   const initialValues3 = {
@@ -84,42 +90,40 @@ export default function Authenticate({
     setValue(newValue);
   };
 
-  const signInHandelSubmit = (values: any) => {
-    console.log(values);
+  const signInHandelSubmit = (values: any, { resetForm }: any) => {
+    // console.log(values);
+    setAuthenticationError(null);
     setLoggedInData(values);
-    handleOtpOpen();
+
+    // handleOtpOpen();
+    // setLoading(true);
+    setTimeout(function () {
+      resetForm();
+    }, 1500);
   };
-  const signUpHandelSubmit = (values: any) => {
+  const signUpHandelSubmit = (values: any, { resetForm }: any) => {
+    setAuthenticationError(null);
     console.log(values);
-    const userSingUpData = {
-      emailId: "ak8433786864@gmail.com",
-      firstName: "first",
-      lastName: "last",
-      phoneNumber: "23232",
-      cityId: "61798f7ffc6c04fffc6ba6f7",
-      pincode: "401107",
-      Address1: "test1",
-      Address2: "test2",
-    };
-    const newUserOtpData = {
-      emailId: "ak8433786864@gmail.com",
-      phoneNumber: "23232",
-    };
-    userSingUp(userSingUpData);
-    setLoggedInData(newUserOtpData);
-    handleOtpOpen();
+    setSignData(values);
+    setTimeout(function () {
+      resetForm();
+    }, 1500);
   };
 
-  const otpHandelSubmit = (values: any) => {
+  const otpHandelSubmit = (values: any, { resetForm }: any) => {
+    setAuthenticationError(null);
     console.log(values);
     const otp = `
             ${values.otp1}${values.otp2}${values.otp3}${values.otp4}${values.otp5}${values.otp6}
             `;
     setOtpData(otp.toString().replaceAll(/\s/g, ""));
+    setTimeout(function () {
+      resetForm();
+    }, 1500);
   };
 
-  const handleOtpOpen = () => setOptModal(true);
-  const handleOtpClose = () => setOptModal(false);
+  // const handleOtpOpen = () => setOptModal(true);
+  // const handleOtpClose = () => setOptModal(false);
 
   // Effects
 
@@ -128,6 +132,12 @@ export default function Authenticate({
       generateOtp(loggedInData);
     }
   }, [loggedInData]);
+
+  useEffect(() => {
+    if (signUpData) {
+      userSignUp(signUpData);
+    }
+  }, [signUpData]);
 
   useEffect(() => {
     if (otpData) {
@@ -141,7 +151,7 @@ export default function Authenticate({
         <div className="authentication-otp-form">
           <Formik
             initialValues={initialValues3}
-            // validationSchema={validationSchema}
+            validationSchema={validationSchema3}
             onSubmit={otpHandelSubmit}
           >
             {(formik) => (
@@ -149,12 +159,15 @@ export default function Authenticate({
                 <div className="otp-authentication-wrapper">
                   <div>
                     <OtpForm formik={formik} />
-                    <div className="btn-wrapper">
+                    <div className="btn-wrapper d-flex">
+                      <span className="Authentication-error error">
+                        {authenticationError}
+                      </span>
                       <SiteButton
                         type="submit"
-                        text="Sign In"
+                        text={loading ? "Verifying..." : "Verify"}
                         styles={{ marginLeft: "auto" }}
-                        // disabled={!(props.isValid && props.dirty)}
+                        disabled={!(formik.isValid && formik.dirty) || loading}
                         arrow={false}
                       />
                     </div>
@@ -166,7 +179,6 @@ export default function Authenticate({
         </div>
       ) : (
         <div className="authentication-user-form">
-          {JSON.stringify(signInError)}
           <Tabs
             value={value}
             onChange={handleChange}
@@ -192,7 +204,7 @@ export default function Authenticate({
                         value={formik.values.userData}
                         onChange={(event: any) => {
                           formik.handleChange(event);
-                          console.log(event.target.value);
+                          // console.log(event.target.value);
                           if (
                             event.target.value > 3 &&
                             /\d/.test(event.target.value)
@@ -218,16 +230,20 @@ export default function Authenticate({
                         // helperText={formik.touched.firstName && formik.errors.firstName}
                         fullWidth
                       />
-                      <span className="error">
-                        {formik.touched.userData && formik.errors.userData}
-                      </span>
                     </Grid>
                   </Grid>
-                  <div className="btn-wrapper">
+                  <div className="btn-wrapper d-flex">
+                    <span className="Authentication-error error">
+                      {authenticationError}
+                    </span>
                     <SiteButton
                       type="submit"
-                      disabled={signInError}
-                      text="Sign In"
+                      disabled={
+                        signInError ||
+                        loading ||
+                        !(formik.isValid && formik.dirty)
+                      }
+                      text={loading ? "Siging..." : "Sign In"}
                       styles={{ marginLeft: "auto" }}
                       // disabled={!(props.isValid && props.dirty)}
                       arrow={false}
@@ -299,10 +315,10 @@ export default function Authenticate({
                     >
                       <StyledTextField
                         required
-                        name="phone"
+                        name="phoneNumber"
                         autoComplete={"" + Math.random()}
                         error
-                        value={formik.values.phone}
+                        value={formik.values.phoneNumber}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="filled"
@@ -310,7 +326,8 @@ export default function Authenticate({
                         fullWidth
                       />
                       <span className="error">
-                        {formik.touched.phone && formik.errors.phone}
+                        {formik.touched.phoneNumber &&
+                          formik.errors.phoneNumber}
                       </span>
                     </Grid>
                     <Grid
@@ -322,9 +339,9 @@ export default function Authenticate({
                       <StyledTextField
                         required
                         autoComplete={"" + Math.random()}
-                        name="email"
+                        name="emailId"
                         error
-                        value={formik.values.email}
+                        value={formik.values.emailId}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         variant="filled"
@@ -332,14 +349,17 @@ export default function Authenticate({
                         fullWidth
                       />
                       <span className="error">
-                        {formik.touched.email && formik.errors.email}
+                        {formik.touched.emailId && formik.errors.emailId}
                       </span>
                     </Grid>
                   </Grid>
-                  <div className="btn-wrapper">
+                  <div className="btn-wrapper d-flex">
+                    <span className="Authentication-error error">
+                      {authenticationError}
+                    </span>
                     <SiteButton
                       type="submit"
-                      text={loading ? "Siging..." : "Sing Up"}
+                      text={loading ? "Siging..." : "Sign Up"}
                       styles={{ marginLeft: "auto" }}
                       disabled={!(formik.isValid && formik.dirty) || loading}
                       arrow={false}

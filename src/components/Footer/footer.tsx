@@ -1,5 +1,5 @@
 import { Container, Grid } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import {
   FooterWrapper,
@@ -14,6 +14,8 @@ import FacebookLogo from "../../../public/facebook.svg";
 import YoutubeLogo from "../../../public/youtube.svg";
 import CtaBanner from "../CtaBanner";
 import { SocialMediaService } from "../../services/social";
+import router from "next/router";
+import AuthContext from "../../context/AuthContext";
 
 export default function Footer({
   className,
@@ -27,6 +29,9 @@ export default function Footer({
   // Variables
   const socialMediaService = new SocialMediaService();
 
+  // Context
+  const { authenticated, setAuthenticated } = useContext(AuthContext);
+
   // Funtions
 
   const socialMediaLink = () => {
@@ -37,6 +42,17 @@ export default function Footer({
         setSocialLinkList(res?.data?.data);
       }
     });
+  };
+
+  const sellcar = () => {
+    if (localStorage.getItem("jwt")) {
+      setAuthenticated(false);
+      router.push({
+        pathname: "/sell-car",
+      });
+    } else {
+      setAuthenticated(true);
+    }
   };
 
   // Effects
@@ -126,9 +142,9 @@ export default function Footer({
                       </Link>
                     </li>
                     <li>
-                      <Link href="/sell-car">
-                        <a>Sell car</a>
-                      </Link>
+                      <a onClick={sellcar} className="cursor-pointer">
+                        Sell car
+                      </a>
                     </li>
                     <li>
                       <Link href="/car-collection">
