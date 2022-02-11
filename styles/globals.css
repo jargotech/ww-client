@@ -2329,6 +2329,10 @@ input:focus-visible {
   border: 0px;
 }
 
+.sell-car-btn button {
+  margin: 0px !important;
+}
+
 @media (max-width: 576px) {
   .filter-chips {
     flex-wrap: nowrap;

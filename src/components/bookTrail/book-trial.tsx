@@ -32,18 +32,18 @@ import { OtpService } from "../../services/user/otpService";
 import { BookTrialService } from "../../services/bookTrial/bookTrialService";
 import SuccesBookingPng from "../../../public/success-booking.png";
 import Link from "next/link";
+import { CarService } from "../../services/cars/carService";
+import { userJwtData } from "../../utils/getAccessToken";
+import moment from "moment";
 
 const steps = ["step1", "step2"];
 export default function BookTrail({ carData }: any) {
   // States
   const [activeStep, setActiveStep] = useState(0);
-  const [data, setData] = useState();
   const [diableButton, setDisableButton] = useState(true);
-  const [otpData, setOtpData] = useState<any>();
-  const [otpNumber, setOtpNumber] = useState<any>();
-  const [isVeryfiedUser, setIsVeryfiedUser] = useState<any>();
-  const [trialBooking, setTrialBooking] = useState<any>();
   const [bookTrial, setBookTrial] = useState<any>();
+  const [loading, setLoading] = useState<any>();
+  const [bookingError, setBookingError] = useState<any>();
 
   // Variable
   const isLastStep = activeStep === steps.length - 1;
@@ -51,6 +51,7 @@ export default function BookTrail({ carData }: any) {
     makeOffer: "",
     address1: "",
     address2: "",
+    pincode: "",
     trailDate: null,
     city: { city: "" },
   };
@@ -71,11 +72,13 @@ export default function BookTrail({ carData }: any) {
       city: Yup.object({
         name: Yup.string().required("Field cannot be blank"),
       }),
+      pincode: Yup.number().required("Field cannot be blank"),
       trailDate: Yup.date().nullable().required("Field cannot be blank"),
     }),
   ];
 
   const currentValidationSchema = BookTrialSchema[activeStep];
+  const carService = new CarService();
 
   // Functions
 
@@ -88,13 +91,25 @@ export default function BookTrail({ carData }: any) {
   };
 
   async function _submitForm(values: any, actions: any) {
-    await _sleep(1000);
+    const { makeOffer, address1, address2, trailDate, city, pincode } = values;
     console.log(values);
+    setBookTrial({
+      userId: userJwtData(),
+      carId: carData[0]._id,
+      cityId: city.id,
+      Address1: address1,
+      Address2: address2,
+      pincode: pincode,
+      requestPrice: Number(makeOffer.replace(/,/g, "")),
+      bookOnDateTime: moment(trailDate).format("MM/DD/YYYY hh:00 a"),
+      status: "Available",
+    });
   }
 
   function _handleSubmit(values: any, actions: any) {
     if (isLastStep) {
       _submitForm(values, actions);
+      actions.restForm();
       // setActiveStep(activeStep + 1);
     } else if (activeStep == 1) {
       setActiveStep(activeStep + 1);
@@ -124,7 +139,7 @@ export default function BookTrail({ carData }: any) {
     if (activeStep == 0) {
       return diableButton;
     } else {
-      return !(props.isValid && props.dirty && !props.isSubmitting);
+      return !(props.isValid && props.dirty) || loading;
     }
   };
 
@@ -136,21 +151,49 @@ export default function BookTrail({ carData }: any) {
     }
   };
 
+  // book trial api function
+
+  const _bookTrail = async (payload: any) => {
+    setLoading(true);
+    try {
+      const bookTrailApiCall = await carService.bookTrial(payload);
+      if (!bookTrailApiCall.data.error) {
+        console.log(bookTrailApiCall.data.data);
+        setActiveStep(activeStep + 1);
+        setLoading(false);
+      } else {
+        console.log(bookTrailApiCall.data.error);
+        setLoading(false);
+        setBookingError(bookTrailApiCall.data.error);
+      }
+    } catch (error: any) {
+      let errorResponse = JSON.parse(error?.request?.response);
+      console.log(errorResponse?.message);
+      setBookingError(errorResponse?.message);
+      setLoading(false);
+    }
+  };
+
   // Effects
   useEffect(() => {
     if (steps?.length == activeStep) {
       // This is last step
-      // setTimeout(() => {
-      //   router.push("/");
-      //   overflowHidden(false);
-      // }, 2000);
+      setTimeout(() => {
+        router.push("/");
+        overflowHidden(false);
+      }, 2000);
     }
   }, [activeStep]);
 
   useEffect(() => {
-    if (isVeryfiedUser) {
+    if (bookTrial) {
+      _bookTrail(bookTrial);
     }
-  }, [isVeryfiedUser]);
+  }, [bookTrial]);
+
+  useEffect(() => {
+    console.log(carData);
+  }, []);
 
   return (
     <section className="book-trail">
@@ -222,30 +265,14 @@ export default function BookTrail({ carData }: any) {
                           styles={{ marginLeft: "auto" }}
                           disabled={handleDisableButton(activeStep, props)}
                           // disabled={!(props.isValid && props.dirty)}
-                          text={
-                            isLastStep
-                              ? "Done"
-                              : activeStep == 1
-                              ? "Book"
-                              : "Next"
-                          }
+                          text={loading ? "Booking..." : "Book"}
                           arrow={isLastStep ? false : true}
                         />
-
-                        {props.isSubmitting && (
-                          <CircularProgress
-                            sx={{
-                              position: "absolute",
-                              top: "25%",
-                              left: "40%",
-                              transform: "translate(-50%,-50%)",
-                              color: "#640E27",
-                            }}
-                            size={24}
-                          />
-                        )}
                       </div>
                     </div>
+                    <span className="Authentication-error error">
+                      {bookingError}
+                    </span>
                   </Form>
                 )}
               </Formik>

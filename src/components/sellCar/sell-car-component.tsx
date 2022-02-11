@@ -31,44 +31,58 @@ import moment from "moment";
 import Link from "next/link";
 import SuccesBookingPng from "../../../public/success-booking.png";
 import { min } from "date-fns";
+import { CarService } from "../../services/cars/carService";
+import { userJwtData } from "../../utils/getAccessToken";
+import { margin } from "@mui/system";
 
 // const steps = ["step1", "step2", "step3", "step4"];
 const steps = ["step1"];
 export default function SellCarComponent() {
+  // States
   const [activeStep, setActiveStep] = useState(0);
   const [data, setData] = useState();
+  const [sellCarData, setSellCarData] = useState<any>();
+  const [loading, setLoading] = useState<any>();
+  const [sellCarError, setSellCarError] = useState<any>();
+
+  // Context
+
+  // Variables
   const isLastStep = activeStep === steps.length - 1;
   const router = useRouter();
-
-  const BookTrailInitialValues = {
-    brand: "",
-    model: "",
-    year: new Date(),
-    ownership: "",
-    milage: "",
-    fueltype: "",
-    kmdriven: "",
-    registrationState: "",
-    pincode: "",
-    city: "",
-  };
-
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
+  const BookTrailInitialValues = {
+    brandId: "",
+    modelId: "",
+    year: new Date(),
+    ownerShip: "",
+    milege: "",
+    fuelType: "",
+    kmDriven: "",
+    registrationStateId: "",
+    pincode: "",
+    cityName: "",
+  };
+
   const BookTrialSchema = Yup.object().shape({
-    brand: Yup.string().required("This field can't be blank "),
-    model: Yup.string().min(2).required("this field can't be blank"),
+    brandId: Yup.string().required("This field can't be blank "),
+    modelId: Yup.string().min(2).required("this field can't be blank"),
     year: Yup.string().required("Year cannot be empty"),
-    ownership: Yup.string().required("This field can't be blank"),
-    milage: Yup.number().min(2).required("This field can't be blank"),
-    fueltype: Yup.string().required("This field can't be blank"),
-    kmdriven: Yup.number().min(2).required("This field can't be blank"),
-    registrationState: Yup.string().required("This field can't be blank"),
+    ownerShip: Yup.string().required("This field can't be blank"),
+    milege: Yup.number().min(2).required("This field can't be blank"),
+    fuelType: Yup.string().required("This field can't be blank"),
+    kmDriven: Yup.number().min(2).required("This field can't be blank"),
+    registrationStateId: Yup.string().required("This field can't be blank"),
     pincode: Yup.number().required("This field can't be blank"),
-    city: Yup.string().required("This field can't be blank"),
+    cityName: Yup.string().required("This field can't be blank"),
   });
+
   const currentValidationSchema = BookTrialSchema;
+  const carService = new CarService();
+
+  // Functions
 
   function _sleep(ms: any) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -77,28 +91,51 @@ export default function SellCarComponent() {
   const RedirectHomePage = () => {
     router.push("/");
   };
-  async function _submitForm(values: any, actions: any) {
-    await _sleep(1000);
-    // alert(JSON.stringify(values, null, 2));
-    // _createBooking(myPost);
-    // setData(values);
-    console.log(JSON.stringify(values, null, 2));
-    const year = values?.year;
-    console.log(moment(year).format("YYYY"));
 
-    // actions.setSubmitting(false);
-
-    setActiveStep(activeStep + 1);
+  async function _submitForm(values: any) {
+    // await _sleep(1000);
+    const {
+      brandId,
+      modelId,
+      year,
+      ownerShip,
+      milege,
+      fuelType,
+      kmDriven,
+      registrationStateId,
+      pincode,
+      cityName,
+    } = values;
+    // console.log(JSON.stringify(values, null, 2));
+    // const year = values?.year;
+    // console.log(moment(year).format("YYYY"));
+    setSellCarData({
+      userId: userJwtData(),
+      brandId,
+      modelId,
+      year: moment(year).format("YYYY"),
+      ownerShip,
+      milege,
+      fuelType,
+      kmDriven,
+      registrationStateId,
+      pincode,
+      cityName,
+    });
+    // setActiveStep(activeStep + 1);
   }
 
   function _handleSubmit(values: any, actions: any) {
     if (isLastStep) {
-      _submitForm(values, actions);
-      setActiveStep(activeStep + 1);
+      _submitForm(values);
+      actions.resetForm();
+
+      // setActiveStep(activeStep + 1);
     } else {
       setActiveStep(activeStep + 1);
       actions.setTouched({});
       actions.setSubmitting(false);
+      actions.resetForm();
     }
   }
 
@@ -114,6 +151,30 @@ export default function SellCarComponent() {
     }
   };
 
+  const _sellCar = async (payload: any) => {
+    setSellCarError(null);
+    setLoading(true);
+    try {
+      const sellCarApiCall = await carService.sellCar(payload);
+      if (!sellCarApiCall.data.error) {
+        console.log(sellCarApiCall.data);
+        setActiveStep(activeStep + 1);
+        setLoading(false);
+      } else {
+        setSellCarError(sellCarApiCall.data.error);
+        // console.log();
+
+        setLoading(false);
+      }
+    } catch (error: any) {
+      console.log(error);
+      let errorResponse = JSON.parse(error?.request?.response);
+      console.log(errorResponse?.message);
+      setSellCarError(errorResponse?.message);
+      setLoading(false);
+    }
+  };
+
   // Effects
 
   useEffect(() => {
@@ -125,6 +186,13 @@ export default function SellCarComponent() {
       }, 5000);
     }
   }, [activeStep]);
+
+  useEffect(() => {
+    if (sellCarData) {
+      _sellCar(sellCarData);
+    }
+  }, [sellCarData]);
+
   return (
     <section className="book-trail">
       <Container maxWidth="lg">
@@ -159,41 +227,45 @@ export default function SellCarComponent() {
                 </div>
               </div>
             ) : (
-              <Formik
-                initialValues={BookTrailInitialValues}
-                validationSchema={currentValidationSchema}
-                onSubmit={_handleSubmit}
-              >
-                {(props: any) => (
-                  <Form id="sell-car" autoComplete="off" className="car-from">
-                    {/* {_renderStepContent(activeStep)} */}
-                    {activeStep == 0 ? (
-                      // OLD
-                      // <UserForm formik={props} />
-                      <CarDetailForm formik={props} />
-                    ) : null}
-                    <div
-                      style={{
-                        position: "relative",
-                        display: "table",
-                        margin: "20px 0 0 auto",
-                      }}
-                    >
-                      <SiteButton
-                        type="submit"
-                        styles={{ marginLeft: "auto" }}
-                        disabled={!(props.isValid && props.dirty)}
-                        text={
-                          isLastStep
-                            ? "Done"
-                            : activeStep == 1
-                            ? "Book"
-                            : "Next"
-                        }
-                        arrow={isLastStep ? false : true}
-                      />
+              <>
+                <Formik
+                  initialValues={BookTrailInitialValues}
+                  validationSchema={currentValidationSchema}
+                  onSubmit={_handleSubmit}
+                >
+                  {(props: any) => (
+                    <Form id="sell-car" autoComplete="off" className="car-from">
+                      {/* {_renderStepContent(activeStep)} */}
+                      {activeStep == 0 ? (
+                        // OLD
+                        // <UserForm formik={props} />
+                        <CarDetailForm formik={props} />
+                      ) : null}
+                      <div
+                        style={{
+                          position: "relative",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          margin: "20px 0 0 auto",
+                        }}
+                      >
+                        <span className="Authentication-error error">
+                          {sellCarError}
+                        </span>
 
-                      {props.isSubmitting && (
+                        <div className="sell-car-btn">
+                          <SiteButton
+                            type="submit"
+                            disabled={
+                              !(props.isValid && props.dirty) || loading
+                            }
+                            text={loading ? "sending..." : "Done"}
+                            arrow={isLastStep ? false : true}
+                          />
+                        </div>
+
+                        {/* {props.isSubmitting && (
                         <CircularProgress
                           sx={{
                             position: "absolute",
@@ -204,17 +276,18 @@ export default function SellCarComponent() {
                           }}
                           size={24}
                         />
-                      )}
-                    </div>
-                  </Form>
-                )}
-              </Formik>
+                      )} */}
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
+              </>
             )}
           </Grid>
           <Grid item lg={6} className="order-md-1">
-            <MediaQuery query="(max-width: 992px)">
+            {/* <MediaQuery query="(max-width: 992px)">
               <StyledStepper activeStep={activeStep} steps={steps} />
-            </MediaQuery>
+            </MediaQuery> */}
             <Grid item lg={9} sx={{ margin: "0 auto", alignItems: "center" }}>
               {/* <CarCards variant="card2" hideButton={true} style={{ marginBottom: '10px' }} /> */}
               <Image src={HelloImage} height={480} width={560} alt="image" />

@@ -56,143 +56,6 @@ export default function CarDetailForm(props: any) {
   return (
     <div>
       <Grid container spacing={2}>
-        {/* {
-                    carFields.map((carFields, index) => {
-                        const Name = carFields.name;
-                        return (
-                            <Grid key={index} item md={6} className="book-trail-form-field">
-                                <StyledTextField
-                                    error
-                                    required
-                                    name={Name}
-                                    value={formik.values.Name}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                    variant="filled"
-                                    label={carFields.label}
-                                    fullWidth />
-                                <span className="error">{formik.touched.Name && formik.errors.Name}</span>
-                            </Grid>
-                        )
-
-                    })
-                } */}
-        {/* Brand */}
-        {/* <Grid xs={12} item md={6} className="book-trail-form-field">
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Age"
-              name="year"
-              value={formik.values.year}
-              onChange={formik.handleChange}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid xs={12} item md={6} className="book-trail-form-field">
-          <StyledTextField
-            error
-            required
-            name="manifacture"
-            value={formik.values.manifacture}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            variant="filled"
-            label="Brand"
-            fullWidth
-          />
-          <span className="error">
-            {formik.touched.manifacture && formik.errors.manifacture}
-          </span>
-        </Grid>
-        <Grid item xs={12} md={6} className="book-trail-form-field">
-          <StyledTextField
-            name="year"
-            type="number"
-            error
-            required
-            value={formik.values.year}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            variant="filled"
-            label="Year"
-            fullWidth
-          />
-          <span className="error">
-            {formik.touched.year && formik.errors.year}
-          </span>
-        </Grid>
-        <Grid xs={12} item md={6} className="book-trail-form-field">
-          <StyledTextField
-            error
-            required
-            name="fuelType"
-            value={formik.values.fuelType}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            variant="filled"
-            label="Fule Type"
-            fullWidth
-          />
-          <span className="error">
-            {formik.touched.fuelType && formik.errors.fuelType}
-          </span>
-        </Grid>
-        <Grid xs={12} item md={6} className="book-trail-form-field">
-          <StyledTextField
-            error
-            required
-            name="kmTraveled"
-            type="number"
-            value={formik.values.kmTraveled}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            variant="filled"
-            label="Km Traveled"
-            fullWidth
-          />
-          <span className="error">
-            {formik.touched.kmTraveled && formik.errors.kmTraveled}
-          </span>
-        </Grid>
-        <Grid xs={12} item md={6} className="book-trail-form-field">
-          <StyledTextField
-            error
-            required
-            name="model"
-            value={formik.values.model}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            variant="filled"
-            label="Model"
-            fullWidth
-          />
-          <span className="error">
-            {formik.touched.model && formik.errors.model}
-          </span>
-        </Grid>
-        <Grid xs={12} item md={6} className="book-trail-form-field">
-          <StyledTextField
-            error
-            required
-            name="owner"
-            value={formik.values.owner}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            variant="filled"
-            label="No. of Ownership"
-            fullWidth
-          />
-          <span className="error">
-            {formik.touched.owner && formik.errors.owner}
-          </span>
-        </Grid> */}
         <Grid xs={12} item md={6} className="book-trail-form-field">
           <FormControl fullWidth>
             <InputLabel id="brand-lable">Brand</InputLabel>
@@ -200,10 +63,10 @@ export default function CarDetailForm(props: any) {
               labelId="brand-lable"
               id="brand-select"
               label="brand"
-              name="brand"
-              error={formik.touched.brand && formik.errors.brand}
+              name="brandId"
+              error={formik.touched.brandId && formik.errors.brandId}
               required
-              value={formik.values.brand}
+              value={formik.values.brandId}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             >
@@ -215,7 +78,7 @@ export default function CarDetailForm(props: any) {
                 ))}
             </Select>
             <span className="error">
-              {formik.touched.brand && formik.errors.brand}
+              {formik.touched.brandId && formik.errors.brandId}
             </span>
           </FormControl>
         </Grid>
@@ -223,8 +86,8 @@ export default function CarDetailForm(props: any) {
           <StyledTextField
             error
             required
-            name="model"
-            value={formik.values.model}
+            name="modelId"
+            value={formik.values.modelId}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             variant="filled"
@@ -232,7 +95,7 @@ export default function CarDetailForm(props: any) {
             fullWidth
           />
           <span className="error">
-            {formik.touched.model && formik.errors.model}
+            {formik.touched.modelId && formik.errors.modelId}
           </span>
         </Grid>
         <Grid xs={12} item md={6} className="book-trail-form-field">
@@ -244,7 +107,12 @@ export default function CarDetailForm(props: any) {
               maxDate={new Date()}
               onChange={(value) => formik.setFieldValue("year", value)}
               renderInput={(params) => (
-                <TextField name="year" {...params} helperText={null} />
+                <TextField
+                  name="year"
+                  {...params}
+                  helperText={null}
+                  fullWidth
+                />
               )}
             />
             <span className="error">
@@ -257,12 +125,12 @@ export default function CarDetailForm(props: any) {
             <InputLabel id="ownership-lable">OwnerShip</InputLabel>
             <Select
               labelId="ownership-lable"
-              error={formik.touched.ownership && formik.errors.ownership}
+              error={formik.touched.ownerShip && formik.errors.ownerShip}
               required
               id="ownership-select"
               label="ownership"
-              name="ownership"
-              value={formik.values.ownership}
+              name="ownerShip"
+              value={formik.values.ownerShip}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             >
@@ -271,16 +139,16 @@ export default function CarDetailForm(props: any) {
             </Select>
           </FormControl>
           <span className="error">
-            {formik.touched.ownership && formik.errors.ownership}
+            {formik.touched.ownerShip && formik.errors.ownerShip}
           </span>
         </Grid>
         <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
           <StyledTextField
             error
             required
-            name="milage"
+            name="milege"
             type="number"
-            value={formik.values.milage}
+            value={formik.values.milege}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             variant="filled"
@@ -288,7 +156,7 @@ export default function CarDetailForm(props: any) {
             fullWidth
           />
           <span className="error">
-            {formik.touched.milage && formik.errors.milage}
+            {formik.touched.milege && formik.errors.milege}
           </span>
         </Grid>
         <Grid xs={12} item md={6} className="book-trail-form-field">
@@ -297,11 +165,11 @@ export default function CarDetailForm(props: any) {
             <Select
               labelId="fueltype-lable"
               id="fueltype-select"
-              error={formik.touched.fueltype && formik.errors.fueltype}
+              error={formik.touched.fuelType && formik.errors.fuelType}
               required
               label="fueltype"
-              name="fueltype"
-              value={formik.values.fueltype}
+              name="fuelType"
+              value={formik.values.fuelType}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             >
@@ -310,7 +178,7 @@ export default function CarDetailForm(props: any) {
               <MenuItem value="ev">EVs</MenuItem>
             </Select>
             <span className="error">
-              {formik.touched.fueltype && formik.errors.fueltype}
+              {formik.touched.fuelType && formik.errors.fuelType}
             </span>
           </FormControl>
         </Grid>
@@ -318,9 +186,9 @@ export default function CarDetailForm(props: any) {
           <StyledTextField
             error
             required
-            name="kmdriven"
+            name="kmDriven"
             type="number"
-            value={formik.values.kmdriven}
+            value={formik.values.kmDriven}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             variant="filled"
@@ -328,7 +196,7 @@ export default function CarDetailForm(props: any) {
             fullWidth
           />
           <span className="error">
-            {formik.touched.kmdriven && formik.errors.kmdriven}
+            {formik.touched.kmDriven && formik.errors.kmDriven}
           </span>
         </Grid>
         <Grid xs={12} item md={6} className="book-trail-form-field">
@@ -340,13 +208,13 @@ export default function CarDetailForm(props: any) {
               labelId="registrationState-lable"
               id="registrationState-select"
               error={
-                formik.touched.registrationState &&
-                formik.errors.registrationState
+                formik.touched.registrationStateId &&
+                formik.errors.registrationStateId
               }
               required
               label="Registration State"
-              name="registrationState"
-              value={formik.values.registrationState}
+              name="registrationStateId"
+              value={formik.values.registrationStateId}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             >
@@ -358,8 +226,8 @@ export default function CarDetailForm(props: any) {
                 ))}
             </Select>
             <span className="error">
-              {formik.touched.registrationState &&
-                formik.errors.registrationState}
+              {formik.touched.registrationStateId &&
+                formik.errors.registrationStateId}
             </span>
           </FormControl>
         </Grid>
@@ -384,8 +252,8 @@ export default function CarDetailForm(props: any) {
           <StyledTextField
             error
             required
-            name="city"
-            value={formik.values.city}
+            name="cityName"
+            value={formik.values.cityName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             variant="filled"
@@ -393,7 +261,7 @@ export default function CarDetailForm(props: any) {
             fullWidth
           />
           <span className="error">
-            {formik.touched.city && formik.errors.city}
+            {formik.touched.cityName && formik.errors.cityName}
           </span>
         </Grid>
       </Grid>

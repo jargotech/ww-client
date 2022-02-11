@@ -46,63 +46,6 @@ export default function UserForm({ formik }: any) {
   return (
     <div>
       <Grid container spacing={2}>
-        {/* <Grid item xs={6} md={6} className="book-trail-form-field">
-                    <StyledTextField
-                        required
-                        autoComplete={'' + Math.random()}
-                        name='firstName'
-                        value={formik.values.firstName}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        variant="filled"
-                        error
-                        label="First Name"
-                        // helperText={formik.touched.firstName && formik.errors.firstName}
-                        fullWidth />
-                    <span className="error">{formik.touched.firstName && formik.errors.firstName}</span>
-                </Grid>
-                <Grid item xs={6} md={6} className="book-trail-form-field">
-                    <StyledTextField
-                        required
-                        name='lastName'
-                        autoComplete={'' + Math.random()}
-                        value={formik.values.lastName}
-                        error
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        variant="filled"
-                        label="Last Name"
-                        fullWidth />
-                    <span className="error">{formik.errors.lastName && formik.touched.lastName ? formik.errors.lastName : null}</span>
-                </Grid>
-                <Grid item xs={6} md={6} className="book-trail-form-field">
-                    <StyledTextField
-                        required
-                        name='mobile'
-                        autoComplete={'' + Math.random()}
-                        error
-                        value={formik.values.mobile}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        variant="filled"
-                        label="Mobile"
-                        fullWidth />
-                    <span className="error">{formik.touched.mobile && formik.errors.mobile}</span>
-                </Grid>
-                <Grid item xs={6} md={6} className="book-trail-form-field">
-                    <StyledTextField
-                        required
-                        autoComplete={'' + Math.random()}
-                        name='email'
-                        error
-                        value={formik.values.email}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        variant="filled"
-                        label="Email"
-                        fullWidth />
-                    <span className="error">{formik.touched.email && formik.errors.email}</span>
-                </Grid> */}
         <Grid item xs={12} className="book-trail-form-field">
           <StyledTextField
             required
@@ -171,6 +114,24 @@ export default function UserForm({ formik }: any) {
             {formik.touched.city && formik.errors.city}
           </span>
         </Grid>
+        <Grid item xs={6} md={6} className="book-trail-form-field sell-car">
+          <StyledTextField
+            name="pincode"
+            error
+            required
+            type="number"
+            autoComplete={"" + Math.random()}
+            value={formik.values.pincode}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            variant="filled"
+            label="Pincode"
+            fullWidth
+          />
+          <span className="error">
+            {formik.touched.pincode && formik.errors.pincode}
+          </span>
+        </Grid>
         <Grid item xs={6} md={6} className="book-trail-form-field">
           <LocalizationProvider dateAdapter={DateAdapter}>
             <DateTimePicker
@@ -180,6 +141,9 @@ export default function UserForm({ formik }: any) {
               // onChange={(newValue) => {
               //     setValue(newValue);
               // }}
+              // format="MM/DD/YYYY hh:00 a"
+              views={["day", "hours"]}
+              inputFormat="yyyy/MM/dd HH:00 a"
               value={formik.values.trailDate}
               shouldDisableDate={checkDateDisabled}
               // onChange={(e, value) => {

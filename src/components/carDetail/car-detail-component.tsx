@@ -147,7 +147,7 @@ export default function CarDetailComponent({ carData }: any) {
                     </div>
                   </div>
 
-                  <div className="car-summary-group">
+                  {/* <div className="car-summary-group">
                     <div className="img-wrapper">
                       <img src={Setting.src} height={28} width={28} alt="" />
                     </div>
@@ -155,7 +155,7 @@ export default function CarDetailComponent({ carData }: any) {
                       <div className="car-summary-title">Warranty Until</div>
                       <div className="content">Sept 2022</div>
                     </div>
-                  </div>
+                  </div> */}
                   {/* <div className="car-summary-group">
                     <div className="img-wrapper">
                       <img src={Setting.src} height={28} width={28} alt="" />
