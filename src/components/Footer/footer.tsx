@@ -181,11 +181,11 @@ export default function Footer({
                         <a>Privacy policy</a>
                       </Link>
                     </li>
-                    {/* <li>
-                      <Link href="/car-listing">
-                        <a>Status</a>
+                    <li>
+                      <Link href="/contact-us">
+                        <a>Contact Us</a>
                       </Link>
-                    </li> */}
+                    </li>
                   </FooterLinkContainer>
                 </Grid>
               </Grid>

@@ -732,14 +732,15 @@ input[type="number"] {
 .landign-section .MuiContainer-root .MuiGrid-item .img-wrapper {
   position: absolute !important;
   /* top: 50% !important; */
-  transform: translate(0%, -50%);
+  /* transform: translate(0%, -50%); */
   /* transform: translateX(-50%); */
-  left: 0 !important;
+  /* left: -50% !important; */
+  left: 0%;
   z-index: 1;
   animation-name: carAnimation;
   animation-timing-function: linear;
   animation-duration: 3s;
-  animation-fill-mode: forwards;
+  /* animation-fill-mode: forwards; */
 }
 .tire {
   display: none;
@@ -792,10 +793,11 @@ input[type="number"] {
   }
   @keyframes carAnimation {
     from {
-      transform: translateX(-50%);
+      left: -50%;
     }
     to {
-      transform: translateX(0%);
+      /* transform: translateX(0%); */
+      left: 0%;
     }
   }
 
@@ -2505,6 +2507,27 @@ input:focus-visible {
   background: var(--primary-color);
 }
 
+.contact-us-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0px 20px;
+}
+
+.contact-us-card h4 {
+  margin: 0px 0px 15px 0px;
+  font-size: 32px;
+}
+
+.contact-us-page .btn-wrapper {
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.contact-us-page .btn-wrapper button {
+  margin: 0 0 0 auto;
+}
+
 @media (max-width: 992px) {
   .about-us-page .img-wrapper {
     text-align: center;
@@ -2521,6 +2544,9 @@ input:focus-visible {
   }
   .about-us-page p {
     line-height: 1.8rem;
+  }
+  .contact-us-card button {
+    margin: 0px 0px 0px auto !important;
   }
 }
 @media (max-width: 576px) {
@@ -2542,6 +2568,10 @@ input:focus-visible {
   .section-about-us h3::before {
     width: 200px;
     background-size: contain;
+  }
+
+  .contact-us-card {
+    padding: 20px;
   }
 }
 /* PAGE ABOUT US */

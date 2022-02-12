@@ -36,6 +36,7 @@ export default function Navbar() {
   const [authenticationError, setAuthenticationError] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
   const [otpModal, setOptModal] = useState(false);
+  const [sendOtp, setSendOtp] = useState<any>();
 
   // Context
   const { authenticated, setAuthenticated } = useContext(AuthContext);
@@ -87,13 +88,45 @@ export default function Navbar() {
   const handleOpen = () => {
     setAuthenticated(true);
     setOpen(true);
+    setSendOtp(null);
+    setAuthenticationError(null);
   };
   const handleClose = () => {
     setAuthenticated(false);
     setOpen(false);
+    setSendOtp(null);
+    setAuthenticationError(null);
   };
 
   // This Function if for generating otp
+  const _userSignUp = async (payload: any) => {
+    setSendOtp(null);
+    setLoading(true);
+    try {
+      const signUpApiCall = await authenticationService.userSignUp(payload);
+      if (!signUpApiCall.data.error) {
+        // const signUpData = {
+        //   userData: payload?.emailId,
+        // };
+        console.log(signUpApiCall.data);
+        // _generateOtp(signUpData);
+        setSendOtp("true");
+        setLoading(false);
+      } else {
+        setAuthenticationError(signUpApiCall.data.message);
+        setLoading(false);
+        setSendOtp(null);
+      }
+    } catch (error: any) {
+      console.log(error);
+      console.log(error?.request);
+      let errorResponse = JSON.parse(error?.request?.response);
+      console.log(errorResponse?.message);
+      setAuthenticationError(errorResponse?.message);
+      setLoading(false);
+      setSendOtp(null);
+    }
+  };
 
   const _generateOtp = async (payload: any) => {
     setOptModal(false);
@@ -101,8 +134,14 @@ export default function Navbar() {
     try {
       const generateOtpData = await otpService.generateOtp(payload);
       console.log(generateOtpData);
-      setOptModal(true);
-      setLoading(false);
+      if (!generateOtpData?.data?.error) {
+        setOptModal(true);
+        setLoading(false);
+      } else {
+        setOptModal(false);
+        setAuthenticationError(generateOtpData?.data?.error);
+        setLoading(false);
+      }
     } catch (error: any) {
       console.log(error?.request);
       let errorResponse = JSON.parse(error?.request?.response);
@@ -130,27 +169,6 @@ export default function Navbar() {
         setLoading(false);
       } else {
         setAuthenticationError(verifyOtpApiCall.data.message);
-        setLoading(false);
-      }
-    } catch (error: any) {
-      console.log(error);
-      console.log(error?.request);
-      let errorResponse = JSON.parse(error?.request?.response);
-      console.log(errorResponse?.message);
-      setAuthenticationError(errorResponse?.message);
-      setLoading(false);
-    }
-  };
-
-  const _userSignUp = async (payload: any) => {
-    setLoading(true);
-    try {
-      const signUpApiCall = await authenticationService.userSignUp(payload);
-      if (!signUpApiCall.data.error) {
-        console.log(signUpApiCall.data);
-        setLoading(false);
-      } else {
-        setAuthenticationError(signUpApiCall.data.message);
         setLoading(false);
       }
     } catch (error: any) {
@@ -374,6 +392,7 @@ export default function Navbar() {
             setAuthenticationError={setAuthenticationError}
             loading={loading}
             otpModal={otpModal}
+            sendOtp={sendOtp}
           />
         </Box>
       </Modal>

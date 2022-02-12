@@ -33,6 +33,7 @@ export default function Authenticate({
   loading,
   userSignUp,
   otpModal,
+  sendOtp,
 }: any) {
   // States
   const [value, setValue] = useState(0);
@@ -88,6 +89,7 @@ export default function Authenticate({
   // Functions
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+    setAuthenticationError(null);
   };
 
   const signInHandelSubmit = (values: any, { resetForm }: any) => {
@@ -122,6 +124,13 @@ export default function Authenticate({
     }, 1500);
   };
 
+  const sendOtpCaller = () => {
+    setLoggedInData({
+      userData: signUpData?.emailId,
+    });
+    // console.log("bad it is working of the loading");
+  };
+
   // const handleOtpOpen = () => setOptModal(true);
   // const handleOtpClose = () => setOptModal(false);
 
@@ -144,6 +153,12 @@ export default function Authenticate({
       verifyOtp(otpData, loggedInData);
     }
   }, [otpData]);
+
+  useEffect(() => {
+    if (sendOtp) {
+      sendOtpCaller();
+    }
+  }, [sendOtp]);
 
   return (
     <>

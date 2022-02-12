@@ -154,6 +154,7 @@ export default function BookTrail({ carData }: any) {
   // book trial api function
 
   const _bookTrail = async (payload: any) => {
+    setBookingError(null);
     setLoading(true);
     try {
       const bookTrailApiCall = await carService.bookTrial(payload);
