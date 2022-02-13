@@ -37,6 +37,7 @@ export default function Navbar() {
   const [loading, setLoading] = useState<boolean>(false);
   const [otpModal, setOptModal] = useState(false);
   const [sendOtp, setSendOtp] = useState<any>();
+  const [closeNavbar, setCloseNavbar] = useState<any>(false);
 
   // Context
   const { authenticated, setAuthenticated } = useContext(AuthContext);
@@ -55,6 +56,11 @@ export default function Navbar() {
     } else {
       document.body.classList.remove("overflow-hidden");
     }
+  };
+
+  const closeMenu = () => {
+    setIsActive(false);
+    document.body.classList.remove("overflow-hidden");
   };
   const ScrollBackground = () => {
     // console.log(window.scrollY);
@@ -198,6 +204,8 @@ export default function Navbar() {
       router.push({
         pathname: "/sell-car",
       });
+      closeMenu();
+      // console.log("closing...");
     } else {
       setAuthenticated(true);
     }
@@ -290,6 +298,8 @@ export default function Navbar() {
                 className={
                   isActive
                     ? "header-links-wrapper is-active"
+                    : closeNavbar
+                    ? "header-links-wrapper close-navbar"
                     : "header-links-wrapper"
                 }
               >
@@ -309,39 +319,55 @@ export default function Navbar() {
                       </a>
                     </li>
                     <li>
-                      <Link href="/car-collection">
-                        <a
-                          className={
-                            router.pathname == "/car-collection"
-                              ? "is-active"
-                              : ""
-                          }
-                        >
-                          Buy Car
-                        </a>
-                      </Link>
+                      <a
+                        onClick={() => {
+                          router.push({
+                            pathname: "/car-collection",
+                          });
+                          closeMenu();
+                        }}
+                        className={
+                          router.pathname == "/car-collection"
+                            ? "cursor-pointer is-active"
+                            : "cursor-pointer"
+                        }
+                      >
+                        Buy Car
+                      </a>
                     </li>
                     <li>
-                      <Link href="/faq">
-                        <a
-                          className={
-                            router.pathname == "/faq" ? "is-active" : ""
-                          }
-                        >
-                          FAQ
-                        </a>
-                      </Link>
+                      <a
+                        onClick={() => {
+                          router.push({
+                            pathname: "/faq",
+                          });
+                          closeMenu();
+                        }}
+                        className={
+                          router.pathname == "/faq"
+                            ? "cursor-pointer is-active"
+                            : "cursor-pointer"
+                        }
+                      >
+                        FAQ
+                      </a>
                     </li>
                     <li>
-                      <Link href="/about-us">
-                        <a
-                          className={
-                            router.pathname == "/about-us" ? "is-active" : ""
-                          }
-                        >
-                          About Us
-                        </a>
-                      </Link>
+                      <a
+                        onClick={() => {
+                          router.push({
+                            pathname: "/about-us",
+                          });
+                          closeMenu();
+                        }}
+                        className={
+                          router.pathname == "/about-us"
+                            ? "cursor-pointer is-active"
+                            : "cursor-pointer"
+                        }
+                      >
+                        About Us
+                      </a>
                     </li>
                     <li></li>
                   </ul>

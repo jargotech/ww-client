@@ -1987,6 +1987,10 @@ input:focus-visible {
   .header-links-wrapper.is-active {
     right: 0%;
   }
+
+  .header-links-wrapper.close-navbar {
+    right: -100%;
+  }
   .our-stats .MuiGrid-item:nth-child(even) {
     border-left: none !important;
   }
@@ -2573,6 +2577,7 @@ input:focus-visible {
   .contact-us-card {
     padding: 20px;
   }
+
 }
 /* PAGE ABOUT US */
 
@@ -2638,5 +2643,12 @@ input:focus-visible {
 @media (max-width: 768px) {
   .list-style-none {
     display: block;
+  }
+}
+
+@media (max-width:576px) {
+  .authenticate-wrapper{
+    max-width: 90%;
+    margin: 0 auto;
   }
 }
