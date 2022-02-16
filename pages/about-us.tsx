@@ -22,10 +22,10 @@ export default function AboutUs() {
               <h3 className="d-none d-md-block">About Us</h3>
               <p>
                 We’re one of the leading Pre-owned luxury car dealers in the
-                country. Set up in the year 2014 by our founder Raghib Khan,Wish
-                Wheels is committed to be delivering buying and selling fine
-                cars in the city of Mumbai and pan India.Our office base is in
-                Mumbai, eyeing for an expansion in 5 to 7 cities by 2024.
+                country. Set up in the year 2014 by our founder Raghib Khan,
+                Wish Wheels is committed to be delivering buying and selling
+                fine cars in the city of Mumbai and pan India. Our office base
+                is in Mumbai, eyeing for an expansion in 5 to 7 cities by 2024.
               </p>
             </Grid>
             <Grid item xs={12} sm={6} className="text-right">
@@ -104,10 +104,10 @@ export default function AboutUs() {
             <Grid item xs={12} md={6} className=" d-flex align-item-center">
               <p>
                 We sell top notch, luxury PreOwned cars in return of
-                unparalleled emotions and unforgettable memories.Our method of
+                unparalleled emotions and unforgettable memories. Our method of
                 procuring a car, viz. buying car from a customer is so easy and
                 hassle free that it makes us stand ahead of most of our
-                contemporaries.Similarly our sales are equally smooth hence
+                contemporaries. Similarly our sales are equally smooth hence
                 customer’s don’t mind feel lagged and dragged while booking a
                 vehicle from us.
               </p>
@@ -127,7 +127,7 @@ export default function AboutUs() {
             >
               <p>
                 We sell top notch, luxury PreOwned cars in return of
-                unparalleled emotions and unforgettable memories.Our method of
+                unparalleled emotions and unforgettable memories. Our method of
                 procuring a car, viz. buying car from a customer is so easy and
                 hassle free that it makes us stand ahead of most of our
                 contemporaries.Similarly our sales are equally smooth hence

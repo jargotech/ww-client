@@ -29,7 +29,7 @@ export default function HowItWorks() {
         <Grid container spacing={2}>
           <Grid item xs={12} md={3} sx={{ marginBottom: "15px" }}>
             <Image src={Archive} height={64} width={64} alt="createLogo" />
-            <h4>Share Details</h4>
+            <h4>Share details</h4>
             <p>Give us details of your car</p>
           </Grid>
           <Grid item xs={12} md={3} sx={{ marginBottom: "15px" }}>
@@ -42,7 +42,7 @@ export default function HowItWorks() {
           </Grid>
           <Grid item xs={12} md={3} sx={{ marginBottom: "15px" }}>
             <Image src={Badge} height={64} width={64} alt="createLogo" />
-            <h4>Recive offer</h4>
+            <h4>Receive offer</h4>
             <p>
               As the team evaluates the value of asset, and reverts back with
               prices.
