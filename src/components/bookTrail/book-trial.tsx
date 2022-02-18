@@ -180,9 +180,9 @@ export default function BookTrail({ carData }: any) {
     if (steps?.length == activeStep) {
       // This is last step
       setTimeout(() => {
-        router.push("/");
+        router.push("/car-collection");
         overflowHidden(false);
-      }, 2000);
+      }, 3000);
     }
   }, [activeStep]);
 

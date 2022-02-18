@@ -1,16 +1,23 @@
-import { Grid } from "@mui/material";
+/* eslint-disable @next/next/no-img-element */
+import { Container, Grid } from "@mui/material";
 import { Form, Formik } from "formik";
 import React, { useState, useEffect } from "react";
 import SiteButton from "../src/components/Button";
 import { StyledTextField } from "../src/components/GlobalElements";
 import * as Yup from "yup";
 import { ContactUsService } from "../src/services/contact-us";
+import Link from "next/link";
+import SuccessBookingPng from "../public/success-booking.png";
+import phoneIcon from "../public/phone.svg";
+import locationIcon from "../public/map-marker.svg";
+import envelopeIcon from "../public/envelope.svg";
 
 export default function ContactUs() {
   // States
   const [contactUsData, setContactUsData] = useState<any>();
   const [loading, setLoading] = useState<any>();
   const [contactUsError, setContactUsError] = useState<any>();
+  const [successAlert, setSuccessAlert] = useState<boolean>(false);
 
   // Variables
   const phoneRegExp =
@@ -58,6 +65,7 @@ export default function ContactUs() {
   };
 
   const _contactUs = async (payload: any) => {
+    setSuccessAlert(false);
     setContactUsError(null);
     setLoading(true);
     try {
@@ -65,6 +73,7 @@ export default function ContactUs() {
       if (!contactUsApiCall.data.error) {
         console.log(contactUsApiCall.data.data);
         setLoading(false);
+        setSuccessAlert(true);
       } else {
         console.log(contactUsApiCall.data.error);
         setContactUsError(contactUsApiCall.data.error);
@@ -79,6 +88,8 @@ export default function ContactUs() {
     }
   };
 
+  const overflowHidden = (event: any) => {};
+
   // Effects
   useEffect(() => {
     if (contactUsData) {
@@ -86,148 +97,222 @@ export default function ContactUs() {
     }
   }, [contactUsData]);
 
+  useEffect(() => {
+    if (successAlert) {
+      setTimeout(() => {
+        setSuccessAlert(false);
+      }, 3000);
+    }
+  }, [successAlert]);
+
   return (
     <div className="contact-us-page">
-      <div className="contact-us-card">
-        <h4>Tell us</h4>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {(props: any) => (
-            <Form id="sell-car" autoComplete="off" className="car-from">
-              <Grid container spacing={2}>
-                <Grid
-                  item
-                  xs={6}
-                  md={6}
-                  className="book-trail-form-field sell-car"
-                >
-                  <StyledTextField
-                    required
-                    name="firstName"
-                    autoComplete={"" + Math.random()}
-                    error
-                    value={props.values.firstName}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    variant="filled"
-                    label="First Name"
-                    fullWidth
-                  />
-                  <span className="error">
-                    {props.touched.firstName && props.errors.firstName}
-                  </span>
-                </Grid>
-                <Grid
-                  item
-                  xs={6}
-                  md={6}
-                  className="book-trail-form-field sell-car"
-                >
-                  <StyledTextField
-                    name="lastName"
-                    autoComplete={"" + Math.random()}
-                    error
-                    value={props.values.lastName}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    variant="filled"
-                    label="Last Name"
-                    fullWidth
-                  />
-                  <span className="error">
-                    {props.touched.lastName && props.errors.lastName}
-                  </span>
-                </Grid>
-                <Grid item xs={12} className="book-trail-form-field sell-car">
-                  <StyledTextField
-                    required
-                    name="emailId"
-                    autoComplete={"" + Math.random()}
-                    error
-                    value={props.values.emailId}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    variant="filled"
-                    label="Email"
-                    fullWidth
-                  />
-                  <span className="error">
-                    {props.touched.emailId && props.errors.emailId}
-                  </span>
-                </Grid>
-                <Grid item xs={12} className="book-trail-form-field sell-car">
-                  <StyledTextField
-                    required
-                    name="phoneNumber"
-                    autoComplete={"" + Math.random()}
-                    error
-                    value={props.values.phoneNumber}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    variant="filled"
-                    label="Phone Number"
-                    fullWidth
-                  />
-                  <span className="error">
-                    {props.touched.phoneNumber && props.errors.phoneNumber}
-                  </span>
-                </Grid>
-                <Grid item xs={12} className="book-trail-form-field sell-car">
-                  <StyledTextField
-                    required
-                    name="cityName"
-                    autoComplete={"" + Math.random()}
-                    error
-                    value={props.values.cityName}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    variant="filled"
-                    label="City Name"
-                    fullWidth
-                  />
-                  <span className="error">
-                    {props.touched.cityName && props.errors.cityName}
-                  </span>
-                </Grid>
-                <Grid item xs={12} className="book-trail-form-field sell-car">
-                  <StyledTextField
-                    required
-                    name="query"
-                    autoComplete={"" + Math.random()}
-                    error
-                    value={props.values.query}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    variant="filled"
-                    label="Message"
-                    multiline
-                    rows={5}
-                    fullWidth
-                  />
-                  <span className="error">
-                    {props.touched.query && props.errors.query}
-                  </span>
-                </Grid>
-                <Grid item xs={12} className="book-trail-form-field sell-car">
-                  <div className="btn-wrapper">
-                    <span className="Authentication-error error">
-                      {contactUsError}
-                    </span>
-                    <SiteButton
-                      type="submit"
-                      disabled={!(props.isValid && props.dirty) || loading}
-                      text={loading ? "Submiting..." : "Submit"}
-                    />
-                  </div>
-                </Grid>
-              </Grid>
-            </Form>
-          )}
-        </Formik>
-      </div>
+      {successAlert && (
+        <div>
+          <div className="dropbox"></div>
+          <div className="succes-card">
+            {overflowHidden(true)}
+            <img src={SuccessBookingPng.src} alt="succes booking" />
+            <h4>Thanks for connecting!</h4>
+            <p>
+              Our team will contact you shortly, please check your registered
+              email.
+            </p>
+            <Link href="/">Home</Link>
+          </div>
+        </div>
+      )}
+      <Container maxWidth="lg">
+        <Grid container spacing={2}>
+          <Grid item md={6} xs={12}>
+            <h4 className="page-title">Get in touch</h4>
+            <p>
+              For general enquiries feel free to contact us via phone or email
+            </p>
+            <div className="contact-detail">
+              <a href="tel:9339223920">
+                <img src={phoneIcon.src} alt="" />
+                <span>9339223920</span>
+              </a>
+              <a href="mailto:wishwheel@gmail.com">
+                <img src={envelopeIcon.src} alt="" />
+                <span>wishwheel@gmail.com</span>
+              </a>
+              <a href="#">
+                <img src={locationIcon.src} alt="" />
+                <address>
+                  Emerene Heights, Convent Ave, Willingdon, Santacruz West,
+                  Mumbai, Maharashtra 400054
+                </address>
+              </a>
+            </div>
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <div className="contact-us-card">
+              <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+              >
+                {(props: any) => (
+                  <Form id="sell-car" autoComplete="off" className="car-from">
+                    <Grid container spacing={2}>
+                      <Grid
+                        item
+                        xs={6}
+                        md={6}
+                        className="book-trail-form-field sell-car"
+                      >
+                        <StyledTextField
+                          required
+                          name="firstName"
+                          autoComplete={"" + Math.random()}
+                          error
+                          value={props.values.firstName}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                          variant="filled"
+                          label="First Name"
+                          fullWidth
+                        />
+                        <span className="error">
+                          {props.touched.firstName && props.errors.firstName}
+                        </span>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={6}
+                        md={6}
+                        className="book-trail-form-field sell-car"
+                      >
+                        <StyledTextField
+                          name="lastName"
+                          autoComplete={"" + Math.random()}
+                          error
+                          value={props.values.lastName}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                          variant="filled"
+                          label="Last Name"
+                          fullWidth
+                        />
+                        <span className="error">
+                          {props.touched.lastName && props.errors.lastName}
+                        </span>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        className="book-trail-form-field sell-car"
+                      >
+                        <StyledTextField
+                          required
+                          name="emailId"
+                          autoComplete={"" + Math.random()}
+                          error
+                          value={props.values.emailId}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                          variant="filled"
+                          label="Email"
+                          fullWidth
+                        />
+                        <span className="error">
+                          {props.touched.emailId && props.errors.emailId}
+                        </span>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        className="book-trail-form-field sell-car"
+                      >
+                        <StyledTextField
+                          required
+                          name="phoneNumber"
+                          autoComplete={"" + Math.random()}
+                          error
+                          value={props.values.phoneNumber}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                          variant="filled"
+                          label="Phone Number"
+                          fullWidth
+                        />
+                        <span className="error">
+                          {props.touched.phoneNumber &&
+                            props.errors.phoneNumber}
+                        </span>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        className="book-trail-form-field sell-car"
+                      >
+                        <StyledTextField
+                          required
+                          name="cityName"
+                          autoComplete={"" + Math.random()}
+                          error
+                          value={props.values.cityName}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                          variant="filled"
+                          label="City Name"
+                          fullWidth
+                        />
+                        <span className="error">
+                          {props.touched.cityName && props.errors.cityName}
+                        </span>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        className="book-trail-form-field sell-car"
+                      >
+                        <StyledTextField
+                          required
+                          name="query"
+                          autoComplete={"" + Math.random()}
+                          error
+                          value={props.values.query}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                          variant="filled"
+                          label="Message"
+                          multiline
+                          rows={5}
+                          fullWidth
+                        />
+                        <span className="error">
+                          {props.touched.query && props.errors.query}
+                        </span>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        className="book-trail-form-field sell-car"
+                      >
+                        <div className="btn-wrapper">
+                          <span className="Authentication-error error">
+                            {contactUsError}
+                          </span>
+                          <SiteButton
+                            type="submit"
+                            disabled={
+                              !(props.isValid && props.dirty) || loading
+                            }
+                            text={loading ? "Submiting..." : "Submit"}
+                          />
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </Grid>
+        </Grid>
+      </Container>
     </div>
   );
 }
