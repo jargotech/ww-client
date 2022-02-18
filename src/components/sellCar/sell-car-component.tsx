@@ -27,88 +27,62 @@ import MediaQuery from "react-responsive";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import HelloImage from "../../../public/Hello-bro.svg";
+import moment from "moment";
+import Link from "next/link";
+import SuccesBookingPng from "../../../public/success-booking.png";
+import { min } from "date-fns";
+import { CarService } from "../../services/cars/carService";
+import { userJwtData } from "../../utils/getAccessToken";
+import { margin } from "@mui/system";
 
 // const steps = ["step1", "step2", "step3", "step4"];
-const steps = ["step1", "step2"];
+const steps = ["step1"];
 export default function SellCarComponent() {
+  // States
   const [activeStep, setActiveStep] = useState(0);
   const [data, setData] = useState();
+  const [sellCarData, setSellCarData] = useState<any>();
+  const [loading, setLoading] = useState<any>();
+  const [sellCarError, setSellCarError] = useState<any>();
+
+  // Context
+
+  // Variables
   const isLastStep = activeStep === steps.length - 1;
   const router = useRouter();
-
-  const BookTrailInitialValues = {
-    firstName: "",
-    lastName: "",
-    mobile: "",
-    email: "",
-    address1: "",
-    address2: "",
-    city: {},
-    trailDate: null,
-    year: "",
-    manifacture: "",
-    model: "",
-    kmTraveled: "",
-    fuelType: "",
-    owner: "",
-    otp1: "",
-    otp2: "",
-    otp3: "",
-    otp4: "",
-    otp5: "",
-    otp6: "",
-  };
-
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-  const BookTrialSchema = [
-    // Yup.object().shape({
-    //   firstName: Yup.string()
-    //     .min(2, "Too Short!")
-    //     .max(50, "Too Long!")
-    //     .required("Field cannot be blank"),
-    //   lastName: Yup.string()
-    //     .min(2, "Too Short!")
-    //     .max(50, "Too Long!")
-    //     .required("Field cannot be blank"),
-    //   mobile: Yup.string()
-    //     .matches(phoneRegExp, "Phone number is not valid")
-    //     .required("Field cannot be blank"),
-    //   email: Yup.string()
-    //     .email("Must be a valid email")
-    //     .max(255)
-    //     .required("Field cannot be blank"),
-    //   address1: Yup.string().required("Field cannot be blank"),
-    //   address2: Yup.string(),
-    //   city: Yup.object({
-    //     name: Yup.string().required("Field cannot be blank"),
-    //   }),
-    // }),
+  const BookTrailInitialValues = {
+    brandId: "",
+    modelId: "",
+    year: new Date(),
+    ownerShip: "",
+    milege: "",
+    fuelType: "",
+    kmDriven: "",
+    registrationStateId: "",
+    pincode: "",
+    cityName: "",
+  };
 
-    Yup.object().shape({
-      year: Yup.number().min(4).required(),
-      manifacture: Yup.string()
-        .min(2, "Too Short!")
-        .max(50, "Too Long!")
-        .required("Field cannot be blank"),
-      model: Yup.string().required("Field cannot be blank"),
-      kmTraveled: Yup.number().min(3).required("Field cannot be blank"),
-      fuelType: Yup.string().required("Field cannot be blank"),
-      owner: Yup.string().required("Field cannot be blank"),
-    }),
+  const BookTrialSchema = Yup.object().shape({
+    brandId: Yup.string().required("This field can't be blank "),
+    modelId: Yup.string().min(2).required("this field can't be blank"),
+    year: Yup.string().required("Year cannot be empty"),
+    ownerShip: Yup.string().required("This field can't be blank"),
+    milege: Yup.number().min(2).required("This field can't be blank"),
+    fuelType: Yup.string().required("This field can't be blank"),
+    kmDriven: Yup.number().min(2).required("This field can't be blank"),
+    registrationStateId: Yup.string().required("This field can't be blank"),
+    pincode: Yup.number().required("This field can't be blank"),
+    cityName: Yup.string().required("This field can't be blank"),
+  });
 
-    // Yup.object().shape({
-    //   otp1: Yup.number().required(),
-    //   otp2: Yup.number().required(),
-    //   otp3: Yup.number().required(),
-    //   otp4: Yup.number().required(),
-    //   otp5: Yup.number().required(),
-    //   otp6: Yup.number().required(),
-    // }),
-  ];
+  const currentValidationSchema = BookTrialSchema;
+  const carService = new CarService();
 
-  const currentValidationSchema = BookTrialSchema[activeStep];
+  // Functions
 
   function _sleep(ms: any) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -117,30 +91,107 @@ export default function SellCarComponent() {
   const RedirectHomePage = () => {
     router.push("/");
   };
-  async function _submitForm(values: any, actions: any) {
-    await _sleep(1000);
-    // alert(JSON.stringify(values, null, 2));
-    // _createBooking(myPost);
-    // setData(values);
-    console.log(JSON.stringify(values, null, 2));
-    // actions.setSubmitting(false);
 
-    setActiveStep(activeStep + 1);
+  async function _submitForm(values: any) {
+    // await _sleep(1000);
+    const {
+      brandId,
+      modelId,
+      year,
+      ownerShip,
+      milege,
+      fuelType,
+      kmDriven,
+      registrationStateId,
+      pincode,
+      cityName,
+    } = values;
+    // console.log(JSON.stringify(values, null, 2));
+    // const year = values?.year;
+    // console.log(moment(year).format("YYYY"));
+    setSellCarData({
+      userId: userJwtData(),
+      brandId,
+      modelId,
+      year: moment(year).format("YYYY"),
+      ownerShip,
+      milege,
+      fuelType,
+      kmDriven,
+      registrationStateId,
+      pincode,
+      cityName,
+    });
+    // setActiveStep(activeStep + 1);
   }
 
   function _handleSubmit(values: any, actions: any) {
     if (isLastStep) {
-      _submitForm(values, actions);
+      _submitForm(values);
+      actions.resetForm();
+
+      // setActiveStep(activeStep + 1);
     } else {
       setActiveStep(activeStep + 1);
       actions.setTouched({});
       actions.setSubmitting(false);
+      actions.resetForm();
     }
   }
 
   function _handleBack() {
     setActiveStep(activeStep - 1);
   }
+
+  const overflowHidden = (hide: any) => {
+    if (hide) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  };
+
+  const _sellCar = async (payload: any) => {
+    setSellCarError(null);
+    setLoading(true);
+    try {
+      const sellCarApiCall = await carService.sellCar(payload);
+      if (!sellCarApiCall.data.error) {
+        console.log(sellCarApiCall.data);
+        setActiveStep(activeStep + 1);
+        setLoading(false);
+      } else {
+        setSellCarError(sellCarApiCall.data.error);
+        // console.log();
+
+        setLoading(false);
+      }
+    } catch (error: any) {
+      console.log(error);
+      let errorResponse = JSON.parse(error?.request?.response);
+      console.log(errorResponse?.message);
+      setSellCarError(errorResponse?.message);
+      setLoading(false);
+    }
+  };
+
+  // Effects
+
+  useEffect(() => {
+    if (steps?.length == activeStep) {
+      // This is last step
+      setTimeout(() => {
+        router.push("/");
+        overflowHidden(false);
+      }, 5000);
+    }
+  }, [activeStep]);
+
+  useEffect(() => {
+    if (sellCarData) {
+      _sellCar(sellCarData);
+    }
+  }, [sellCarData]);
 
   return (
     <section className="book-trail">
@@ -156,66 +207,65 @@ export default function SellCarComponent() {
           }}
         >
           <Grid item lg={6} className="order-md-2">
-            <MediaQuery query="(min-width: 992px)">
+            {/* <MediaQuery query="(min-width: 992px)">
               <StyledStepper activeStep={activeStep} steps={steps} />
-            </MediaQuery>
+            </MediaQuery> */}
             <h5>Hear from our Inspection team </h5>
 
             {activeStep === steps.length ? (
-              <Alert variant="outlined" severity="success">
-                This is a success alert — check it out!
-                {RedirectHomePage()}
-              </Alert>
+              <div>
+                <div className="dropbox"></div>
+                <div className="succes-card">
+                  {overflowHidden(true)}
+                  <img src={SuccesBookingPng.src} alt="succes booking" />
+                  <h4>You’ve sucessfully booked trail!</h4>
+                  <p>
+                    You will be receiving a confirmation on your registered
+                    mobile number & email.
+                  </p>
+                  <Link href="/">Explore Collection</Link>
+                </div>
+              </div>
             ) : (
-              <Formik
-                initialValues={BookTrailInitialValues}
-                // validationSchema={currentValidationSchema}
-                onSubmit={_handleSubmit}
-              >
-                {(props: any) => (
-                  <Form
-                    id="sell-car"
-                    autoComplete="off"
-                    className={isLastStep ? "car-form is-active" : "car-from"}
-                  >
-                    {/* {_renderStepContent(activeStep)} */}
-                    {activeStep == 0 ? (
-                      // OLD
-                      // <UserForm formik={props} />
+              <>
+                <Formik
+                  initialValues={BookTrailInitialValues}
+                  validationSchema={currentValidationSchema}
+                  onSubmit={_handleSubmit}
+                >
+                  {(props: any) => (
+                    <Form id="sell-car" autoComplete="off" className="car-from">
+                      {/* {_renderStepContent(activeStep)} */}
+                      {activeStep == 0 ? (
+                        // OLD
+                        // <UserForm formik={props} />
+                        <CarDetailForm formik={props} />
+                      ) : null}
+                      <div
+                        style={{
+                          position: "relative",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          margin: "20px 0 0 auto",
+                        }}
+                      >
+                        <span className="Authentication-error error">
+                          {sellCarError}
+                        </span>
 
-                      <CarDetailForm formik={props} />
-                    ) : activeStep == 1 ? (
-                      <UploadInput />
-                    ) : //   <CarDetailForm formik={props} />
-                    activeStep == 2 ? (
-                      <OtpForm formik={props} />
-                    ) : // : //   <UploadInput />
-                    // activeStep == 3 ? (
-                    //   <OtpForm formik={props} />
-                    // )
-                    null}
-                    <div
-                      style={{
-                        position: "relative",
-                        display: "table",
-                        margin: "20px 0 0 auto",
-                      }}
-                    >
-                      <SiteButton
-                        type="submit"
-                        styles={{ marginLeft: "auto" }}
-                        disabled={!(props.isValid && props.dirty)}
-                        text={
-                          isLastStep
-                            ? "Done"
-                            : activeStep == 1
-                            ? "Book"
-                            : "Next"
-                        }
-                        arrow={isLastStep ? false : true}
-                      />
+                        <div className="sell-car-btn">
+                          <SiteButton
+                            type="submit"
+                            disabled={
+                              !(props.isValid && props.dirty) || loading
+                            }
+                            text={loading ? "sending..." : "Done"}
+                            arrow={isLastStep ? false : true}
+                          />
+                        </div>
 
-                      {props.isSubmitting && (
+                        {/* {props.isSubmitting && (
                         <CircularProgress
                           sx={{
                             position: "absolute",
@@ -226,17 +276,18 @@ export default function SellCarComponent() {
                           }}
                           size={24}
                         />
-                      )}
-                    </div>
-                  </Form>
-                )}
-              </Formik>
+                      )} */}
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
+              </>
             )}
           </Grid>
           <Grid item lg={6} className="order-md-1">
-            <MediaQuery query="(max-width: 992px)">
+            {/* <MediaQuery query="(max-width: 992px)">
               <StyledStepper activeStep={activeStep} steps={steps} />
-            </MediaQuery>
+            </MediaQuery> */}
             <Grid item lg={9} sx={{ margin: "0 auto", alignItems: "center" }}>
               {/* <CarCards variant="card2" hideButton={true} style={{ marginBottom: '10px' }} /> */}
               <Image src={HelloImage} height={480} width={560} alt="image" />

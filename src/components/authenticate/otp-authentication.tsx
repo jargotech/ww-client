@@ -1,33 +1,30 @@
-import { Grid } from '@mui/material'
-import { Formik, Form } from 'formik'
-import React from 'react'
-import SiteButton from '../Button'
-import OtpForm from '../form/otpForm'
-import { StyledTextField } from '../GlobalElements'
+import { Grid } from "@mui/material";
+import { Formik, Form } from "formik";
+import React from "react";
+import SiteButton from "../Button";
+import OtpForm from "../form/otpForm";
+import { StyledTextField } from "../GlobalElements";
 
 export default function OtpAuthentication() {
-    // States
+  // States
 
-    // Varialbes
-    const initialValues = {
-        otp1: '',
-        otp2: '',
-        otp3: '',
-        otp4: '',
-        otp5: '',
-        otp6: '',
+  // Varialbes
+  const initialValues = {
+    otp1: "",
+    otp2: "",
+    otp3: "",
+    otp4: "",
+    otp5: "",
+    otp6: "",
+  };
 
-    }
+  // Functions
 
-    
+  // Effects
 
-    // Functions
-
-    // Effects
-
-    return (
-        <div>
-            {/* <Formik
+  return (
+    <div>
+      {/* <Formik
                 initialValues={initialValues}
                 // validationSchema={validationSchema}
                 onSubmit={handelSubmit}
@@ -51,6 +48,6 @@ export default function OtpAuthentication() {
                     </Form>
                 )}
             </Formik> */}
-        </div>
-    )
+    </div>
+  );
 }

@@ -321,6 +321,7 @@
 :root {
   --primary-fonts: "SF Compact Display";
   --secondary-fonts: "SF Pro Display";
+  --primary-color: #f7f3d0;
   --secondary--color: #640e27;
 }
 html {
@@ -348,7 +349,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 .site-main {
-  height: calc(100vh - 84px);
+  height: calc(100vh - 64px);
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
@@ -359,7 +360,16 @@ input[type="number"] {
   display: flex;
   align-items: center;
 }
-@media (max-width: 768px) {
+.site-main::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.site-main {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+@media (max-width: 840px) {
   .site-main {
     height: unset;
     overflow-y: auto;
@@ -495,6 +505,31 @@ input[type="number"] {
 }
 .site-header.is-active .header-links-wrapper {
   top: 73px;
+}
+.flex-box {
+  display: flex;
+  align-items: center;
+}
+.site-brand {
+  display: flex;
+  align-items: center;
+}
+.site-brand > span {
+  margin-right: 7px !important;
+}
+.site-brand h1 {
+  margin: 0px;
+  font-size: 30px;
+  line-height: normal;
+}
+@media (max-width: 768px) {
+  .flex-box .btn-nav-toggler {
+    order: 2;
+  }
+
+  .flex-box .MuiAvatar-root {
+    margin-right: 15px;
+  }
 }
 
 .site-header.fixed {
@@ -697,14 +732,15 @@ input[type="number"] {
 .landign-section .MuiContainer-root .MuiGrid-item .img-wrapper {
   position: absolute !important;
   /* top: 50% !important; */
-  transform: translate(0%, -50%);
+  /* transform: translate(0%, -50%); */
   /* transform: translateX(-50%); */
-  left: 0 !important;
+  /* left: -50% !important; */
+  left: 0%;
   z-index: 1;
   animation-name: carAnimation;
   animation-timing-function: linear;
   animation-duration: 3s;
-  animation-fill-mode: forwards;
+  /* animation-fill-mode: forwards; */
 }
 .tire {
   display: none;
@@ -731,7 +767,7 @@ input[type="number"] {
   animation-delay: 1s;
   animation-fill-mode: forwards;
 }
-@media (max-width: 768px) {
+@media (max-width: 840px) {
   .tire {
     height: 135px;
     width: 135px;
@@ -751,16 +787,17 @@ input[type="number"] {
     max-width: 100%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 840px) {
   .tire {
     display: block;
   }
   @keyframes carAnimation {
     from {
-      transform: translateX(-50%);
+      left: -50%;
     }
     to {
-      transform: translateX(0%);
+      /* transform: translateX(0%); */
+      left: 0%;
     }
   }
 
@@ -834,7 +871,7 @@ input[type="number"] {
     margin: 0 auto;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 840px) {
   .landign-section h3 {
     font-size: 50px;
     margin-bottom: 10px;
@@ -842,6 +879,9 @@ input[type="number"] {
   }
   .landign-section p {
     margin-bottom: 30px;
+  }
+  .site-brand h1 {
+    font-size: 24px;
   }
 }
 @media (max-width: 576px) {
@@ -892,7 +932,7 @@ input[type="number"] {
 .cta-banner {
   padding: 70px 0px;
   background: #191919;
-  margin: 45px 0px;
+  margin: 40px 0px 20px 0px;
   position: relative;
 }
 
@@ -907,14 +947,16 @@ input[type="number"] {
   font-weight: bold;
   font-size: 62px;
   color: #ffffff;
-  margin: 0px 0px 30px 0px;
+  max-width: calc(100% - 200px);
+  text-align: center;
+  margin: 0px auto;
 }
 
 @media (max-width: 992px) {
-  .cta-banner h3 {
+  /* .cta-banner h3 {
     padding: 200px 0px 0px 0px;
     text-align: center;
-  }
+  } */
   .section-title {
     font-size: 28px;
   }
@@ -922,11 +964,11 @@ input[type="number"] {
 @media (max-width: 767px) {
   .cta-banner h3 {
     font-size: 38px;
-    padding: 130px 0px 0px 0px;
+    /* padding: 130px 0px 0px 0px; */
   }
-  .cta-banner .MuiContainer-root > span {
+  /* .cta-banner .MuiContainer-root > span {
     width: 150px !important;
-  }
+  } */
   .section-title {
     font-size: 24px;
   }
@@ -1068,25 +1110,17 @@ input[type="number"] {
 
 /* cars-cards component */
 .cars-cards {
-  background: #ffffff;
-  filter: none;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid lightgray;
   cursor: pointer;
-  box-shadow: none;
-  transition: 0.5s ease;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px #e0e0e0;
+  transition: 0.3s ease;
+  overflow: hidden;
 }
 .cars-cards:hover {
-  border-color: transparent;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-.cars-cards.card2 {
-  min-height: 457px;
-  transition: 0.5s ease-in-out;
-}
-.cars-cards.card2:hover {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  /* border-color: transparent; */
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .cars-cards .content {
@@ -1115,6 +1149,10 @@ input[type="number"] {
   }
   .book-trail .cars-cards.card2 {
     min-height: unset;
+  }
+  .cta-banner h3 {
+    font-size: 24px;
+    max-width: 80%;
   }
 }
 .cars-cards img {
@@ -1351,6 +1389,9 @@ input[type="number"] {
   border-left: 2px solid #a5a6f6;
   transition: 0.3s ease;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
 
 .faq-wrapper ul.faq-list li:hover,
 .faq-wrapper ul.faq-list li[aria-selected="true"] {
@@ -1505,7 +1546,7 @@ input[type="number"] {
   font-weight: 400;
   font-size: 16px;
   color: #191919;
-  margin-left: 16px;
+  /* margin-left: 16px; */
 }
 .book-trail .light-text {
   font-size: 12px;
@@ -1844,8 +1885,11 @@ input:focus-visible {
 }
 .car-meta-deatil ul li img {
   display: inline-block;
-  margin-right: 8px;
+  margin-right: 5px;
   max-width: 20px;
+}
+.car-meta-deatil ul li:not(:last-child) {
+  margin-right: 15px;
 }
 .car-meta-deatil ul li span {
   font-weight: 700;
@@ -1860,6 +1904,7 @@ input:focus-visible {
   }
   .make-offer-cta h4 {
     font-size: 24px;
+    margin: 0px;
   }
   .car-detail h3 {
     font-size: 30px;
@@ -1884,7 +1929,7 @@ input:focus-visible {
   }
   .make-offer-cta h4 {
     font-size: 22px;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
   }
   .car-detail-img {
     max-width: 100%;
@@ -1901,7 +1946,7 @@ input:focus-visible {
   .car-listing {
     padding: 10px 0px 30px 0px;
   }
-  .car-detail-container{
+  .car-detail-container {
     padding: 30px 0px 50px 0px;
   }
 }
@@ -1917,7 +1962,7 @@ input:focus-visible {
     border-left: 1px solid #ffffff !important;
   }
   .our-stats .MuiGrid-item:nth-child(odd) {
-    border-left: 1px solid transparent !important;
+    border-left: none !important;
   }
   .cars-cards .price {
     font-size: 22px;
@@ -1930,7 +1975,7 @@ input:focus-visible {
   }
   .header-links-wrapper {
     position: fixed;
-    top: 84px;
+    top: 65px;
     right: -100%;
     bottom: 0;
     padding: 40px;
@@ -1941,6 +1986,10 @@ input:focus-visible {
   }
   .header-links-wrapper.is-active {
     right: 0%;
+  }
+
+  .header-links-wrapper.close-navbar {
+    right: -100%;
   }
   .our-stats .MuiGrid-item:nth-child(even) {
     border-left: none !important;
@@ -2017,6 +2066,9 @@ input:focus-visible {
   }
   .how-it-works {
     padding: 30px 0px;
+  }
+  .all-summary-of-car {
+    grid-template-columns: auto;
   }
 }
 
@@ -2131,6 +2183,63 @@ input:focus-visible {
   right: 0;
 }
 
+.succes-card {
+  max-width: 600px;
+  width: 100%;
+  padding: 40px;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  z-index: 99;
+  border-radius: 12px;
+}
+.succes-card img {
+  max-width: 100px;
+}
+.succes-card h4 {
+  font-weight: 700;
+  font-size: 28px;
+  text-align: center;
+  color: #191919;
+  margin: 0px 0px 10px 0px;
+}
+.succes-card p {
+  font-size: 14px;
+  color: #a8a8a8;
+  margin: 0px 0px 10px 0px;
+}
+.succes-card a {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  color: #640e27;
+  position: relative;
+}
+
+.succes-card a::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  background: #640e27;
+  bottom: -5px;
+  left: 0;
+}
+
+.dropbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #00000080;
+  z-index: 99;
+}
 @media (max-width: 992px) {
   .page-not-found .icon404-wrapper {
     max-width: 700px;
@@ -2166,6 +2275,15 @@ input:focus-visible {
       left: -65%;
       bottom: -35%;
     }
+    .succes-card img {
+      max-width: 80px;
+    }
+    .succes-card {
+      max-width: 90%;
+    }
+    .succes-card h4 {
+      font-size: 24px;
+    }
   }
 }
 
@@ -2174,8 +2292,12 @@ input:focus-visible {
   color: tomato;
   position: absolute;
   bottom: -15px;
-  left: 15px;
+  left: 30px;
 }
+.Authentication-error.error {
+  position: unset;
+}
+
 .required:after {
   content: " *";
   color: red;
@@ -2198,6 +2320,23 @@ input:focus-visible {
 }
 .book-trail-form-field .MuiFormControl-root {
   background: rgba(0, 0, 0, 0.06);
+  border-radius: 4px 4px 0px 0px;
+}
+.book-trail-form-field .MuiFilledInput-root {
+  background: transparent;
+}
+
+.book-trail-form-field.sell-car .MuiFormControl-root input {
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+.book-trail-form-field .MuiOutlinedInput-notchedOutline {
+  border: 0px;
+}
+
+.sell-car-btn button {
+  margin: 0px !important;
 }
 
 @media (max-width: 576px) {
@@ -2365,6 +2504,34 @@ input:focus-visible {
 .about-us-page .section-title {
   margin-bottom: 50px;
 }
+
+.name-avatar {
+  border: 1px solid var(--secondary--color);
+  color: var(--secondary--color);
+  background: var(--primary-color);
+}
+
+.contact-us-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0px 20px;
+}
+
+.contact-us-card h4 {
+  margin: 0px 0px 15px 0px;
+  font-size: 32px;
+}
+
+.contact-us-page .btn-wrapper {
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.contact-us-page .btn-wrapper button {
+  margin: 0 0 0 auto;
+}
+
 @media (max-width: 992px) {
   .about-us-page .img-wrapper {
     text-align: center;
@@ -2381,6 +2548,9 @@ input:focus-visible {
   }
   .about-us-page p {
     line-height: 1.8rem;
+  }
+  .contact-us-card button {
+    margin: 0px 0px 0px auto !important;
   }
 }
 @media (max-width: 576px) {
@@ -2403,6 +2573,11 @@ input:focus-visible {
     width: 200px;
     background-size: contain;
   }
+
+  .contact-us-card {
+    padding: 20px;
+  }
+
 }
 /* PAGE ABOUT US */
 
@@ -2456,3 +2631,24 @@ input:focus-visible {
   height: 100%;
 }
 /* Authentication */
+
+/* Default page */
+.default-page {
+  padding: 50px 0px;
+}
+.default-page h3 {
+}
+/* Default page */
+
+@media (max-width: 768px) {
+  .list-style-none {
+    display: block;
+  }
+}
+
+@media (max-width:576px) {
+  .authenticate-wrapper{
+    max-width: 90%;
+    margin: 0 auto;
+  }
+}
