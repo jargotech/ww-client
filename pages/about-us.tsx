@@ -130,7 +130,7 @@ export default function AboutUs() {
                 unparalleled emotions and unforgettable memories. Our method of
                 procuring a car, viz. buying car from a customer is so easy and
                 hassle free that it makes us stand ahead of most of our
-                contemporaries.Similarly our sales are equally smooth hence
+                contemporaries. Similarly our sales are equally smooth hence
                 customer’s don’t mind feel lagged and dragged while booking a
                 vehicle from us.
               </p>

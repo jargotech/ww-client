@@ -551,7 +551,7 @@ input[type="number"] {
   display: inline-block;
 }
 
-.site-header-wrapper li:not(:last-of-type) {
+.site-header-wrapper li {
   margin-right: 60px;
 }
 .site-header-wrapper li a {
@@ -1895,7 +1895,16 @@ input:focus-visible {
   display: inline-block;
 }
 
+.btn-link {
+  display: inline-block;
+  font-size: 18px;
+  color: var(--secondary--color) !important;
+}
+
 @media (max-width: 768px) {
+  .make-offer-cta .flex-container {
+    display: block;
+  }
   .make-offer-cta {
     position: fixed;
   }
@@ -1910,7 +1919,7 @@ input:focus-visible {
     width: 200px;
     background-size: contain;
   }
-  .car-description-detail {
+  .car-description-detail .car-meta-deatil {
     display: none;
   }
   .car-price-detail {
@@ -1921,9 +1930,6 @@ input:focus-visible {
   }
 }
 @media (max-width: 576px) {
-  .make-offer-cta .flex-container {
-    display: block;
-  }
   .make-offer-cta h4 {
     font-size: 22px;
     /* margin-bottom: 15px; */
@@ -1933,7 +1939,7 @@ input:focus-visible {
   }
   .car-detail h3 {
     padding-left: 10px;
-    font-size: 24px;
+    font-size: 30px;
   }
   .car-detail h3::before {
     width: 150px;
@@ -1945,6 +1951,12 @@ input:focus-visible {
   }
   .car-detail-container {
     padding: 30px 0px 50px 0px;
+  }
+  .make-offer-cta h5 {
+    font-size: 24px;
+  }
+  .all-summary-of-car {
+    margin-top: 20px;
   }
 }
 /* make an offer cta */
@@ -1966,7 +1978,7 @@ input:focus-visible {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 840px) {
   .cars-cards .price {
     font-size: 20px;
   }
@@ -2003,7 +2015,7 @@ input:focus-visible {
     margin-bottom: 15px;
   }
 
-  .site-header-wrapper li:not(:last-of-type) {
+  .site-header-wrapper li {
     margin-right: 0px;
   }
   .site-header-wrapper li a {
@@ -2308,6 +2320,9 @@ input:focus-visible {
   position: relative;
   margin-bottom: 4px;
 }
+.book-trail-form-field.sell-car {
+  margin-bottom: 10px;
+}
 
 .filter-chips {
   display: flex;
@@ -2383,7 +2398,7 @@ input:focus-visible {
     font-size: 14px;
   }
   .faq-section {
-    padding: 0px;
+    padding: 30px 0px;
   }
 }
 
@@ -2503,9 +2518,9 @@ input:focus-visible {
 }
 
 .name-avatar {
-  border: 1px solid var(--secondary--color);
-  color: var(--secondary--color);
-  background: var(--primary-color);
+  border: 1px solid var(--secondary--color) !important;
+  color: var(--secondary--color) !important;
+  background: var(--primary-color) !important;
 }
 
 .contact-us-card {
@@ -2650,12 +2665,6 @@ input:focus-visible {
 .authentication-form-field .error {
   left: 25px !important;
 }
-.authentication-form-field input {
-  padding-top: 25px !important;
-  padding-right: 12px !important;
-  padding-bottom: 8px !important;
-  padding-left: 12px !important;
-}
 
 .otp-authentication-wrapper .otpContainer {
   margin-bottom: 0px;
@@ -2687,7 +2696,7 @@ input:focus-visible {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 840px) {
   .list-style-none {
     display: block;
   }
@@ -2701,4 +2710,8 @@ input:focus-visible {
   .contact-us-page .page-title {
     font-size: 34px;
   }
+}
+
+.authentication-form-field input {
+  padding: 25px 12px 8px 12px !important;
 }

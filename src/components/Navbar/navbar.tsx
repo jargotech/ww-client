@@ -369,7 +369,23 @@ export default function Navbar() {
                         About Us
                       </a>
                     </li>
-                    <li></li>
+                    <li>
+                      <a
+                        onClick={() => {
+                          router.push({
+                            pathname: "/contact-us",
+                          });
+                          closeMenu();
+                        }}
+                        className={
+                          router.pathname == "/contact-us"
+                            ? "cursor-pointer is-active"
+                            : "cursor-pointer"
+                        }
+                      >
+                        Contact Us
+                      </a>
+                    </li>
                   </ul>
                 </nav>
               </div>
@@ -378,6 +394,7 @@ export default function Navbar() {
                   <IconButton onClick={accountMenuHandleClick}>
                     <Avatar
                       className="name-avatar"
+                      title={displayUserName()}
                       alt={displayUserName()}
                       src="/broken-image.jpg"
                     />

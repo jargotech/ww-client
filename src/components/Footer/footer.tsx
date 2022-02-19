@@ -91,7 +91,7 @@ export default function Footer({
                   {socialLinkList &&
                     socialLinkList?.map((item: any, index: number) => (
                       <li key={`link-${item?.title}`}>
-                        <a href={item?.link}>
+                        <a href={item?.link} target="_blank" rel="noreferrer">
                           <Image
                             src={
                               item?.title == "Instagram"

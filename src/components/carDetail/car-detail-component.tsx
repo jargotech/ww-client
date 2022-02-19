@@ -201,12 +201,21 @@ export default function CarDetailComponent({ carData }: any) {
                       </div>
                     ))}
                 </Slider>
-                <SiteButton
+                {/* <SiteButton
                   onClick={() => setIsOpen(true)}
                   text="View All"
                   arrow={true}
                   styles={{ margin: "0 0 0 auto" }}
-                />
+                /> */}
+                <div className="text-right">
+                  <a
+                    onClick={() => setIsOpen(true)}
+                    className="cursor-pointer btn-link"
+                  >
+                    View All
+                  </a>
+                </div>
+
                 <ReactBnbGallery
                   show={isOpen}
                   photos={carImage && carImage.map((img: any) => img.imageLink)}

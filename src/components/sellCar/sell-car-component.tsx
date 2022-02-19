@@ -68,7 +68,7 @@ export default function SellCarComponent() {
 
   const BookTrialSchema = Yup.object().shape({
     brandId: Yup.string().required("This field can't be blank "),
-    modelId: Yup.string().min(2).required("this field can't be blank"),
+    modelId: Yup.string().min(2).required("This field can't be blank"),
     year: Yup.string().required("Year cannot be empty"),
     ownerShip: Yup.string().required("This field can't be blank"),
     milege: Yup.number().min(2).required("This field can't be blank"),
@@ -223,7 +223,7 @@ export default function SellCarComponent() {
                     You will be receiving a confirmation on your registered
                     mobile number & email.
                   </p>
-                  <Link href="/">Explore Collection</Link>
+                  <Link href="/car-collection">Explore Collection</Link>
                 </div>
               </div>
             ) : (

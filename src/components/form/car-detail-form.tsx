@@ -56,7 +56,7 @@ export default function CarDetailForm(props: any) {
   return (
     <div>
       <Grid container spacing={2}>
-        <Grid xs={12} item md={6} className="book-trail-form-field">
+        <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
           <FormControl fullWidth>
             <InputLabel id="brand-lable">Brand</InputLabel>
             <Select
@@ -77,10 +77,10 @@ export default function CarDetailForm(props: any) {
                   </MenuItem>
                 ))}
             </Select>
-            <span className="error">
-              {formik.touched.brandId && formik.errors.brandId}
-            </span>
           </FormControl>
+          <span className="error">
+            {formik.touched.brandId && formik.errors.brandId}
+          </span>
         </Grid>
         <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
           <StyledTextField
@@ -98,7 +98,7 @@ export default function CarDetailForm(props: any) {
             {formik.touched.modelId && formik.errors.modelId}
           </span>
         </Grid>
-        <Grid xs={12} item md={6} className="book-trail-form-field">
+        <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               views={["year"]}
@@ -115,12 +115,12 @@ export default function CarDetailForm(props: any) {
                 />
               )}
             />
-            <span className="error">
-              {formik.touched.year && formik.errors.year}
-            </span>
           </LocalizationProvider>
+          <span className="error">
+            {formik.touched.year && formik.errors.year}
+          </span>
         </Grid>
-        <Grid xs={12} item md={6} className="book-trail-form-field">
+        <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
           <FormControl fullWidth>
             <InputLabel id="ownership-lable">OwnerShip</InputLabel>
             <Select
@@ -134,6 +134,7 @@ export default function CarDetailForm(props: any) {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             >
+              <MenuItem value="1st">1st</MenuItem>
               <MenuItem value="2nd">2nd</MenuItem>
               <MenuItem value="3rd">3rd</MenuItem>
             </Select>
@@ -159,7 +160,7 @@ export default function CarDetailForm(props: any) {
             {formik.touched.milege && formik.errors.milege}
           </span>
         </Grid>
-        <Grid xs={12} item md={6} className="book-trail-form-field">
+        <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
           <FormControl fullWidth>
             <InputLabel id="fueltype-lable">FuelType</InputLabel>
             <Select
@@ -175,12 +176,12 @@ export default function CarDetailForm(props: any) {
             >
               <MenuItem value="petrol">Petrol </MenuItem>
               <MenuItem value="diesel">Diesel</MenuItem>
-              <MenuItem value="ev">EVs</MenuItem>
+              <MenuItem value="electric">Electric</MenuItem>
             </Select>
-            <span className="error">
-              {formik.touched.fuelType && formik.errors.fuelType}
-            </span>
           </FormControl>
+          <span className="error">
+            {formik.touched.fuelType && formik.errors.fuelType}
+          </span>
         </Grid>
         <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
           <StyledTextField
@@ -199,7 +200,7 @@ export default function CarDetailForm(props: any) {
             {formik.touched.kmDriven && formik.errors.kmDriven}
           </span>
         </Grid>
-        <Grid xs={12} item md={6} className="book-trail-form-field">
+        <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
           <FormControl fullWidth>
             <InputLabel id="registrationState-lable">
               Registration State
@@ -225,11 +226,11 @@ export default function CarDetailForm(props: any) {
                   </MenuItem>
                 ))}
             </Select>
-            <span className="error">
-              {formik.touched.registrationStateId &&
-                formik.errors.registrationStateId}
-            </span>
           </FormControl>
+          <span className="error">
+            {formik.touched.registrationStateId &&
+              formik.errors.registrationStateId}
+          </span>
         </Grid>
         <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
           <StyledTextField
