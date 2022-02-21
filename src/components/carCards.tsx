@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import CarImage from "../../public/car-img.png";
+import CarImage from "../../public/no-image.png";
 import { Grid } from "@mui/material";
 import SiteButton from "./Button";
 import { useRouter } from "next/router";
@@ -33,23 +33,11 @@ export default function CarCards({
 
   // Functions
   const handleClick = () => {
-    // router.push(
-    //     pathname: `/car-detail`,
-    //     query: { name: 'Someone' }
-    //     )
     router.push({
       pathname: "/car-detail",
       query: { carId: _id },
     });
   };
-
-  // const bookTrail = () => {
-  //     // router.push('/book-car')
-  //     router.push({
-  //         pathname: '/book-car',
-  //         query: { carId: _id }
-  //     })
-  // }
 
   // Effects
   useEffect(() => {
@@ -99,10 +87,6 @@ export default function CarCards({
             <Grid item xs={6} sx={{ display: "flex", alignItems: "center" }}>
               <p className="price">{currencyFormatter(Car_Detail?.maxPrice)}</p>
             </Grid>
-            {/* <Grid item xs={6} sx={{ textAlign: 'right' }}>
-                                    {!hideButton ? (<SiteButton text="bOOK tRAIL" arrow={true} onClick={bookTrail} />) : null}
-
-                                </Grid> */}
           </Grid>
         ) : null}
       </div>
