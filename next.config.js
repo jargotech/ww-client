@@ -5,11 +5,16 @@
 //   },
 //   reactStrictMode: false,
 // }
+const withPWA = require("next-pwa");
 
-
-
-module.exports = {
-  images: {
-    domains: ['wishwheels.s3.us-east-2.amazonaws.com','media.istockphoto.com'],
+module.exports = withPWA({
+  pwa: {
+    dest: "public",
+    register: true,
+    skipWaiting: true,
   },
-}
+
+  images: {
+    domains: ["wishwheels.s3.us-east-2.amazonaws.com", "media.istockphoto.com"],
+  },
+});
