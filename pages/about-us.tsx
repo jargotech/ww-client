@@ -103,7 +103,7 @@ export default function AboutUs() {
             </Grid>
             <Grid item xs={12} md={6} className=" d-flex align-item-center">
               <p>
-                We sell top notch, luxury PreOwned cars in return of
+                We sell top notch, luxury pre-owned cars in return of
                 unparalleled emotions and unforgettable memories. Our method of
                 procuring a car, viz. buying car from a customer is so easy and
                 hassle free that it makes us stand ahead of most of our
@@ -126,13 +126,12 @@ export default function AboutUs() {
               className=" d-flex align-item-center order-1 order-md-2"
             >
               <p>
-                We sell top notch, luxury PreOwned cars in return of
-                unparalleled emotions and unforgettable memories. Our method of
-                procuring a car, viz. buying car from a customer is so easy and
-                hassle free that it makes us stand ahead of most of our
-                contemporaries. Similarly our sales are equally smooth hence
-                customer’s don’t mind feel lagged and dragged while booking a
-                vehicle from us.
+                Now that’s a trade secret eh ! Well, thus industry has been a
+                very unorganised sector write from its inception and hence it is
+                yet to be nationally acknowledged as a proper business by the
+                governing bodies.However we’re committed to make it as corporate
+                and as formal as possible, since keeping our transactions legal
+                and clean is the only way forward.
               </p>
             </Grid>
             <Grid item xs={12} md={6} className="text-right order-2 order-md-1">
