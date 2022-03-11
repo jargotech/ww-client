@@ -6,10 +6,12 @@
 //   reactStrictMode: false,
 // }
 
-
-
 module.exports = {
   images: {
-    domains: ['wishwheels.s3.us-east-2.amazonaws.com','media.istockphoto.com'],
+    domains: [
+      "wishwheels.s3.us-east-2.amazonaws.com",
+      "media.istockphoto.com",
+      "wishwheels-assets.s3.ap-south-1.amazonaws.com",
+    ],
   },
-}
+};

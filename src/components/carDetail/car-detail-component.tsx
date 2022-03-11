@@ -39,7 +39,8 @@ export default function CarDetailComponent({ carData }: any) {
   const carImage = carData && carData[0]?.Car_Images;
   const carId = carData && carData[0]?._id;
   const carDetail = carData && carData[0]?.Car_Detail;
-  const carAdditionalInfo = carData && carData[0]?.Car_Equipments;
+  const carAdditionalInfo =
+    carData && carData[0]?.Car_Equipments[0].equipmentName;
 
   const settings = {
     dots: false,
@@ -135,7 +136,7 @@ export default function CarDetailComponent({ carData }: any) {
                       </div>
                     </div>
                   </div>
-                  <div className="car-summary-group">
+                  {/* <div className="car-summary-group">
                     <div className="img-wrapper">
                       <img src={Seater.src} height={28} width={28} alt="" />
                     </div>
@@ -145,7 +146,7 @@ export default function CarDetailComponent({ carData }: any) {
                         {(carDetail && carDetail?.carNumber) || `-`}
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* <div className="car-summary-group">
                     <div className="img-wrapper">
@@ -168,20 +169,18 @@ export default function CarDetailComponent({ carData }: any) {
                 </div>
               </div>
               <div>
-                <div className="all-summary-of-car v-2">
-                  <h6>
-                    Some additional information about this vehicle are as
-                    follows:
-                  </h6>
-                  <ul>
-                    {carAdditionalInfo &&
-                      carAdditionalInfo.map((item: any, index: number) => (
-                        <li key={`additional-info-${index}`}>
-                          {item?.description}
-                        </li>
-                      ))}
-                  </ul>
-                </div>
+                {carAdditionalInfo && (
+                  <div className="all-summary-of-car v-2">
+                    <h6>
+                      Some additional information about this vehicle are as
+                      follows:
+                    </h6>
+
+                    <div
+                      dangerouslySetInnerHTML={{ __html: carAdditionalInfo }}
+                    />
+                  </div>
+                )}
               </div>
             </Grid>
             <Grid item xs={12} md={7} className="order-md-1">
@@ -201,12 +200,6 @@ export default function CarDetailComponent({ carData }: any) {
                       </div>
                     ))}
                 </Slider>
-                {/* <SiteButton
-                  onClick={() => setIsOpen(true)}
-                  text="View All"
-                  arrow={true}
-                  styles={{ margin: "0 0 0 auto" }}
-                /> */}
                 <div className="text-right">
                   <a
                     onClick={() => setIsOpen(true)}
@@ -231,11 +224,3 @@ export default function CarDetailComponent({ carData }: any) {
     </section>
   );
 }
-
-// const photosArray = [
-//     "https://media.istockphoto.com/photos/black-car-on-the-road-picture-id1226119391?b=1&k=20&m=1226119391&s=170667a&w=0&h=lspxnUA45EFCjw9bXAgwinu1QA74QjI6QemF6oXmZTg=",
-//     "https://media.istockphoto.com/photos/silver-sports-car-on-black-tile-floor-picture-id170450723?b=1&k=20&m=170450723&s=170667a&w=0&h=A4rCaXBjUovNOGWXoyuL4hnvPxdLx3fiPdeF33XIqH0=",
-//     "https://media.istockphoto.com/photos/hot-sports-car-picture-id147461270?b=1&k=20&m=147461270&s=170667a&w=0&h=BPko-5TFfhmgbS9mw31pNfhHcqX656m9LBxcGewFByM=",
-//     "https://media.istockphoto.com/photos/car-driving-on-a-road-picture-id1264045165?b=1&k=20&m=1264045165&s=170667a&w=0&h=XsPL8bwJ69wGIc0oLPQ1pHkjesNjemTqKbj0YJ12t5Y=",
-//     "https://media.istockphoto.com/photos/generic-modern-sports-car-in-concrete-garage-picture-id1307086563?b=1&k=20&m=1307086563&s=170667a&w=0&h=sPx3GPlfoe6NT_ZO4XyAT5eP1QbbUf5rZlSrqQmX2Ig=",
-// ]

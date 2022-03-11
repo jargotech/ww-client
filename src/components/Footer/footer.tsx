@@ -83,7 +83,7 @@ export default function Footer({
                 <h3>Wish Wheels</h3>
               </div>
               <h6 className="copy-right-text">
-                Copyright © 2021 WishWheels.Inc{" "}
+                Copyright © 2022 WishWheels.Inc{" "}
               </h6>
               <h6 className="copy-right-text">All rights reserved</h6>
               <div className="social-icons">
@@ -107,27 +107,6 @@ export default function Footer({
                         </a>
                       </li>
                     ))}
-
-                  {/* <li>
-                    <a href="">
-                      <Image
-                        src={TwitterLogo}
-                        alt="Twitter Logo"
-                        width={32}
-                        height={32}
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      <Image
-                        src={YoutubeLogo}
-                        alt="Youtube"
-                        width={32}
-                        height={32}
-                      />
-                    </a>
-                  </li> */}
                 </ul>
               </div>
             </Grid>
@@ -161,21 +140,11 @@ export default function Footer({
                 <Grid item xs={6}>
                   <FooterLinkTitle>Support</FooterLinkTitle>
                   <FooterLinkContainer>
-                    {/* <li>
-                      <Link href="/car-listing">
-                        <a>Help center</a>
-                      </Link>
-                    </li> */}
                     <li>
                       <Link href="/terms-of-service">
                         <a>Terms of service</a>
                       </Link>
                     </li>
-                    {/* <li>
-                      <Link href="/car-listing">
-                        <a>Legal</a>
-                      </Link>
-                    </li> */}
                     <li>
                       <Link href="/privacy-policy">
                         <a>Privacy policy</a>
