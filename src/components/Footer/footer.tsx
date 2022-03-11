@@ -82,7 +82,7 @@ export default function Footer({
                 <img src={Logo.src} alt="" />
                 <h3>Wish Wheels</h3>
               </div>
-              <h6 className="copy-right-text">Copyright © 2022 WishWheels</h6>
+              <h6 className="copy-right-text">Copyright © 2022 Wish Wheels </h6>
               <h6 className="copy-right-text">All rights reserved</h6>
               <div className="social-icons">
                 <ul>
