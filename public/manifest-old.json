@@ -1,12 +1,12 @@
 {
-    "theme_color": "#ffffff",
+    "theme_color": "#000000",
     "background_color": "#ffffff",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
     "name": "Wish Wheels",
     "short_name": "Wish Wheels",
-    "description": "Buy & Sell Preowned Luxury Car",
+    "description": "Buy & Sell Premium Pre-Owned Cars",
     "icons": [
         {
             "src": "/icon-192x192.png",
