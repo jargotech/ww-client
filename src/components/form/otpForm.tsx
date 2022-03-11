@@ -30,7 +30,7 @@ export default function OtpForm(props: any) {
   };
   return (
     <div className="otp-wrapper">
-      <h6>Enter OTP recived on your mobile and email</h6>
+      <h6>Enter OTP received on your mobile and email</h6>
       <div className="otpContainer">
         <input
           name="otp1"

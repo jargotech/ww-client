@@ -258,7 +258,7 @@ export default function Authenticate({
                         loading ||
                         !(formik.isValid && formik.dirty)
                       }
-                      text={loading ? "Siging..." : "Sign In"}
+                      text={loading ? "Signing..." : "Sign In"}
                       styles={{ marginLeft: "auto" }}
                       // disabled={!(props.isValid && props.dirty)}
                       arrow={false}
@@ -374,7 +374,7 @@ export default function Authenticate({
                     </span>
                     <SiteButton
                       type="submit"
-                      text={loading ? "Siging..." : "Sign Up"}
+                      text={loading ? "Signing..." : "Sign Up"}
                       styles={{ marginLeft: "auto" }}
                       disabled={!(formik.isValid && formik.dirty) || loading}
                       arrow={false}
