@@ -5,7 +5,9 @@ module.exports = withPWA({
     register: true,
     skipWaiting: true,
   },
-
+  experimental: {
+    scrollRestoration: true,
+  },
   images: {
     domains: [
       "wishwheels.s3.us-east-2.amazonaws.com",
