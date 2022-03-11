@@ -109,8 +109,6 @@ export default function MakeOffer(props: any) {
           </Alert>
         ) : convertToNum(formik?.values?.makeOffer) >= minPrice &&
           convertToNum(formik?.values?.makeOffer) ? (
-          // <p className="success-text">Good Deal</p>
-
           <Alert
             sx={{
               display: "inline-flex",

@@ -2525,6 +2525,8 @@ input:focus-visible {
   border: 1px solid var(--secondary--color) !important;
   color: var(--secondary--color) !important;
   background: var(--primary-color) !important;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .contact-us-card {

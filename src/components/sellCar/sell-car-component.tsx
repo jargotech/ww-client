@@ -218,11 +218,12 @@ export default function SellCarComponent() {
                 <div className="succes-card">
                   {overflowHidden(true)}
                   <img src={SuccesBookingPng.src} alt="succes booking" />
-                  <h4>Our Team will reach out soon!</h4>
-                  <p>
+                  <h4>Our team will reach out soon!</h4>
+                  {/* <p>
                     You will be receiving a confirmation on your registered
                     mobile number & email.
-                  </p>
+                  </p> */}
+                  <p>Thanks for choosing Wish Wheels</p>
                   <Link href="/car-collection">Explore Collection</Link>
                 </div>
               </div>

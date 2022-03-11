@@ -35,6 +35,7 @@ import Link from "next/link";
 import { CarService } from "../../services/cars/carService";
 import { userJwtData } from "../../utils/getAccessToken";
 import moment from "moment";
+import InfoIcon from "@mui/icons-material/Info";
 
 const steps = ["step1", "step2"];
 export default function BookTrail({ carData }: any) {
@@ -214,6 +215,7 @@ export default function BookTrail({ carData }: any) {
               <StyledStepper activeStep={activeStep} steps={steps} />
             </MediaQuery>
             <h5>{activeStep == 0 ? "Make an offer" : "Help us to know you"}</h5>
+
             {activeStep === steps.length ? (
               <div>
                 <div className="dropbox"></div>
@@ -221,9 +223,13 @@ export default function BookTrail({ carData }: any) {
                   {overflowHidden(true)}
                   <img src={SuccesBookingPng.src} alt="succes booking" />
                   <h4>You’ve sucessfully booked trail!</h4>
-                  <p>
+                  {/* <p>
                     You will be receiving a confirmation on your registered
                     mobile number & email.
+                  </p> */}
+                  <p>
+                    Thanks for finding faith in us. Our Sales team will reach
+                    out to you shortly
                   </p>
                   <Link href="/">Explore Collection</Link>
                 </div>
@@ -246,6 +252,29 @@ export default function BookTrail({ carData }: any) {
                     ) : isLastStep ? (
                       <UserForm formik={props} />
                     ) : null}
+                    {activeStep == 1 && (
+                      <div>
+                        <Alert
+                          severity="warning"
+                          sx={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            marginTop: "15px",
+                            padding: "5px 10px",
+                            "& .MuiAlert-message": {
+                              padding: "5px 0px !important",
+                            },
+                          }}
+                          iconMapping={{
+                            warning: <InfoIcon fontSize="inherit" />,
+                          }}
+                        >
+                          Trials are subject to offers approved by our Sales
+                          Team.
+                        </Alert>
+                      </div>
+                    )}
+
                     <div
                       style={{
                         position: "relative",

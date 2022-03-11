@@ -130,13 +130,13 @@ export default function ContactUs() {
               For general enquiries feel free to contact us via phone or email
             </p>
             <div className="contact-detail">
-              <a href="tel:9339223920">
+              <a href="tel:8828422162">
                 <img src={phoneIcon.src} alt="" />
-                <span>9339223920</span>
+                <span>8828422162 </span>
               </a>
-              <a href="mailto:wishwheel@gmail.com">
+              <a href="mailto:info@wishwheels.com">
                 <img src={envelopeIcon.src} alt="" />
-                <span>wishwheel@gmail.com</span>
+                <span>info@wishwheels.com</span>
               </a>
               <a href="#">
                 <img src={locationIcon.src} alt="" />
@@ -202,7 +202,8 @@ export default function ContactUs() {
                       </Grid>
                       <Grid
                         item
-                        xs={12}
+                        xs={6}
+                        md={6}
                         className="book-trail-form-field sell-car"
                       >
                         <StyledTextField
@@ -223,7 +224,8 @@ export default function ContactUs() {
                       </Grid>
                       <Grid
                         item
-                        xs={12}
+                        xs={6}
+                        md={6}
                         className="book-trail-form-field sell-car"
                       >
                         <StyledTextField
@@ -257,7 +259,7 @@ export default function ContactUs() {
                           onChange={props.handleChange}
                           onBlur={props.handleBlur}
                           variant="filled"
-                          label="City Name"
+                          label="City"
                           fullWidth
                         />
                         <span className="error">
