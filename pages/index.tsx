@@ -17,12 +17,23 @@ export default function Home() {
   const [landingDetail, setLandingDetail] = useState<any>();
   const [latestArrival, setLatestArrival] = useState<any[]>([]);
   const [stats, setStats] = useState<any>();
+  const [showInstallMessage, setShowInstallMessage] = useState<boolean>();
 
   // Variables
   const router = useRouter();
   const landingService = new LandingService();
 
   // Functions
+  // Detects if device is on iOS
+  const isIos = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+  };
+  // Detects if device is in standalone mode
+  // const isInStandaloneMode = () =>
+  //   "standalone" in window.navigator && window.navigator.standalone;
+
+  // API CALL
   const _getAllLandingDetail = () => {
     // #1. Home and Stats section
     const api: any = landingService.getAllLandingService();
@@ -79,6 +90,10 @@ export default function Home() {
 
   useEffect(() => {
     overflowHidden(false);
+    // Check install message
+    if (isIos()) {
+      setShowInstallMessage(true);
+    }
   }, []);
 
   return (
@@ -97,6 +112,12 @@ export default function Home() {
         ctaAction={handleClick}
         className="site-section"
       />
+      {showInstallMessage && (
+        // Install Message
+        <div className="apple-install-message">
+          Install Wish Wheels App on your device
+        </div>
+      )}
     </>
   );
 }
