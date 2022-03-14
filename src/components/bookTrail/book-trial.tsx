@@ -309,9 +309,9 @@ export default function BookTrail({ carData }: any) {
             )}
           </Grid>
           <Grid item xs={12} lg={6} className="order-md-1">
-            <MediaQuery query="(max-width: 992px)">
+            {/* <MediaQuery query="(max-width: 992px)">
               <StyledStepper activeStep={activeStep} steps={steps} />
-            </MediaQuery>
+            </MediaQuery> */}
             <Grid item lg={9} sx={{ margin: "0 auto" }}>
               <CarCards
                 Car_Images={carData[0]?.Car_Images}
