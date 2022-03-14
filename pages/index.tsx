@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from "react";
-import CtaBanner from "../src/components/CtaBanner";
 import OurStats from "../src/components/ourStats";
 import HowItWorks from "../src/components/howWorks";
 import LandingSection from "../src/components/landingSection";
 import LatestArrival from "../src/components/latestArrival";
 // import { CityService } from '../src/services/cityService'
-import axios from "axios";
-import { APIURL } from "../src/config/apiConfig";
 import Footer from "../src/components/Footer/footer";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { LandingService } from "../src/services/home/landing-service";
-import Drawer from "@mui/material/Drawer";
 
 export default function Home() {
   // States
   const [landingDetail, setLandingDetail] = useState<any>();
   const [latestArrival, setLatestArrival] = useState<any[]>([]);
   const [stats, setStats] = useState<any>();
-  const [drawerState, setDrawerState] = useState<any>();
   const [showInstallMessage, setShowInstallMessage] = useState<boolean>();
 
   // Variables
@@ -26,9 +21,6 @@ export default function Home() {
   const landingService = new LandingService();
 
   // Functions
-  const toggleDrawer = (open: boolean) => {
-    setDrawerState(!open);
-  };
   // Detects if device is on iOS
   const isIos = () => {
     const userAgent = window.navigator.userAgent.toLowerCase();
@@ -118,17 +110,11 @@ export default function Home() {
         className="site-section"
       />
       {showInstallMessage && (
-        // Install Message
         <div className="apple-install-message">
-          <Drawer
-            anchor={"bottom"}
-            open={drawerState}
-            onClose={(e, reason) => toggleDrawer(false)}
-          >
-            To install this app on your device tap on{" "}
-            <img src="../public/share-icon.png" alt="share icon" /> button and
-            then click "Add to Home Screen".
-          </Drawer>
+          To install this app on your device tap on "Share"
+          {/* {" "}
+          <img src="../public/share-icon.png" alt="share icon" />  */}
+          button and then click "Add to Home Screen".
         </div>
       )}
     </>
