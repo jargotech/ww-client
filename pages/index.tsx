@@ -11,18 +11,34 @@ import Footer from "../src/components/Footer/footer";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { LandingService } from "../src/services/home/landing-service";
+import Drawer from "@mui/material/Drawer";
 
 export default function Home() {
   // States
   const [landingDetail, setLandingDetail] = useState<any>();
   const [latestArrival, setLatestArrival] = useState<any[]>([]);
   const [stats, setStats] = useState<any>();
+  const [drawerState, setDrawerState] = useState<any>();
+  const [showInstallMessage, setShowInstallMessage] = useState<boolean>();
 
   // Variables
   const router = useRouter();
   const landingService = new LandingService();
 
   // Functions
+  const toggleDrawer = (open: boolean) => {
+    setDrawerState(!open);
+  };
+  // Detects if device is on iOS
+  const isIos = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+  };
+  // Detects if device is in standalone mode
+  // const isInStandaloneMode = () =>
+  //   "standalone" in window.navigator && window.navigator.standalone;
+
+  // API CALL
   const _getAllLandingDetail = () => {
     // #1. Home and Stats section
     const api: any = landingService.getAllLandingService();
@@ -79,6 +95,10 @@ export default function Home() {
 
   useEffect(() => {
     overflowHidden(false);
+    // Check install message
+    if (isIos()) {
+      setShowInstallMessage(true);
+    }
   }, []);
 
   return (
@@ -97,6 +117,20 @@ export default function Home() {
         ctaAction={handleClick}
         className="site-section"
       />
+      {showInstallMessage && (
+        // Install Message
+        <div className="apple-install-message">
+          <Drawer
+            anchor={"bottom"}
+            open={drawerState}
+            onClose={(e, reason) => toggleDrawer(false)}
+          >
+            To install this app on your device tap on{" "}
+            <img src="../public/share-icon.png" alt="share icon" /> button and
+            then click "Add to Home Screen".
+          </Drawer>
+        </div>
+      )}
     </>
   );
 }
