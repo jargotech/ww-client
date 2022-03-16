@@ -11,6 +11,7 @@ import SuccessBookingPng from "../public/success-booking.png";
 import phoneIcon from "../public/phone.svg";
 import locationIcon from "../public/map-marker.svg";
 import envelopeIcon from "../public/envelope.svg";
+import { CompanyDetail } from "../src/services/user/contactDetail";
 
 export default function ContactUs() {
   // States
@@ -18,6 +19,7 @@ export default function ContactUs() {
   const [loading, setLoading] = useState<any>();
   const [contactUsError, setContactUsError] = useState<any>();
   const [successAlert, setSuccessAlert] = useState<boolean>(false);
+  const [companyDetail, setCompanyDetail] = useState<any>();
 
   // Variables
   const phoneRegExp =
@@ -47,6 +49,7 @@ export default function ContactUs() {
   });
 
   const contactUsService = new ContactUsService();
+  const companyDetailService = new CompanyDetail();
 
   // Functions
   const handleSubmit = (values: any, actions: any) => {
@@ -90,6 +93,16 @@ export default function ContactUs() {
 
   const overflowHidden = (event: any) => {};
 
+  const getComapnyDetails = async () => {
+    try {
+      const companyDetailData =
+        await companyDetailService.getAllContactDetail();
+      if (!companyDetailData.data.error) {
+        setCompanyDetail(companyDetailData.data.data);
+      }
+    } catch (error) {}
+  };
+
   // Effects
   useEffect(() => {
     if (contactUsData) {
@@ -104,6 +117,10 @@ export default function ContactUs() {
       }, 3000);
     }
   }, [successAlert]);
+
+  useEffect(() => {
+    getComapnyDetails();
+  }, []);
 
   return (
     <div className="contact-us-page">
@@ -124,29 +141,29 @@ export default function ContactUs() {
       )}
       <Container maxWidth="lg">
         <Grid container spacing={2}>
-          <Grid item md={6} xs={12}>
-            <h4 className="page-title">Get in touch</h4>
-            <p>
-              For general enquiries feel free to contact us via phone or email
-            </p>
-            <div className="contact-detail">
-              <a href="tel:8828422162">
-                <img src={phoneIcon.src} alt="" />
-                <span>8828422162 </span>
-              </a>
-              <a href="mailto:info@wishwheels.com">
-                <img src={envelopeIcon.src} alt="" />
-                <span>info@wishwheels.com</span>
-              </a>
-              <a href="#">
-                <img src={locationIcon.src} alt="" />
-                <address>
-                  Emerene Heights, Convent Ave, Willingdon, Santacruz West,
-                  Mumbai, Maharashtra 400054
-                </address>
-              </a>
-            </div>
-          </Grid>
+          {companyDetail && (
+            <Grid item md={6} xs={12}>
+              <h4 className="page-title">Get in touch</h4>
+              <p>
+                For general enquiries feel free to contact us via phone or email
+              </p>
+              <div className="contact-detail">
+                <a href={`tel:${companyDetail.contactNo}`}>
+                  <img src={phoneIcon.src} alt="" />
+                  <span>{companyDetail.contactNo} </span>
+                </a>
+                <a href={`mailto:${companyDetail.emailId}`}>
+                  <img src={envelopeIcon.src} alt="" />
+                  <span>{companyDetail.emailId}</span>
+                </a>
+                <a href="#">
+                  <img src={locationIcon.src} alt="" />
+                  <address>{companyDetail.address}</address>
+                </a>
+              </div>
+            </Grid>
+          )}
+
           <Grid item md={6} xs={12}>
             <div className="contact-us-card">
               <Formik

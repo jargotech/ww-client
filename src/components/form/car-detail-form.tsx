@@ -82,6 +82,23 @@ export default function CarDetailForm(props: any) {
             {formik.touched.brandId && formik.errors.brandId}
           </span>
         </Grid>
+        {formik.values.brandId == "62322c628d85ac348ad470ac" && (
+          <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
+            <StyledTextField
+              name="otherBrands"
+              value={formik.values.otherBrands}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              variant="filled"
+              label="Please specify"
+              fullWidth
+            />
+            <span className="error">
+              {formik.touched.otherBrands && formik.errors.otherBrands}
+            </span>
+          </Grid>
+        )}
+
         <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
           <StyledTextField
             error

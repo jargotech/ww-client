@@ -57,7 +57,7 @@ export default function MakeOfferCta({ carId, carData }: any) {
           </div>
           <div className="car-price-detail">
             <h4 className="car-price">
-              {currencyFormatter(carData && carData?.minPrice) || "-"}
+              {currencyFormatter(carData && carData?.maxPrice) || "-"}
             </h4>
             <SiteButton text="Make Offer" arrow={true} onClick={makeOffer} />
           </div>

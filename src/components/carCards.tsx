@@ -85,7 +85,7 @@ export default function CarCards({
         {variant == "card2" ? (
           <Grid container spacing={2} sx={{ marginTop: "5px" }}>
             <Grid item xs={6} sx={{ display: "flex", alignItems: "center" }}>
-              <p className="price">{currencyFormatter(Car_Detail?.minPrice)}</p>
+              <p className="price">{currencyFormatter(Car_Detail?.maxPrice)}</p>
             </Grid>
           </Grid>
         ) : null}

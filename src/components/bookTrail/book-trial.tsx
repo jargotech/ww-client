@@ -1,35 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  FormControl,
-  Grid,
-  Input,
-  InputAdornment,
-  InputLabel,
-  Step,
-  StepLabel,
-  Stepper,
-} from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import SiteButton from "../Button";
 import CarCards from "../carCards";
-import { QontoConnector, QontoStepIcon } from "../stepper/stepperElements";
 import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import UserForm from "../form/userForm";
-import OtpForm from "../form/otpForm";
 import MakeOffer from "../form/makeOffer";
 import Alert from "@mui/material/Alert";
 import StyledStepper from "../stepper/stepper";
 import MediaQuery from "react-responsive";
 import router from "next/router";
 import { convertToNum } from "../../utils/currecyFormatter";
-import { OtpService } from "../../services/user/otpService";
-import { BookTrialService } from "../../services/bookTrial/bookTrialService";
 import SuccesBookingPng from "../../../public/success-booking.png";
 import Link from "next/link";
 import { CarService } from "../../services/cars/carService";
@@ -127,9 +110,7 @@ export default function BookTrail({ carData }: any) {
   }
 
   const childtoParent = (value: any) => {
-    // setDisableButton(value);
-    // console.log(value);
-    if (convertToNum(value) > minPrice) {
+    if (convertToNum(value) >= minPrice) {
       setDisableButton(false);
     } else {
       setDisableButton(true);

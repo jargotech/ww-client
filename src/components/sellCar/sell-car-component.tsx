@@ -55,6 +55,7 @@ export default function SellCarComponent() {
 
   const BookTrailInitialValues = {
     brandId: "",
+    otherBrands: "",
     modelId: "",
     year: new Date(),
     ownerShip: "",
@@ -68,6 +69,7 @@ export default function SellCarComponent() {
 
   const BookTrialSchema = Yup.object().shape({
     brandId: Yup.string().required("This field can't be blank "),
+    otherBrands: Yup.string(),
     modelId: Yup.string().min(2).required("This field can't be blank"),
     year: Yup.string().required("Year cannot be empty"),
     ownerShip: Yup.string().required("This field can't be blank"),

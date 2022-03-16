@@ -1,13 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Alert,
-  FormControl,
-  Grid,
-  Input,
-  InputAdornment,
-  InputLabel,
-  TextField,
-} from "@mui/material";
+import { Alert } from "@mui/material";
 import RupeeLogo from "../../../public/rupee.svg";
 import Image from "next/image";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
@@ -36,33 +28,12 @@ export default function MakeOffer(props: any) {
 
   return (
     <div>
-      {/* <p>minPrice: {minPrice}</p> */}
-      {/* <p>maxPrice: {maxPrice}</p> */}
-      {/* <FormControl variant="standard"> */}
-      {/* <InputLabel className="bold-label" htmlFor="input-with-icon-adornment">
-                    How much would you like  to buy this car for
-                </InputLabel> */}
-      {/* <MaskedInput
-                    // mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-                    mask={[/[1-9]/, /\d/, ',', /\d/, /\d/, ',', /\d/, /\d/, /\d/]}
-                    name="makeOffer"
-                    value={formik.values.makeOffer}
-                    onChange={formik.handleChange}
-                    id="input-with-icon-adornment"
-                    placeholder="59,00,000"
-                startAdornment={
-                    <InputAdornment position="start">
-                        <Image src={RupeeLogo} width={10} height={16} alt="rupeelogo" />
-                    </InputAdornment>
-                }
-                /> */}
       <label htmlFor="">How much would you like to buy this car for</label>
       <div className="moneyFeild-group">
         <span>₹</span>
         <NumberFormat
           className="moneyFeild"
           name="makeOffer"
-          // type='number'
           value={formik.values.makeOffer}
           onChange={formik.handleChange}
           id="input-with-icon-adornment"
@@ -72,28 +43,10 @@ export default function MakeOffer(props: any) {
           isNumericString
         />
       </div>
-
-      {/* {convertToNum(formik.values.makeOffer)} */}
-      {/* <Input
-                    name="makeOffer"
-                    type='number'
-                    value={formik.values.makeOffer}
-                    onChange={formik.handleChange}
-                    id="input-with-icon-adornment"
-                    placeholder="59,00,000"
-                    startAdornment={
-                        <InputAdornment position="start">
-                            <Image src={RupeeLogo} width={10} height={16} alt="rupeelogo" />
-                        </InputAdornment>
-                    }
-                /> */}
-
-      {/* </FormControl> */}
       {convertToNum(formik?.values?.makeOffer) !== 0 &&
       convertToNum(formik?.values?.makeOffer) ? (
         convertToNum(formik?.values?.makeOffer) > maxPrice &&
         convertToNum(formik?.values?.makeOffer) ? (
-          // <p className="success-text">Overpriced, we&apos;ll not charge more.</p>
           <Alert
             sx={{
               display: "inline-flex",
@@ -126,7 +79,6 @@ export default function MakeOffer(props: any) {
           </Alert>
         ) : convertToNum(formik?.values?.makeOffer) < minPrice &&
           convertToNum(formik?.values?.makeOffer) ? (
-          // <p className="error-text">Oops! Too low offer.</p>
           <Alert
             severity="warning"
             sx={{

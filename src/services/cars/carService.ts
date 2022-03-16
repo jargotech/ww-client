@@ -1,5 +1,6 @@
 import axios from "axios";
 import { APIURL } from "../../config/apiConfig";
+import axiosInstance from "../../utils/axiosInstance";
 import { xAccessToken } from "../../utils/getAccessToken";
 
 export class CarService {
@@ -14,18 +15,10 @@ export class CarService {
   }
 
   sellCar(payload: any) {
-    return axios.post(`${APIURL}/sellCar`, payload, {
-      headers: {
-        "x-access-token": xAccessToken(),
-      },
-    });
+    return axiosInstance.post(`/sellCar`, payload);
   }
 
   bookTrial(payload: any) {
-    return axios.post(`${APIURL}/trial`, payload, {
-      headers: {
-        "x-access-token": xAccessToken(),
-      },
-    });
+    return axiosInstance.post(`/trial`, payload);
   }
 }

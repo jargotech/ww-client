@@ -2692,6 +2692,15 @@ input:focus-visible {
 }
 /* Default page */
 
+.success-login-popup {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  max-width: 500px;
+  width: 100%;
+  z-index: 9999;
+}
+
 @media (max-width: 992px) {
   .contact-us-page {
     display: block;

@@ -9,6 +9,7 @@ import {
   Menu,
   MenuItem,
   IconButton,
+  Alert,
 } from "@mui/material";
 import React, { useEffect, useState, useContext } from "react";
 import Image from "next/image";
@@ -22,6 +23,7 @@ import { OtpService } from "../../services/user/otpService";
 import { AuthenticationService } from "../../services/user/authenticationService";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import AuthContext from "../../context/AuthContext";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function Navbar() {
   // State
@@ -38,6 +40,7 @@ export default function Navbar() {
   const [otpModal, setOptModal] = useState(false);
   const [sendOtp, setSendOtp] = useState<any>();
   const [closeNavbar, setCloseNavbar] = useState<any>(false);
+  const [succesLoggedIn, setSuccessLoggedIn] = useState<any>(false);
 
   // Context
   const { authenticated, setAuthenticated } = useContext(AuthContext);
@@ -167,12 +170,14 @@ export default function Navbar() {
     };
     try {
       const verifyOtpApiCall = await otpService.verifyOtp(payload);
+      setSuccessLoggedIn(false);
       if (!verifyOtpApiCall.data.error) {
         console.log(verifyOtpApiCall);
         setJwt(verifyOtpApiCall.data);
         setOptModal(false);
         handleClose();
         setLoading(false);
+        setSuccessLoggedIn(true);
       } else {
         setAuthenticationError(verifyOtpApiCall.data.message);
         setLoading(false);
@@ -185,6 +190,9 @@ export default function Navbar() {
       setAuthenticationError(errorResponse?.message);
       setLoading(false);
     }
+    setTimeout(() => {
+      setSuccessLoggedIn(false);
+    }, 3000);
   };
 
   const verifyAuth = () => {
@@ -242,6 +250,9 @@ export default function Navbar() {
     if (router.pathname == "/book-car") {
       router.push("/");
     }
+    if (router.pathname == "/history") {
+      router.push("/");
+    }
   };
 
   // UseEffect
@@ -264,6 +275,27 @@ export default function Navbar() {
   return (
     <>
       <div className={isActive ? "backdrop" : ""}></div>
+      {succesLoggedIn && (
+        <Alert
+          className="success-login-popup"
+          severity="success"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setSuccessLoggedIn(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          You have successfully logged.
+        </Alert>
+      )}
+
       <header
         id="header"
         className={
@@ -408,6 +440,14 @@ export default function Navbar() {
                       "aria-labelledby": "basic-button",
                     }}
                   >
+                    <MenuItem
+                      onClick={() => {
+                        router.push("/history");
+                        setAnchorEl(null);
+                      }}
+                    >
+                      History
+                    </MenuItem>
                     <MenuItem onClick={logoutHandle}>Logout</MenuItem>
                   </Menu>
                 </Box>
