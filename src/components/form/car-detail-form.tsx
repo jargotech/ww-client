@@ -160,7 +160,7 @@ export default function CarDetailForm(props: any) {
             {formik.touched.ownerShip && formik.errors.ownerShip}
           </span>
         </Grid>
-        <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
+        {/* <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
           <StyledTextField
             error
             required
@@ -176,7 +176,7 @@ export default function CarDetailForm(props: any) {
           <span className="error">
             {formik.touched.milege && formik.errors.milege}
           </span>
-        </Grid>
+        </Grid> */}
         <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
           <FormControl fullWidth>
             <InputLabel id="fueltype-lable">Fuel Type</InputLabel>
@@ -210,7 +210,7 @@ export default function CarDetailForm(props: any) {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             variant="filled"
-            label="KM Travelled"
+            label="KMS"
             fullWidth
           />
           <span className="error">
@@ -267,8 +267,6 @@ export default function CarDetailForm(props: any) {
         </Grid>
         <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
           <StyledTextField
-            error
-            required
             name="pincode"
             type="number"
             value={formik.values.pincode}

@@ -73,11 +73,11 @@ export default function SellCarComponent() {
     modelId: Yup.string().min(2).required("This field can't be blank"),
     year: Yup.string().required("Year cannot be empty"),
     ownerShip: Yup.string().required("This field can't be blank"),
-    milege: Yup.number().min(2).required("This field can't be blank"),
+    // milege: Yup.number().min(2).required("This field can't be blank"),
     fuelType: Yup.string().required("This field can't be blank"),
     kmDriven: Yup.number().min(2).required("This field can't be blank"),
     registrationStateId: Yup.string().required("This field can't be blank"),
-    pincode: Yup.number().required("This field can't be blank"),
+    pincode: Yup.number(),
     cityName: Yup.string().required("This field can't be blank"),
   });
 
@@ -101,7 +101,6 @@ export default function SellCarComponent() {
       modelId,
       year,
       ownerShip,
-      milege,
       fuelType,
       kmDriven,
       registrationStateId,
@@ -117,7 +116,6 @@ export default function SellCarComponent() {
       modelId,
       year: moment(year).format("YYYY"),
       ownerShip,
-      milege,
       fuelType,
       kmDriven,
       registrationStateId,
@@ -185,7 +183,7 @@ export default function SellCarComponent() {
       setTimeout(() => {
         router.push("/");
         overflowHidden(false);
-      }, 5000);
+      }, 10000);
     }
   }, [activeStep]);
 
@@ -220,12 +218,16 @@ export default function SellCarComponent() {
                 <div className="succes-card">
                   {overflowHidden(true)}
                   <img src={SuccesBookingPng.src} alt="succes booking" />
-                  <h4>Our team will reach out soon!</h4>
+                  <h4>Hurray!! </h4>
+                  <p>
+                    We shall evaluate and buy your car in the next 24 hours.
+                    <br /> Our team will call you right away.
+                  </p>
                   {/* <p>
                     You will be receiving a confirmation on your registered
                     mobile number & email.
                   </p> */}
-                  <p>Thanks for choosing Wish Wheels</p>
+                  {/* <p>Thanks for choosing Wish Wheels</p> */}
                   <Link href="/car-collection">Explore Collection</Link>
                 </div>
               </div>

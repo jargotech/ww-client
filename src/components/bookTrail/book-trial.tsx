@@ -164,7 +164,7 @@ export default function BookTrail({ carData }: any) {
       setTimeout(() => {
         router.push("/car-collection");
         overflowHidden(false);
-      }, 3000);
+      }, 10000);
     }
   }, [activeStep]);
 

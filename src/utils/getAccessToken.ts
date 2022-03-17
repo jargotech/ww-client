@@ -3,24 +3,29 @@
 export const xAccessToken = (): string => {
   let user = "";
   let token = "";
-  if (localStorage) {
-    user = localStorage.getItem("jwt") || "";
-    if (user) {
-      token = JSON.parse(user).accessToken;
+  if (typeof window !== "undefined") {
+    if (localStorage) {
+      user = localStorage.getItem("jwt") || "";
+      if (user) {
+        token = JSON.parse(user).accessToken;
+      }
     }
+    console.log(token);
   }
-  console.log(token);
   return token;
 };
 
 export const userJwtData = (): string => {
   let user = "";
   let data: any = "";
-  if (localStorage) {
-    user = localStorage.getItem("jwt") || "";
-    if (user) {
-      data = JSON.parse(user).id;
+  if (typeof window !== "undefined") {
+    if (localStorage) {
+      user = localStorage.getItem("jwt") || "";
+      if (user) {
+        data = JSON.parse(user).id;
+      }
     }
   }
+
   return data;
 };

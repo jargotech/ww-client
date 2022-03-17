@@ -114,7 +114,7 @@ export default function ContactUs() {
     if (successAlert) {
       setTimeout(() => {
         setSuccessAlert(false);
-      }, 3000);
+      }, 10000);
     }
   }, [successAlert]);
 
