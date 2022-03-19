@@ -7,7 +7,7 @@ import { APIURL } from "../config/apiConfig";
 import { userJwtData, xAccessToken } from "./getAccessToken";
 
 let xAccessTokenKey = xAccessToken() && xAccessToken();
-let adminData: any = userJwtData() && userJwtData();
+let userData: any = userJwtData() && userJwtData();
 const axiosInstance = axios.create({
   baseURL: APIURL,
   headers: {
@@ -23,16 +23,16 @@ axiosInstance.interceptors.request.use(async (req: any) => {
   const isExpired = user && dayjs.unix(user.exp).diff(dayjs()) < 1;
 
   if (isExpired) {
-    console.log(adminData.id);
+    console.log(userData.id);
 
     try {
       const refreshApiData = await axios.get(
-        `${APIURL}/admin/refreshToken/${adminData.id}`
+        `${APIURL}/admin/refreshToken/${userData.id}`
       );
       if (!refreshApiData.data.error) {
-        if (adminData) {
-          adminData["accessToken"] = refreshApiData.data.data;
-          localStorage.setItem("jwt", JSON.stringify(adminData));
+        if (userData) {
+          userData["accessToken"] = refreshApiData.data.data;
+          localStorage.setItem("jwt", JSON.stringify(userData));
         }
       }
     } catch (error) {}

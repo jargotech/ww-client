@@ -401,6 +401,9 @@ input[type="number"] {
 .align-self-center {
   align-self: center;
 }
+.justify-content-between {
+  justify-content: space-between;
+}
 .list-style-none {
   list-style: none;
   padding: 0;
@@ -2701,6 +2704,96 @@ input:focus-visible {
   z-index: 9999;
 }
 
+/* History page */
+.customer-history {
+  padding: 10px 0px;
+}
+.customer-history .section-title span {
+  position: relative;
+  display: inline-block;
+}
+.customer-history .section-title span::before {
+  content: "";
+  background: url("../public/yellow-circle-2.svg") no-repeat center left;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  height: 72px;
+  width: 260px;
+  background-size: contain;
+  z-index: -1;
+}
+.customer-history-tab {
+  padding-top: 15px;
+}
+.car-inpection-card {
+  /* max-width: 420px;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px; */
+}
+.car-inpection-card h4 {
+  text-transform: uppercase;
+  font-family: var(--secondary-fonts);
+  font-weight: 700;
+  font-size: 20px;
+  color: #191919;
+  margin: 0px 0px 15px 0px;
+}
+.car-inpection-card .car-detail-data {
+  margin-bottom: 20px;
+}
+.car-inpection-container {
+  padding: 15px 20px 0px 20px;
+}
+.car-inpection-card .created-date {
+  background: linear-gradient(0deg, #f7f3d0, #f7f3d0), #ffffff;
+  padding: 5px 20px;
+}
+.car-inpection-card .created-date span {
+  font-weight: 400;
+  font-size: 14px;
+  color: #1f1f1f;
+}
+
+.booking-detail-card .price-detail {
+  padding-top: 20px;
+}
+.booking-detail-card .ride-date {
+  background: linear-gradient(0deg, #f7f3d0, #f7f3d0), #ffffff;
+  padding: 5px 10px;
+}
+.booking-detail-card .ride-date span {
+  font-weight: 400;
+  font-size: 14px;
+  color: #1f1f1f;
+}
+/* History page */
+
+/* useful classes */
+.readonly-custom .readonly-custom-label {
+  display: block;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  color: #5c5c5c;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.readonly-custom .readonly-custom-value {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  color: #5c5c5c;
+  margin: 0px;
+  text-transform: uppercase;
+}
+.primary-color {
+  color: var(--secondary--color) !important;
+}
+/* useful classes */
 @media (max-width: 992px) {
   .contact-us-page {
     display: block;
@@ -2728,6 +2821,12 @@ input:focus-visible {
   }
   .car-from button {
     margin: 0px !important;
+  }
+  .customer-history .section-title span::before {
+    width: 140px;
+  }
+  .car-inpection-card h4 {
+    font-size: 20px;
   }
 }
 
