@@ -23,11 +23,11 @@ axiosInstance.interceptors.request.use(async (req: any) => {
   const isExpired = user && dayjs.unix(user.exp).diff(dayjs()) < 1;
 
   if (isExpired) {
-    console.log(userData.id);
+    console.log(userData);
 
     try {
       const refreshApiData = await axios.get(
-        `${APIURL}/admin/refreshToken/${userData.id}`
+        `${APIURL}/admin/refreshToken/${userData}`
       );
       if (!refreshApiData.data.error) {
         if (userData) {

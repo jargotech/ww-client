@@ -9,6 +9,6 @@ export class BookTrialService {
   }
 
   getTrailByUserId(payload: any) {
-    return axiosInstance.post("/trial/findByUserId", payload);
+    return axiosInstance.get(`/trial/findByUserId/${payload}`);
   }
 }

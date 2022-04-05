@@ -6,6 +6,7 @@ import { currencyFormatter } from "../src/utils/currecyFormatter";
 import { BookTrialService } from "../src/services/bookTrial/bookTrialService";
 import { userJwtData } from "../src/utils/getAccessToken";
 import moment from "moment";
+import { CarService } from "../src/services/cars/carService";
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -27,10 +28,12 @@ export default function History() {
   // States
   const [value, setValue] = useState(0);
   const [bookingDetailList, setBookingDetailList] = useState<any>();
+  const [inspectionDetailList,setInpspectionDetailList]= useState<any>();
 
   // variables
   const bookTrialService = new BookTrialService();
   const userData: any = userJwtData() && userJwtData();
+  const carService = new CarService();
 
   // Functions
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -39,11 +42,8 @@ export default function History() {
 
   const getAllBookingDetailId = async (payload: any) => {
     try {
-      const payloadData = {
-        userId: payload,
-      };
       const booktrailData = await bookTrialService.getTrailByUserId(
-        payloadData
+        payload
       );
       if (!booktrailData.data.error) {
         setBookingDetailList(booktrailData.data.data);
@@ -51,10 +51,22 @@ export default function History() {
     } catch (error) {}
   };
 
+  const getInspectionById = async (payload:any)=>{
+    try{
+      const inspectionById = await carService.getInpectionsById(payload);
+      if(!inspectionById.data.error){
+        setInpspectionDetailList(inspectionById.data.data);
+      }
+    }catch(error){
+
+    }
+  }
+
   // Effects
   useEffect(() => {
     if (userData) {
       getAllBookingDetailId(userData);
+      getInspectionById(userData);
     }
     console.log(userData);
   }, [userData]);
@@ -75,18 +87,20 @@ export default function History() {
             <Tab label="Booking" />
           </Tabs>
           <TabPanel value={value} index={0}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6} md={4}>
+            {inspectionDetailList && inspectionDetailList.length > 0 ? (
+              <Grid container spacing={2}>
+              {inspectionDetailList && inspectionDetailList.map((item:any,index:number)=>(
+                <Grid item xs={12} sm={6} md={4} key={`inpection-${index}`}>
                 <div className="car-inpection-card cars-cards">
                   <div className="car-inpection-container">
-                    <h4>Brand Model</h4>
+                    <h4>{item.Brand.name} {item.modelId} </h4>
                     <Grid container spacing={2} className="car-detail-data">
                       <Grid item xs={4}>
                         <div className="readonly-custom">
                           <span className="readonly-custom-label">
                             Fuel Type
                           </span>
-                          <h6 className="readonly-custom-value">Peterol</h6>
+                          <h6 className="readonly-custom-value">{item.fuelType}</h6>
                         </div>
                       </Grid>
                       <Grid item xs={4} className="text-center">
@@ -94,13 +108,13 @@ export default function History() {
                           <span className="readonly-custom-label">
                             RC. State
                           </span>
-                          <h6 className="readonly-custom-value">Goa</h6>
+                          <h6 className="readonly-custom-value">{item.Registered_State[0].name}</h6>
                         </div>
                       </Grid>
                       <Grid item xs={4} className="text-right">
                         <div className="readonly-custom">
                           <span className="readonly-custom-label">KMS</span>
-                          <h6 className="readonly-custom-value">40,000</h6>
+                          <h6 className="readonly-custom-value">{item.kmDriven}</h6>
                         </div>
                       </Grid>
                     </Grid>
@@ -108,145 +122,42 @@ export default function History() {
                       <Grid item xs={4}>
                         <div className="readonly-custom">
                           <span className="readonly-custom-label">Year</span>
-                          <h6 className="readonly-custom-value">2022</h6>
+                          <h6 className="readonly-custom-value">{item.year}</h6>
                         </div>
                       </Grid>
                       <Grid item xs={4} className="text-center">
                         <div className="readonly-custom">
                           <span className="readonly-custom-label">City</span>
-                          <h6 className="readonly-custom-value">Panji</h6>
+                          <h6 className="readonly-custom-value">{item.cityName}</h6>
                         </div>
                       </Grid>
-                      <Grid item xs={4} className="text-right">
+                      {item.pincode && (
+                        <Grid item xs={4} className="text-right">
                         <div className="readonly-custom">
                           <span className="readonly-custom-label">Pincode</span>
-                          <h6 className="readonly-custom-value">401107</h6>
+                          <h6 className="readonly-custom-value">{item.pincode}</h6>
                         </div>
                       </Grid>
+                      )}
+                      
                     </Grid>
                   </div>
                   <div className="created-date d-flex justify-content-between">
                     <span>Created on</span>
-                    <span>16 Mar 2022</span>
+                    <span>{moment(item.createdAt).format(
+                              "D MMM YYYY  h:mm a"
+                            )}</span>
                   </div>
                 </div>
               </Grid>
-
-              <Grid item xs={12} sm={6} md={4}>
-                <div className="car-inpection-card cars-cards">
-                  <div className="car-inpection-container">
-                    <h4>Brand Model</h4>
-                    <Grid container spacing={2} className="car-detail-data">
-                      <Grid item xs={4}>
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">
-                            Fuel Type
-                          </span>
-                          <h6 className="readonly-custom-value">Peterol</h6>
-                        </div>
-                      </Grid>
-                      <Grid item xs={4} className="text-center">
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">
-                            RC. State
-                          </span>
-                          <h6 className="readonly-custom-value">Goa</h6>
-                        </div>
-                      </Grid>
-                      <Grid item xs={4} className="text-right">
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">KMS</span>
-                          <h6 className="readonly-custom-value">40,000</h6>
-                        </div>
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={2} className="car-detail-data">
-                      <Grid item xs={4}>
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">Year</span>
-                          <h6 className="readonly-custom-value">2022</h6>
-                        </div>
-                      </Grid>
-                      <Grid item xs={4} className="text-center">
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">City</span>
-                          <h6 className="readonly-custom-value">Panji</h6>
-                        </div>
-                      </Grid>
-                      <Grid item xs={4} className="text-right">
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">Pincode</span>
-                          <h6 className="readonly-custom-value">401107</h6>
-                        </div>
-                      </Grid>
-                    </Grid>
-                  </div>
-                  <div className="created-date d-flex justify-content-between">
-                    <span>Created on</span>
-                    <span>16 Mar 2022</span>
-                  </div>
-                </div>
-              </Grid>
-
-              <Grid item xs={12} sm={6} md={4}>
-                <div className="car-inpection-card cars-cards">
-                  <div className="car-inpection-container">
-                    <h4>Brand Model</h4>
-                    <Grid container spacing={2} className="car-detail-data">
-                      <Grid item xs={4}>
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">
-                            Fuel Type
-                          </span>
-                          <h6 className="readonly-custom-value">Peterol</h6>
-                        </div>
-                      </Grid>
-                      <Grid item xs={4} className="text-center">
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">
-                            RC. State
-                          </span>
-                          <h6 className="readonly-custom-value">Goa</h6>
-                        </div>
-                      </Grid>
-                      <Grid item xs={4} className="text-right">
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">KMS</span>
-                          <h6 className="readonly-custom-value">40,000</h6>
-                        </div>
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={2} className="car-detail-data">
-                      <Grid item xs={4}>
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">Year</span>
-                          <h6 className="readonly-custom-value">2022</h6>
-                        </div>
-                      </Grid>
-                      <Grid item xs={4} className="text-center">
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">City</span>
-                          <h6 className="readonly-custom-value">Panji</h6>
-                        </div>
-                      </Grid>
-                      <Grid item xs={4} className="text-right">
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">Pincode</span>
-                          <h6 className="readonly-custom-value">401107</h6>
-                        </div>
-                      </Grid>
-                    </Grid>
-                  </div>
-                  <div className="created-date d-flex justify-content-between">
-                    <span>Created on</span>
-                    <span>16 Mar 2022</span>
-                  </div>
-                </div>
-              </Grid>
+  ))}
+              
             </Grid>
+            ): (<div className="no-data-available"><span>No Data Available</span></div>)}
+            
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <Grid container spacing={2}>
+            {bookingDetailList && bookingDetailList.length > 0 ? (<Grid container spacing={2}>
               {bookingDetailList &&
                 bookingDetailList.map((item: any, index: number) => (
                   <Grid
@@ -267,32 +178,32 @@ export default function History() {
                           </span>
                         </div>
                         <Image
-                          src={CarImage}
+                          src={item.Car_Images[0]?.imageLink||CarImage}
                           width={435}
                           height={270}
                           alt="Car"
                         />
                         <div className="content">
-                          <h4>2015 USED AUDI A8 W12</h4>
+                          <h4>{item.Car_Detail.name}</h4>
                           <Grid container spacing={2}>
                             <Grid item xs={4}>
                               <p className="car-summary-header">FUEL TYPE </p>
-                              <span className="car-summary">Petrol</span>
+                              <span className="car-summary">{item.Car_Detail.fuelType}</span>
                             </Grid>
                             <Grid item xs={4} sx={{ textAlign: "center" }}>
                               <p className="car-summary-header">MODEL</p>
-                              <span className="car-summary">2018</span>
+                              <span className="car-summary">{item.Car_Detail.year}</span>
                             </Grid>
                             <Grid item xs={4} sx={{ textAlign: "right" }}>
                               <p className="car-summary-header">KMS</p>
-                              <span className="car-summary">33423432</span>
+                              <span className="car-summary">{item.Car_Detail.kmDriven}</span>
                             </Grid>
                           </Grid>
                           <div className="d-flex justify-content-between price-detail">
                             <div className="readonly-custom">
                               <span className="readonly-custom-label">Ask</span>
                               <h6 className="readonly-custom-value">
-                                {currencyFormatter("5000000000000")}
+                                {currencyFormatter(item.Car_Detail.maxPrice)}
                               </h6>
                             </div>
                             <div className="readonly-custom">
@@ -300,7 +211,7 @@ export default function History() {
                                 Bid
                               </span>
                               <h6 className="readonly-custom-value primary-color">
-                                {currencyFormatter("5000000000000")}
+                                {currencyFormatter(item.requestPrice)}
                               </h6>
                             </div>
                           </div>
@@ -310,6 +221,10 @@ export default function History() {
                   </Grid>
                 ))}
             </Grid>
+            ):(
+              <div className="no-data-available"><span>No Data Available</span></div>
+            )}
+            
           </TabPanel>
         </div>
       </Container>

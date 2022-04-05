@@ -173,7 +173,7 @@ export default function Navbar() {
       setSuccessLoggedIn(false);
       if (!verifyOtpApiCall.data.error) {
         console.log(verifyOtpApiCall);
-        setJwt(verifyOtpApiCall.data);
+        setJwt(verifyOtpApiCall.data.data);
         setOptModal(false);
         handleClose();
         setLoading(false);
@@ -440,14 +440,14 @@ export default function Navbar() {
                       "aria-labelledby": "basic-button",
                     }}
                   >
-                    <MenuItem
+                    {/* <MenuItem
                       onClick={() => {
                         router.push("/history");
                         setAnchorEl(null);
                       }}
                     >
                       History
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem onClick={logoutHandle}>Logout</MenuItem>
                   </Menu>
                 </Box>
