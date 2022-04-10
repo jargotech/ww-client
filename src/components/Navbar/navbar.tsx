@@ -173,7 +173,7 @@ export default function Navbar() {
       setSuccessLoggedIn(false);
       if (!verifyOtpApiCall.data.error) {
         console.log(verifyOtpApiCall);
-        setJwt(verifyOtpApiCall.data);
+        setJwt(verifyOtpApiCall.data.data);
         setOptModal(false);
         handleClose();
         setLoading(false);

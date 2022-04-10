@@ -6,6 +6,8 @@ export const xAccessToken = (): string => {
   if (typeof window !== "undefined") {
     if (localStorage) {
       user = localStorage.getItem("jwt") || "";
+      console.log(user);
+
       if (user) {
         token = JSON.parse(user).accessToken;
       }
