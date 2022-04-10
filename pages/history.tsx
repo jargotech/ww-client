@@ -28,7 +28,7 @@ export default function History() {
   // States
   const [value, setValue] = useState(0);
   const [bookingDetailList, setBookingDetailList] = useState<any>();
-  const [inspectionDetailList,setInpspectionDetailList]= useState<any>();
+  const [inspectionDetailList, setInpspectionDetailList] = useState<any>();
 
   // variables
   const bookTrialService = new BookTrialService();
@@ -42,25 +42,21 @@ export default function History() {
 
   const getAllBookingDetailId = async (payload: any) => {
     try {
-      const booktrailData = await bookTrialService.getTrailByUserId(
-        payload
-      );
+      const booktrailData = await bookTrialService.getTrailByUserId(payload);
       if (!booktrailData.data.error) {
         setBookingDetailList(booktrailData.data.data);
       }
     } catch (error) {}
   };
 
-  const getInspectionById = async (payload:any)=>{
-    try{
+  const getInspectionById = async (payload: any) => {
+    try {
       const inspectionById = await carService.getInpectionsById(payload);
-      if(!inspectionById.data.error){
+      if (!inspectionById.data.error) {
         setInpspectionDetailList(inspectionById.data.data);
       }
-    }catch(error){
-
-    }
-  }
+    } catch (error) {}
+  };
 
   // Effects
   useEffect(() => {
@@ -89,142 +85,189 @@ export default function History() {
           <TabPanel value={value} index={0}>
             {inspectionDetailList && inspectionDetailList.length > 0 ? (
               <Grid container spacing={2}>
-              {inspectionDetailList && inspectionDetailList.map((item:any,index:number)=>(
-                <Grid item xs={12} sm={6} md={4} key={`inpection-${index}`}>
-                <div className="car-inpection-card cars-cards">
-                  <div className="car-inpection-container">
-                    <h4>{item.Brand.name} {item.modelId} </h4>
-                    <Grid container spacing={2} className="car-detail-data">
-                      <Grid item xs={4}>
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">
-                            Fuel Type
-                          </span>
-                          <h6 className="readonly-custom-value">{item.fuelType}</h6>
+                {inspectionDetailList &&
+                  inspectionDetailList.map((item: any, index: number) => (
+                    <Grid item xs={12} sm={6} md={4} key={`inpection-${index}`}>
+                      <div className="car-inpection-card cars-cards">
+                        <div className="car-inpection-container">
+                          <h4>
+                            {item.Brand._id == "62322c628d85ac348ad470ac"
+                              ? item?.otherName
+                              : item.Brand.name}{" "}
+                            {item.modelId}
+                          </h4>
+                          <Grid
+                            container
+                            spacing={2}
+                            className="car-detail-data"
+                          >
+                            <Grid item xs={4}>
+                              <div className="readonly-custom">
+                                <span className="readonly-custom-label">
+                                  Fuel Type
+                                </span>
+                                <h6 className="readonly-custom-value">
+                                  {item.fuelType}
+                                </h6>
+                              </div>
+                            </Grid>
+                            <Grid item xs={4} className="text-center">
+                              <div className="readonly-custom">
+                                <span className="readonly-custom-label">
+                                  RC. State
+                                </span>
+                                <h6 className="readonly-custom-value">
+                                  {item.Registered_State[0].name}
+                                </h6>
+                              </div>
+                            </Grid>
+                            <Grid item xs={4} className="text-right">
+                              <div className="readonly-custom">
+                                <span className="readonly-custom-label">
+                                  KMS
+                                </span>
+                                <h6 className="readonly-custom-value">
+                                  {item.kmDriven}
+                                </h6>
+                              </div>
+                            </Grid>
+                          </Grid>
+                          <Grid
+                            container
+                            spacing={2}
+                            className="car-detail-data"
+                          >
+                            <Grid item xs={4}>
+                              <div className="readonly-custom">
+                                <span className="readonly-custom-label">
+                                  Year
+                                </span>
+                                <h6 className="readonly-custom-value">
+                                  {item.year}
+                                </h6>
+                              </div>
+                            </Grid>
+                            <Grid item xs={4} className="text-center">
+                              <div className="readonly-custom">
+                                <span className="readonly-custom-label">
+                                  City
+                                </span>
+                                <h6 className="readonly-custom-value">
+                                  {item.cityName}
+                                </h6>
+                              </div>
+                            </Grid>
+                            {item.pincode && (
+                              <Grid item xs={4} className="text-right">
+                                <div className="readonly-custom">
+                                  <span className="readonly-custom-label">
+                                    Pincode
+                                  </span>
+                                  <h6 className="readonly-custom-value">
+                                    {item.pincode}
+                                  </h6>
+                                </div>
+                              </Grid>
+                            )}
+                          </Grid>
                         </div>
-                      </Grid>
-                      <Grid item xs={4} className="text-center">
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">
-                            RC. State
-                          </span>
-                          <h6 className="readonly-custom-value">{item.Registered_State[0].name}</h6>
-                        </div>
-                      </Grid>
-                      <Grid item xs={4} className="text-right">
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">KMS</span>
-                          <h6 className="readonly-custom-value">{item.kmDriven}</h6>
-                        </div>
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={2} className="car-detail-data">
-                      <Grid item xs={4}>
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">Year</span>
-                          <h6 className="readonly-custom-value">{item.year}</h6>
-                        </div>
-                      </Grid>
-                      <Grid item xs={4} className="text-center">
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">City</span>
-                          <h6 className="readonly-custom-value">{item.cityName}</h6>
-                        </div>
-                      </Grid>
-                      {item.pincode && (
-                        <Grid item xs={4} className="text-right">
-                        <div className="readonly-custom">
-                          <span className="readonly-custom-label">Pincode</span>
-                          <h6 className="readonly-custom-value">{item.pincode}</h6>
-                        </div>
-                      </Grid>
-                      )}
-                      
-                    </Grid>
-                  </div>
-                  <div className="created-date d-flex justify-content-between">
-                    <span>Created on</span>
-                    <span>{moment(item.createdAt).format(
-                              "D MMM YYYY  h:mm a"
-                            )}</span>
-                  </div>
-                </div>
-              </Grid>
-  ))}
-              
-            </Grid>
-            ): (<div className="no-data-available"><span>No Data Available</span></div>)}
-            
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            {bookingDetailList && bookingDetailList.length > 0 ? (<Grid container spacing={2}>
-              {bookingDetailList &&
-                bookingDetailList.map((item: any, index: number) => (
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    key={`booking-card-${index}`}
-                  >
-                    <div className="booking-detail-card">
-                      <div className="cars-cards">
-                        <div className="ride-date d-flex justify-content-between">
-                          <span>Ride Date</span>
+                        <div className="created-date d-flex justify-content-between">
+                          <span>Created on</span>
                           <span>
-                            {moment(item.bookOnDateTime).format(
+                            {moment(item.createdAt).format(
                               "D MMM YYYY  h:mm a"
                             )}
                           </span>
                         </div>
-                        <Image
-                          src={item.Car_Images[0]?.imageLink||CarImage}
-                          width={435}
-                          height={270}
-                          alt="Car"
-                        />
-                        <div className="content">
-                          <h4>{item.Car_Detail.name}</h4>
-                          <Grid container spacing={2}>
-                            <Grid item xs={4}>
-                              <p className="car-summary-header">FUEL TYPE </p>
-                              <span className="car-summary">{item.Car_Detail.fuelType}</span>
+                      </div>
+                    </Grid>
+                  ))}
+              </Grid>
+            ) : (
+              <div className="no-data-available">
+                <span>No Data Available</span>
+              </div>
+            )}
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            {bookingDetailList && bookingDetailList.length > 0 ? (
+              <Grid container spacing={2}>
+                {bookingDetailList &&
+                  bookingDetailList.map((item: any, index: number) => (
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      key={`booking-card-${index}`}
+                    >
+                      <div className="booking-detail-card">
+                        <div className="cars-cards">
+                          <div className="ride-date d-flex justify-content-between">
+                            <span>Ride Date</span>
+                            <span>
+                              {moment(item.bookOnDateTime).format(
+                                "D MMM YYYY  h:mm a"
+                              )}
+                            </span>
+                          </div>
+                          <Image
+                            src={item.Car_Images[0]?.imageLink || CarImage}
+                            width={435}
+                            height={270}
+                            alt="Car"
+                          />
+                          <div className="content">
+                            <h4>{item.Car_Detail.name}</h4>
+                            <Grid container spacing={2}>
+                              <Grid item xs={4}>
+                                <p className="car-summary-header">FUEL TYPE </p>
+                                <span className="car-summary">
+                                  {item.Car_Detail.fuelType}
+                                </span>
+                              </Grid>
+                              <Grid item xs={4} sx={{ textAlign: "center" }}>
+                                <p className="car-summary-header">MODEL</p>
+                                <span className="car-summary">
+                                  {item.Car_Detail.year}
+                                </span>
+                              </Grid>
+                              <Grid item xs={4} sx={{ textAlign: "right" }}>
+                                <p className="car-summary-header">KMS</p>
+                                <span className="car-summary">
+                                  {item.Car_Detail.kmDriven}
+                                </span>
+                              </Grid>
                             </Grid>
-                            <Grid item xs={4} sx={{ textAlign: "center" }}>
-                              <p className="car-summary-header">MODEL</p>
-                              <span className="car-summary">{item.Car_Detail.year}</span>
-                            </Grid>
-                            <Grid item xs={4} sx={{ textAlign: "right" }}>
-                              <p className="car-summary-header">KMS</p>
-                              <span className="car-summary">{item.Car_Detail.kmDriven}</span>
-                            </Grid>
-                          </Grid>
-                          <div className="d-flex justify-content-between price-detail">
-                            <div className="readonly-custom">
-                              <span className="readonly-custom-label">Ask</span>
-                              <h6 className="readonly-custom-value">
-                                {currencyFormatter(item.Car_Detail.maxPrice)}
-                              </h6>
-                            </div>
-                            <div className="readonly-custom">
-                              <span className="readonly-custom-label ">
-                                Bid
-                              </span>
-                              <h6 className="readonly-custom-value primary-color">
-                                {currencyFormatter(item.requestPrice)}
-                              </h6>
+                            <div className="d-flex justify-content-between price-detail">
+                              <div className="readonly-custom">
+                                <span className="readonly-custom-label">
+                                  Ask
+                                </span>
+                                <h6 className="readonly-custom-value">
+                                  {currencyFormatter(item.Car_Detail.maxPrice)}
+                                </h6>
+                              </div>
+                              <div className="readonly-custom">
+                                <span className="readonly-custom-label ">
+                                  Bid
+                                </span>
+                                <h6 className="readonly-custom-value primary-color">
+                                  {currencyFormatter(item.requestPrice)}
+                                </h6>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </Grid>
-                ))}
-            </Grid>
-            ):(
-              <div className="no-data-available"><span>No Data Available</span></div>
+                    </Grid>
+                  ))}
+              </Grid>
+            ) : (
+              <div className="no-data-available">
+                <span>No Data Available</span>
+              </div>
             )}
-            
           </TabPanel>
         </div>
       </Container>
