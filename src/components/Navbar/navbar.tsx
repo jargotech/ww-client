@@ -440,14 +440,14 @@ export default function Navbar() {
                       "aria-labelledby": "basic-button",
                     }}
                   >
-                    <MenuItem
+                    {/* <MenuItem
                       onClick={() => {
                         router.push("/history");
                         setAnchorEl(null);
                       }}
                     >
                       History
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem onClick={logoutHandle}>Logout</MenuItem>
                   </Menu>
                 </Box>

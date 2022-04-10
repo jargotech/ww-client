@@ -21,4 +21,8 @@ export class CarService {
   bookTrial(payload: any) {
     return axiosInstance.post(`/trial`, payload);
   }
+
+  getInpectionsById(payload:any){
+    return axiosInstance.get(`/sellCar/getBy/UserId/${payload}`)
+  }
 }
