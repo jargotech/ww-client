@@ -87,7 +87,8 @@ export default function Home() {
       <LandingSection {...landingDetail?.dashboardData[0]} />
       {/* {landingDetail?.NoOfCity} */}
       <OurStats {...stats} />
-      <LatestArrival cars={latestArrival} />
+      {latestArrival && <LatestArrival cars={latestArrival} />}
+
       <HowItWorks />
       <Footer
         ctaTitle="We can help you sell your car"

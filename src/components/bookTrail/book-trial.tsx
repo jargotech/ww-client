@@ -110,7 +110,7 @@ export default function BookTrail({ carData }: any) {
   }
 
   const childtoParent = (value: any) => {
-    if (convertToNum(value) >= minPrice) {
+    if (convertToNum(value) >= maxPrice) {
       setDisableButton(false);
     } else {
       setDisableButton(true);
@@ -295,6 +295,7 @@ export default function BookTrail({ carData }: any) {
             </MediaQuery> */}
             <Grid item lg={9} sx={{ margin: "0 auto" }}>
               <CarCards
+                {...carData[0]}
                 Car_Images={carData[0]?.Car_Images}
                 Car_Detail={carData[0]?.Car_Detail}
                 variant="card2"
