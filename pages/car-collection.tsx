@@ -9,10 +9,12 @@ import Footer from "../src/components/Footer/footer";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { CarService } from "../src/services/cars/carService";
+import whatsAppIcon from "../public/whatsapp.svg";
 
 export default function CarCollection() {
   // States
   const [cars, setCars] = useState<any[]>([]);
+  const [url, setUrl] = useState<any>();
 
   // Variable
   const router = useRouter();
@@ -34,9 +36,14 @@ export default function CarCollection() {
     });
   };
 
+  const shareUrl = () => {
+    console.log("working..");
+  };
+
   // Effects
   useEffect(() => {
     _getAllCarList();
+    setUrl(window?.location?.href);
   }, []);
 
   return (
@@ -48,6 +55,19 @@ export default function CarCollection() {
         <CarListing allCars={cars} />
       ) : (
         <p className="no-data-available section-title">No Cars Available.</p>
+      )}
+
+      {url && url ? (
+        <a
+          className="sharebtn"
+          href={`https://api.whatsapp.com/send?text=${url}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src={whatsAppIcon.src} />
+        </a>
+      ) : (
+        ""
       )}
 
       <Footer

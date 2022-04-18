@@ -2848,3 +2848,15 @@ input:focus-visible {
 .no-data-available span {
   font-size: 24px;
 }
+
+.sharebtn {
+  max-width: 50px;
+  width: 100%;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  position: fixed;
+  bottom: 5%;
+  right: 3%;
+  z-index: 9;
+}
