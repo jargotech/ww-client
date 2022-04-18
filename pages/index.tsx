@@ -85,7 +85,7 @@ export default function Home() {
         <title>Wish Wheels</title>
       </Head>
       <LandingSection {...landingDetail?.dashboardData[0]} />
-      {/* {landingDetail?.NoOfCity} */}
+
       <OurStats {...stats} />
       {latestArrival && <LatestArrival cars={latestArrival} />}
 
