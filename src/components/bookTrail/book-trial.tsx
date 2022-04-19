@@ -21,7 +21,7 @@ import moment from "moment";
 import InfoIcon from "@mui/icons-material/Info";
 
 const steps = ["step1", "step2"];
-export default function BookTrail({ carData }: any) {
+export default function BookTrail({ carData, maxPriceValue }: any) {
   // States
   const [activeStep, setActiveStep] = useState(0);
   const [diableButton, setDisableButton] = useState(true);
@@ -31,7 +31,7 @@ export default function BookTrail({ carData }: any) {
 
   // Variable
   const isLastStep = activeStep === steps.length - 1;
-  const BookTrailInitialValues = {
+  let BookTrailInitialValues = {
     makeOffer: "",
     address1: "",
     address2: "",
@@ -175,8 +175,12 @@ export default function BookTrail({ carData }: any) {
   }, [bookTrial]);
 
   useEffect(() => {
-    console.log(carData);
-  }, []);
+    // if (carData) {
+    //   console.log(carData);
+    //   // BookTrailInitialValues["makeOffer"] = "This is string";
+    //   BookTrailInitialValues["makeOffer"] =
+    // }
+  }, [carData]);
 
   return (
     <section className="book-trail">

@@ -10,6 +10,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { CarService } from "../src/services/cars/carService";
 import whatsAppIcon from "../public/whatsapp.svg";
+import { CompanyDetail } from "../src/services/user/contactDetail";
 
 export default function CarCollection() {
   // States
@@ -19,6 +20,8 @@ export default function CarCollection() {
   // Variable
   const router = useRouter();
   const _carService = new CarService();
+  const companyDetailService = new CompanyDetail();
+  const [companyDetail, setCompanyDetail] = useState<any>();
 
   // Functions
   const handleClick = () => {
@@ -40,10 +43,24 @@ export default function CarCollection() {
     console.log("working..");
   };
 
+  const getComapnyDetails = async () => {
+    try {
+      const companyDetailData =
+        await companyDetailService.getAllContactDetail();
+      if (!companyDetailData.data.error) {
+        setCompanyDetail(companyDetailData.data.data);
+      }
+    } catch (error) {}
+  };
+
   // Effects
   useEffect(() => {
     _getAllCarList();
     setUrl(window?.location?.href);
+  }, []);
+
+  useEffect(() => {
+    getComapnyDetails();
   }, []);
 
   return (
@@ -57,11 +74,11 @@ export default function CarCollection() {
         <p className="no-data-available section-title">No Cars Available.</p>
       )}
 
-      {url && url ? (
+      {url && companyDetail && url ? (
         <a
           className="sharebtn"
           // href={`https://api.whatsapp.com/send?text=${url}`}
-          href={`https://api.whatsapp.com/send?phone=9372275520`}
+          href={`https://api.whatsapp.com/send?phone=${companyDetail.contactNo}`}
           target="_blank"
           rel="noopener noreferrer"
         >

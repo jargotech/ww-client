@@ -36,7 +36,10 @@ export default function BookCar() {
       <Head>
         <title>Wish Wheels | Book Car</title>
       </Head>
-      <BookTrail carData={carDetail} />
+      <BookTrail
+        carData={carDetail}
+        maxPriceValue={carDetail[0]?.Car_Detail?.maxPrice}
+      />
     </div>
   );
 }
