@@ -60,7 +60,8 @@ export default function CarCollection() {
       {url && url ? (
         <a
           className="sharebtn"
-          href={`https://api.whatsapp.com/send?text=${url}`}
+          // href={`https://api.whatsapp.com/send?text=${url}`}
+          href={`https://api.whatsapp.com/send?phone=9372275520`}
           target="_blank"
           rel="noopener noreferrer"
         >

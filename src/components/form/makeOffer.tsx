@@ -43,7 +43,7 @@ export default function MakeOffer(props: any) {
           isNumericString
         />
       </div>
-      {convertToNum(formik?.values?.makeOffer) !== 0 &&
+      {/* {convertToNum(formik?.values?.makeOffer) !== 0 &&
       convertToNum(formik?.values?.makeOffer) ? (
         convertToNum(formik?.values?.makeOffer) > maxPrice &&
         convertToNum(formik?.values?.makeOffer) ? (
@@ -60,7 +60,7 @@ export default function MakeOffer(props: any) {
           >
             Overpriced, we&apos;ll not charge more.
           </Alert>
-        ) : convertToNum(formik?.values?.makeOffer) >= minPrice &&
+        ) : convertToNum(formik?.values?.makeOffer) == maxPrice &&
           convertToNum(formik?.values?.makeOffer) ? (
           <Alert
             sx={{
@@ -77,30 +77,31 @@ export default function MakeOffer(props: any) {
           >
             High chance of acceptance!
           </Alert>
-        ) : convertToNum(formik?.values?.makeOffer) < minPrice &&
-          convertToNum(formik?.values?.makeOffer) ? (
-          <Alert
-            severity="warning"
-            sx={{
-              display: "inline-flex",
-              alignItems: "center",
-              padding: "5px 10px",
-              "& .MuiAlert-message": {
-                padding: "5px 0px !important",
-              },
-            }}
-            iconMapping={{
-              warning: <SentimentVeryDissatisfiedIcon fontSize="inherit" />,
-            }}
-          >
-            Oops! Too low offer.
-          </Alert>
         ) : (
+          // : convertToNum(formik?.values?.makeOffer) < minPrice &&
+          //   convertToNum(formik?.values?.makeOffer) ? (
+          //   <Alert
+          //     severity="warning"
+          //     sx={{
+          //       display: "inline-flex",
+          //       alignItems: "center",
+          //       padding: "5px 10px",
+          //       "& .MuiAlert-message": {
+          //         padding: "5px 0px !important",
+          //       },
+          //     }}
+          //     iconMapping={{
+          //       warning: <SentimentVeryDissatisfiedIcon fontSize="inherit" />,
+          //     }}
+          //   >
+          //     Oops! Too low offer.
+          //   </Alert>
+          // )
           <></>
         )
       ) : (
         <></>
-      )}
+      )} */}
     </div>
   );
 }
