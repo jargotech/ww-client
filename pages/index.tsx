@@ -96,11 +96,6 @@ export default function Home() {
         ctaAction={handleClick}
         className="site-section"
       />
-      {/* {isIos ? (
-        <div className="add-to-home-screen">this if for IOS Device</div>
-      ) : (
-        ""
-      )} */}
     </>
   );
 }
