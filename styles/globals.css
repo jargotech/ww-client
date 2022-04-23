@@ -2860,3 +2860,35 @@ input:focus-visible {
   right: 3%;
   z-index: 9;
 }
+
+.add-to-home-screen {
+  display: block;
+  padding: 20px 10px;
+  background: var(--primary-color);
+  font-size: 14px;
+  backdrop-filter: drop-shadow(2px 4px 6px black);
+  text-transform: capitalize;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: 9;
+  transform: translateY(0px);
+  /* transition: linear 0.3s; */
+  animation: popup 1s;
+}
+
+@keyframes popup {
+  from {
+    transform: translateY(56px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  /* CSS specific to iOS devices */
+  .add-to-home-screen {
+    display: block;
+  }
+}
