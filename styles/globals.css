@@ -2912,10 +2912,3 @@ input:focus-visible {
     transform: translateY(0px);
   }
 }
-
-@supports (-webkit-touch-callout: none) {
-  /* CSS specific to iOS devices */
-  .add-to-home-screen {
-    display: block;
-  }
-}

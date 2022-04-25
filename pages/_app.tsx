@@ -63,7 +63,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   useEffect(() => {
-    if (navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {
+    if (window.navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {
       setIsIos(true);
     } else {
       setIsIos(false);
@@ -76,7 +76,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Layout>
           <Component {...pageProps} />
           {isIos ? (
-            installButton ? (
+            true ? (
               <div
                 // className="add-to-home-screen"
                 className={
