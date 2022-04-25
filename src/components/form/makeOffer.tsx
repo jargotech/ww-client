@@ -43,7 +43,6 @@ export default function MakeOffer(props: any) {
           isNumericString
         />
       </div>
-      {formik.values.makeOffer}
       {/* {convertToNum(formik?.values?.makeOffer) !== 0 &&
       convertToNum(formik?.values?.makeOffer) ? (
         convertToNum(formik?.values?.makeOffer) > maxPrice &&

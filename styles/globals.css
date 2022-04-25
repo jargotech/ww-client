@@ -2904,6 +2904,58 @@ input:focus-visible {
   font-size: 16px;
 }
 
+.add-to-home-screen-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffff;
+  padding: 15px;
+  width: calc(100% - 40px);
+  margin: 0 auto;
+}
+.add-to-home-screen-popup h3 {
+  margin: 0px 0px 10px 0px;
+  font-size: 24px;
+  text-align: center;
+}
+.add-to-home-screen-popup p {
+  margin: 0px 0px 10px 0px;
+  font-size: 18px;
+  text-align: center;
+  color: #3a3a3a;
+}
+
+.add-to-home-screen-popup .text-small {
+  font-size: 14px;
+  word-spacing: 2px;
+  color: #3a3a3a;
+}
+
+.add-to-home-screen-popup .share-icon-img {
+  max-width: 20px;
+  width: 100%;
+  height: auto;
+  display: inline-block;
+  margin: 0px 2px;
+}
+.add-to-home-screen-popup button {
+  padding: 5px 10px;
+  font-size: 16px;
+  border: 0px;
+  color: blue;
+  margin: 5px auto 0px auto;
+  display: block;
+  background: transparent;
+}
+
+.add-to-home-screen-popup .site-logo {
+  max-width: 60px;
+  width: 100%;
+  display: block;
+  margin: 0px auto 10px auto;
+}
+
 @keyframes popup {
   from {
     transform: translateY(56px);

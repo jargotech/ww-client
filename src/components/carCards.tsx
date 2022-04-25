@@ -43,8 +43,12 @@ export default function CarCards({
   useEffect(() => {
     if (Car_Images) {
       // #1. Take 1st/ Last image of car
-      const requiredCarIndex = Car_Images?.length - 1 || 0;
-      const firstImageOfCar = Car_Images[requiredCarIndex];
+      // const requiredCarIndex = Car_Images?.find(
+      //   (item: any) => item.imageOrder == 0
+      // );
+      const firstImageOfCar = Car_Images?.find(
+        (item: any) => item.imageOrder == 0
+      );
       setCarImage(firstImageOfCar);
     }
   }, [Car_Images]);

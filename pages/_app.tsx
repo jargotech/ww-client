@@ -7,6 +7,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import theme from "../src/theme";
 import AuthContext from "../src/context/AuthContext";
 import React, { useEffect, useState } from "react";
+import useIsIOS from "../src/hooks/useIsIos";
+import InstallPWAModel from "../src/hooks/installPWA";
 
 // const outerTheme = createTheme({
 //   typography:{
@@ -20,22 +22,25 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [installButton, setInstallButton] = useState<any>(false);
   const [isIos, setIsIos] = useState<any>(true);
   const [hidePopup, setHidePopup] = useState<any>(false);
+  const [openModel, setOpenModel] = useState<any>(false);
+
+  // Variables
+  const { prompt } = useIsIOS();
 
   const installApp = async () => {
-    console.log("clicked");
-
-    if (!installPrompt) return false;
-    installPrompt.prompt();
-    let outcome = await installPrompt.userChoice;
-    if (outcome.outcome == "accepted") {
-      console.log("App Installed");
-    } else {
-      console.log("App not installed");
-    }
-    // Remove the event reference
-    setInstallPrompt(null);
-    // Hide the button
-    setInstallButton(false);
+    // console.log("clicked");
+    // if (!installPrompt) return false;
+    // installPrompt.prompt();
+    // let outcome = await installPrompt.userChoice;
+    // if (outcome.outcome == "accepted") {
+    //   console.log("App Installed");
+    // } else {
+    //   console.log("App not installed");
+    // }
+    // // Remove the event reference
+    // setInstallPrompt(null);
+    // // Hide the button
+    // setInstallButton(false);
   };
 
   const hide = () => {
@@ -76,29 +81,29 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Layout>
           <Component {...pageProps} />
           {isIos ? (
-            true ? (
-              <div
-                // className="add-to-home-screen"
-                className={
-                  !hidePopup ? "add-to-home-screen" : "add-to-home-screen hide"
-                }
+            <div
+              // className="add-to-home-screen"
+              className={
+                !hidePopup ? "add-to-home-screen" : "add-to-home-screen hide"
+              }
+            >
+              <button
+                onClick={() => setOpenModel(true)}
+                className="btn-secondary"
               >
-                <button onClick={installApp} className="btn-secondary">
-                  Add to Home Screen
-                </button>
-                <span
-                  className="closebtn"
-                  onClick={(e: any) => {
-                    e.preventDefault();
-                    hide();
-                  }}
-                >
-                  &times;
-                </span>
-              </div>
-            ) : (
-              ""
-            )
+                Add to Home Screen
+              </button>
+              <span
+                className="closebtn"
+                onClick={(e: any) => {
+                  e.preventDefault();
+                  hide();
+                }}
+              >
+                &times;
+              </span>
+              <InstallPWAModel open={openModel} setOpen={setOpenModel} />
+            </div>
           ) : (
             ""
           )}
