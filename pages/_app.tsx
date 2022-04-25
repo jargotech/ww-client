@@ -22,6 +22,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [hidePopup, setHidePopup] = useState<any>(false);
 
   const installApp = async () => {
+    console.log("clicked");
+
     if (!installPrompt) return false;
     installPrompt.prompt();
     let outcome = await installPrompt.userChoice;
@@ -74,25 +76,29 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Layout>
           <Component {...pageProps} />
           {isIos ? (
-            <div
-              // className="add-to-home-screen"
-              className={
-                !hidePopup ? "add-to-home-screen" : "add-to-home-screen hide"
-              }
-            >
-              <button onClick={installApp} className="btn-secondary">
-                Add to Home Screen
-              </button>
-              <span
-                className="closebtn"
-                onClick={(e: any) => {
-                  e.preventDefault();
-                  hide();
-                }}
+            installButton ? (
+              <div
+                // className="add-to-home-screen"
+                className={
+                  !hidePopup ? "add-to-home-screen" : "add-to-home-screen hide"
+                }
               >
-                &times;
-              </span>
-            </div>
+                <button onClick={installApp} className="btn-secondary">
+                  Add to Home Screen
+                </button>
+                <span
+                  className="closebtn"
+                  onClick={(e: any) => {
+                    e.preventDefault();
+                    hide();
+                  }}
+                >
+                  &times;
+                </span>
+              </div>
+            ) : (
+              ""
+            )
           ) : (
             ""
           )}
