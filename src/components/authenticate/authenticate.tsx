@@ -55,7 +55,7 @@ export default function Authenticate({
   const validationSchema2 = Yup.object().shape({
     firstName: Yup.string().required("Field cannot be blank"),
     lastName: Yup.string(),
-    emailId: Yup.string(),
+    emailId: Yup.string().required("Filed cannot be blank"),
     phoneNumber: Yup.string().required("Field cannot be blank"),
   });
   const validationSchema3 = Yup.object().shape({
@@ -354,6 +354,7 @@ export default function Authenticate({
                       <StyledTextField
                         autoComplete={"" + Math.random()}
                         name="emailId"
+                        required
                         error
                         value={formik.values.emailId}
                         onChange={formik.handleChange}
