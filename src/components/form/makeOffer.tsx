@@ -21,10 +21,11 @@ export default function MakeOffer(props: any) {
   // const changeDisableButton = (value:any)=>{
   //     childtoParent(value);
   // }
+
   // Effects
-  useEffect(() => {
-    childtoParent(formik.values.makeOffer);
-  }, [formik.values.makeOffer]);
+  // useEffect(() => {
+  //   childtoParent(formik.values.makeOffer);
+  // }, [formik.values.makeOffer]);
 
   return (
     <div>

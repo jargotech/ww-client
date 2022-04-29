@@ -38,6 +38,11 @@ export default function UserForm({ formik }: any) {
     let today = new Date();
     return date < today;
   };
+
+  const handleMaxLength = (elmnt: any, length: any) => {
+    if (elmnt.target.value.length > length)
+      elmnt.target.value = elmnt.target.value.slice(0, length);
+  };
   // Effects
 
   useEffect(() => {
@@ -81,7 +86,7 @@ export default function UserForm({ formik }: any) {
           </span>
         </Grid>
         <Grid item xs={6} md={6} className="book-trail-form-field">
-          <StyledAutoComplete
+          {/* <StyledAutoComplete
             disablePortal
             freeSolo
             id="city"
@@ -109,6 +114,18 @@ export default function UserForm({ formik }: any) {
                 label="City"
               />
             )}
+          /> */}
+          <StyledTextField
+            name="city"
+            error
+            required
+            autoComplete={"" + Math.random()}
+            value={formik.values.city}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            variant="filled"
+            label="City"
+            fullWidth
           />
           <span className="error">
             {formik.touched.city && formik.errors.city}
@@ -120,6 +137,7 @@ export default function UserForm({ formik }: any) {
             error
             required
             type="number"
+            onInput={(e) => handleMaxLength(e, 6)}
             autoComplete={"" + Math.random()}
             value={formik.values.pincode}
             onChange={formik.handleChange}
@@ -142,8 +160,8 @@ export default function UserForm({ formik }: any) {
               //     setValue(newValue);
               // }}
               // format="MM/DD/YYYY hh:00 a"
-              views={["day", "hours"]}
-              inputFormat="yyyy/MM/dd HH:00 a"
+              views={["day"]}
+              inputFormat="yyyy/MM/dd"
               value={formik.values.trailDate}
               shouldDisableDate={checkDateDisabled}
               // onChange={(e, value) => {

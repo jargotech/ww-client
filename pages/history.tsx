@@ -71,7 +71,7 @@ export default function History() {
     <section className="customer-history">
       <Container maxWidth="lg">
         <h3 className="section-title">
-          My <span>Transactions</span>
+          My <span>History</span>
         </h3>
         <div className="customer-history-tab">
           <Tabs
@@ -79,8 +79,8 @@ export default function History() {
             onChange={handleChange}
             className="authenticationTabs"
           >
-            <Tab label="Inspection" />
-            <Tab label="Booking" />
+            <Tab label="Sale inspection" />
+            <Tab label="Purchase Booking" />
           </Tabs>
           <TabPanel value={value} index={0}>
             {inspectionDetailList && inspectionDetailList.length > 0 ? (
@@ -204,7 +204,7 @@ export default function History() {
                       <div className="booking-detail-card">
                         <div className="cars-cards">
                           <div className="ride-date d-flex justify-content-between">
-                            <span>Ride Date</span>
+                            <span>Trial Date</span>
                             <span>
                               {moment(item.bookOnDateTime).format(
                                 "D MMM YYYY  h:mm a"
@@ -212,7 +212,12 @@ export default function History() {
                             </span>
                           </div>
                           <Image
-                            src={item.Car_Images[0]?.imageLink || CarImage}
+                            // src={item.Car_Images[0]?.imageLink || CarImage}
+                            src={
+                              item?.Car_Images?.find(
+                                (item: any) => item.imageOrder == 0
+                              )?.imageLink || CarImage
+                            }
                             width={435}
                             height={270}
                             alt="Car"

@@ -37,7 +37,7 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
     address2: "",
     pincode: "",
     trailDate: null,
-    city: { city: "" },
+    city: "",
   };
 
   const phoneRegExp =
@@ -53,9 +53,7 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
     Yup.object().shape({
       address1: Yup.string().required("Field cannot be blank"),
       address2: Yup.string(),
-      city: Yup.object({
-        name: Yup.string().required("Field cannot be blank"),
-      }),
+      city: Yup.string().required("Field cannot be blank"),
       pincode: Yup.number().required("Field cannot be blank"),
       trailDate: Yup.date().nullable().required("Field cannot be blank"),
     }),
@@ -73,6 +71,9 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+  const handleBackToCarCollection = () => {
+    router.push("/car-collection");
+  };
 
   async function _submitForm(values: any, actions: any) {
     const { makeOffer, address1, address2, trailDate, city, pincode } = values;
@@ -80,7 +81,7 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
     setBookTrial({
       userId: userJwtData(),
       carId: carData[0]._id,
-      cityId: city.id,
+      cityId: city,
       Address1: address1,
       Address2: address2,
       pincode: pincode,
@@ -110,19 +111,21 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
   }
 
   const childtoParent = (value: any) => {
-    if (convertToNum(value) >= maxPrice) {
-      setDisableButton(false);
-    } else {
-      setDisableButton(true);
-    }
+    // if (convertToNum(value) >= maxPrice) {
+    //   setDisableButton(false);
+    // } else {
+    //   setDisableButton(true);
+    // }
+    return true;
   };
 
   const handleDisableButton = (activeStep: any, props: any) => {
-    if (activeStep == 0) {
-      return diableButton;
-    } else {
-      return !(props.isValid && props.dirty) || loading;
-    }
+    // if (activeStep == 0) {
+    //   return diableButton;
+    // } else {
+    //   return !(props.isValid && props.dirty) || loading;
+    // }
+    return !(props.isValid && props.dirty) || loading;
   };
 
   const overflowHidden = (hide: any) => {
@@ -164,7 +167,7 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
       setTimeout(() => {
         router.push("/car-collection");
         overflowHidden(false);
-      }, 10000);
+      }, 15000);
     }
   }, [activeStep]);
 
@@ -185,7 +188,7 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
   return (
     <section className="book-trail">
       <Container maxWidth="lg">
-        <h3>Book Trail</h3>
+        <h3>Book Trial</h3>
         <Grid
           container
           spacing={2}
@@ -206,16 +209,16 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
                 <div className="dropbox"></div>
                 <div className="succes-card">
                   {overflowHidden(true)}
+                  <h4 className="success">Success</h4>
                   <img src={SuccesBookingPng.src} alt="succes booking" />
-                  <h4>You’ve sucessfully booked trail!</h4>
                   {/* <p>
                     You will be receiving a confirmation on your registered
                     mobile number & email.
                   </p> */}
-                  <p>
+                  <h4>
                     Thanks for finding faith in us. Our Sales team will reach
                     out to you shortly
-                  </p>
+                  </h4>
                   <Link href="/">Explore Collection</Link>
                 </div>
               </div>
@@ -230,35 +233,34 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
                     {/* {_renderStepContent(activeStep)} */}
                     {activeStep == 0 ? (
                       <MakeOffer
-                        childtoParent={childtoParent}
+                        // childtoParent={childtoParent}
                         carInfo={carData}
                         formik={props}
                       />
                     ) : isLastStep ? (
                       <UserForm formik={props} />
                     ) : null}
-                    {activeStep == 1 && (
-                      <div>
-                        <Alert
-                          severity="warning"
-                          sx={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            marginTop: "15px",
-                            padding: "5px 10px",
-                            "& .MuiAlert-message": {
-                              padding: "5px 0px !important",
-                            },
-                          }}
-                          iconMapping={{
-                            warning: <InfoIcon fontSize="inherit" />,
-                          }}
-                        >
-                          Trials are subject to offers approved by our Sales
-                          Team.
-                        </Alert>
-                      </div>
-                    )}
+                    <div>
+                      <Alert
+                        severity="warning"
+                        sx={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          marginTop: "15px",
+                          padding: "5px 10px",
+                          "& .MuiAlert-message": {
+                            padding: "5px 0px !important",
+                          },
+                        }}
+                        iconMapping={{
+                          warning: <InfoIcon fontSize="inherit" />,
+                        }}
+                      >
+                        {activeStep == 0
+                          ? "Trials are subject to offers approved by our Sales Team."
+                          : "Subject to regional proximity!"}
+                      </Alert>
+                    </div>
 
                     <div
                       style={{
@@ -268,11 +270,18 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
                         margin: "20px 0 0 auto",
                       }}
                     >
-                      <SiteButton
-                        disabled={activeStep === 0}
-                        onClick={handleBack}
-                        text="Back"
-                      />
+                      {activeStep == 0 ? (
+                        <SiteButton
+                          onClick={handleBackToCarCollection}
+                          text="back"
+                        />
+                      ) : (
+                        <SiteButton
+                          disabled={activeStep === 0}
+                          onClick={handleBack}
+                          text="Back"
+                        />
+                      )}
 
                       <div className="position-relative">
                         <SiteButton

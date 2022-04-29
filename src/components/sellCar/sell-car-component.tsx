@@ -34,6 +34,7 @@ import { min } from "date-fns";
 import { CarService } from "../../services/cars/carService";
 import { userJwtData } from "../../utils/getAccessToken";
 import { margin } from "@mui/system";
+import InfoIcon from "@mui/icons-material/Info";
 
 // const steps = ["step1", "step2", "step3", "step4"];
 const steps = ["step1"];
@@ -115,7 +116,7 @@ export default function SellCarComponent() {
       userId: userJwtData(),
       brandId,
       modelId,
-      otherName:otherBrands,
+      otherName: otherBrands,
       year: moment(year).format("YYYY"),
       ownerShip,
       fuelType,
@@ -185,7 +186,7 @@ export default function SellCarComponent() {
       setTimeout(() => {
         router.push("/");
         overflowHidden(false);
-      }, 10000);
+      }, 15000);
     }
   }, [activeStep]);
 
@@ -248,6 +249,24 @@ export default function SellCarComponent() {
                         // <UserForm formik={props} />
                         <CarDetailForm formik={props} />
                       ) : null}
+                      <Alert
+                        severity="warning"
+                        sx={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          marginTop: "15px",
+                          padding: "5px 10px",
+                          "& .MuiAlert-message": {
+                            padding: "5px 0px !important",
+                          },
+                        }}
+                        iconMapping={{
+                          warning: <InfoIcon fontSize="inherit" />,
+                        }}
+                      >
+                        Information provided by you and the transaction of your
+                        sale, stays confidential!
+                      </Alert>
                       <div
                         style={{
                           position: "relative",
@@ -260,7 +279,6 @@ export default function SellCarComponent() {
                         <span className="Authentication-error error">
                           {sellCarError}
                         </span>
-
                         <div className="sell-car-btn">
                           <SiteButton
                             type="submit"

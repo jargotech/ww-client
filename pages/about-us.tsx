@@ -22,10 +22,13 @@ export default function AboutUs() {
               <h3 className="d-none d-md-block">About Us</h3>
               <p>
                 We’re one of the leading Pre-owned luxury car dealers in the
-                country. Set up in the year 2014 by our founder Raghib Khan,
-                Wish Wheels is committed to be delivering buying and selling
-                fine cars in the city of Mumbai and pan India. Our office base
-                is in Mumbai, eyeing for an expansion in 5 to 7 cities by 2024.
+                country. Started in the year 2014 by our founder Raghib Khan,
+                Wish Wheels is committed to be buying and selling fine cars with
+                genuine mileage and history. We are focused to create an
+                atmosphere of an increase in luxury and super luxury car owners
+                throughout the nation. We are here to serve a niche of clients
+                and help them come close to the wheels they have always wished
+                for.
               </p>
             </Grid>
             <Grid item xs={12} sm={6} className="text-right">

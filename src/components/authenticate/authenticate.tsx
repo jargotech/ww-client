@@ -55,7 +55,7 @@ export default function Authenticate({
   const validationSchema2 = Yup.object().shape({
     firstName: Yup.string().required("Field cannot be blank"),
     lastName: Yup.string(),
-    emailId: Yup.string().required("Field cannot be blank"),
+    emailId: Yup.string(),
     phoneNumber: Yup.string().required("Field cannot be blank"),
   });
   const validationSchema3 = Yup.object().shape({
@@ -214,7 +214,6 @@ export default function Authenticate({
                   <Grid container spacing={2}>
                     <Grid item xs={12} className="authentication-form-field">
                       <StyledTextField
-                        required
                         autoComplete={"" + Math.random()}
                         name="userData"
                         value={formik.values.userData}
@@ -353,7 +352,6 @@ export default function Authenticate({
                       className="authentication-form-field"
                     >
                       <StyledTextField
-                        required
                         autoComplete={"" + Math.random()}
                         name="emailId"
                         error
