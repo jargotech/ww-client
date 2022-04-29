@@ -37,7 +37,7 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
     address2: "",
     pincode: "",
     trailDate: null,
-    city: "",
+    city: { city: "" },
   };
 
   const phoneRegExp =
@@ -53,7 +53,9 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
     Yup.object().shape({
       address1: Yup.string().required("Field cannot be blank"),
       address2: Yup.string(),
-      city: Yup.string().required("Field cannot be blank"),
+      city: Yup.object({
+        name: Yup.string().required("Field cannot be blank"),
+      }),
       pincode: Yup.number().required("Field cannot be blank"),
       trailDate: Yup.date().nullable().required("Field cannot be blank"),
     }),
@@ -81,7 +83,7 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
     setBookTrial({
       userId: userJwtData(),
       carId: carData[0]._id,
-      cityId: city,
+      cityId: city.id,
       Address1: address1,
       Address2: address2,
       pincode: pincode,
