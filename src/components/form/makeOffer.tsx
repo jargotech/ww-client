@@ -5,7 +5,7 @@ import Image from "next/image";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import NumberFormat from "react-number-format";
-import { convertToNum } from "../../utils/currecyFormatter";
+import { convertToNum, currencyFormatter } from "../../utils/currecyFormatter";
 // import MaskedInput from 'react-text-mask'
 
 export default function MakeOffer(props: any) {
@@ -38,7 +38,10 @@ export default function MakeOffer(props: any) {
           value={formik.values.makeOffer}
           onChange={formik.handleChange}
           id="input-with-icon-adornment"
-          placeholder="59,00,000"
+          placeholder={currencyFormatter(maxPrice?.toString())?.replace(
+            "₹",
+            ""
+          )}
           thousandSeparator
           thousandsGroupStyle="lakh"
           isNumericString

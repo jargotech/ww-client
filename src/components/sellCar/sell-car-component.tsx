@@ -147,10 +147,12 @@ export default function SellCarComponent() {
   }
 
   const overflowHidden = (hide: any) => {
-    if (hide) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
+    if (typeof window !== "undefined") {
+      if (hide) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "auto";
+      }
     }
   };
 
@@ -220,12 +222,12 @@ export default function SellCarComponent() {
                 <div className="dropbox"></div>
                 <div className="succes-card">
                   {overflowHidden(true)}
+                  <h4 className="success">Hurray!!</h4>
                   <img src={SuccesBookingPng.src} alt="succes booking" />
-                  <h4>Hurray!! </h4>
-                  <p>
+                  <h4>
                     We shall evaluate and buy your car in the next 24 hours.
                     <br /> Our team will call you right away.
-                  </p>
+                  </h4>
                   {/* <p>
                     You will be receiving a confirmation on your registered
                     mobile number & email.

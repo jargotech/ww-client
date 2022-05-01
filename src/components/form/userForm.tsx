@@ -86,7 +86,7 @@ export default function UserForm({ formik }: any) {
           </span>
         </Grid>
         <Grid item xs={6} md={6} className="book-trail-form-field">
-          <StyledAutoComplete
+          {/* <StyledAutoComplete
             disablePortal
             freeSolo
             id="city"
@@ -114,8 +114,8 @@ export default function UserForm({ formik }: any) {
                 label="City"
               />
             )}
-          />
-          {/* <StyledTextField
+          /> */}
+          <StyledTextField
             name="city"
             error
             required
@@ -126,7 +126,7 @@ export default function UserForm({ formik }: any) {
             variant="filled"
             label="City"
             fullWidth
-          /> */}
+          />
           <span className="error">
             {formik.touched.city && formik.errors.city}
           </span>

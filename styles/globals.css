@@ -2218,7 +2218,7 @@ input:focus-visible {
 
 .succes-card h4 {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
   max-width: 400px;
   color: #191919;
@@ -2970,4 +2970,20 @@ input:focus-visible {
 .succes-card .success {
   color: green !important;
   font-size: 22px;
+}
+
+.floating-btn button {
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
+  z-index: 9;
+}
+
+@media (max-width: 576px) {
+  .floating-btn button {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
 }

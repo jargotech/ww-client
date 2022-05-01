@@ -232,7 +232,7 @@ export default function History() {
                                 </span>
                               </Grid>
                               <Grid item xs={4} sx={{ textAlign: "center" }}>
-                                <p className="car-summary-header">MODEL</p>
+                                <p className="car-summary-header">MODEL YEAR</p>
                                 <span className="car-summary">
                                   {item.Car_Detail.year}
                                 </span>

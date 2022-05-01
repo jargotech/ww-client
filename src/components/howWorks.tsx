@@ -54,12 +54,14 @@ export default function HowItWorks() {
             <p>We wrap the paperwork and make this a deal all within a day </p>
           </Grid>
           <Grid item xs={12}>
-            <SiteButton
-              text="Sell Now"
-              arrow={true}
-              onClick={handleClick}
-              styles={{ margin: "0 auto" }}
-            />
+            <div className="floating-btn">
+              <SiteButton
+                text="Sell Now"
+                arrow={true}
+                onClick={handleClick}
+                styles={{ margin: "0 auto" }}
+              />
+            </div>
           </Grid>
         </Grid>
       </Container>

@@ -82,7 +82,7 @@ export default function CarDetailForm(props: any) {
             {formik.touched.brandId && formik.errors.brandId}
           </span>
         </Grid>
-        {formik.values.brandId == "62322c628d85ac348ad470ac" && (
+        {formik.values.brandId == "626e38f26e4527d955eabe65" && (
           <Grid xs={12} item md={6} className="book-trail-form-field sell-car">
             <StyledTextField
               name="otherBrands"
