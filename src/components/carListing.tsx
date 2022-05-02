@@ -287,11 +287,15 @@ export default function CarListing({ allCars }: any) {
           </div>
         </StyledDrawer> */}
         <StyledGrid container rowSpacing={3} spacing={2}>
-          {allCars.map((car: any, index: number) => (
-            <Grid key={index} item sm={6} lg={4}>
-              <CarCards {...car} variant="card2" />
-            </Grid>
-          ))}
+          {allCars
+            ?.sort(function (a: any, b: any) {
+              return a.Car_Detail.carOrder - b.Car_Detail.carOrder;
+            })
+            .map((car: any, index: number) => (
+              <Grid key={index} item sm={6} lg={4}>
+                <CarCards {...car} variant="card2" />
+              </Grid>
+            ))}
         </StyledGrid>
       </Container>
     </section>

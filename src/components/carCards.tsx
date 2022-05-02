@@ -76,7 +76,7 @@ export default function CarCards({
             <span className="car-summary">{Car_Detail?.fuelType}</span>
           </Grid>
           <Grid item xs={4} sx={{ textAlign: "center" }}>
-            <p className="car-summary-header">MODEL YEAR</p>
+            <p className="car-summary-header">YEAR</p>
             {/* <span className="car-summary">2015</span> */}
             <span className="car-summary">{Car_Detail?.year}</span>
           </Grid>

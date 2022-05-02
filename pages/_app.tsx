@@ -25,50 +25,37 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [openModel, setOpenModel] = useState<any>(false);
 
   // Variables
-  const { prompt } = useIsIOS();
-
-  const installApp = async () => {
-    // console.log("clicked");
-    // if (!installPrompt) return false;
-    // installPrompt.prompt();
-    // let outcome = await installPrompt.userChoice;
-    // if (outcome.outcome == "accepted") {
-    //   console.log("App Installed");
-    // } else {
-    //   console.log("App not installed");
-    // }
-    // // Remove the event reference
-    // setInstallPrompt(null);
-    // // Hide the button
-    // setInstallButton(false);
-  };
-
+  // const { prompt, isIOS } = useIsIOS();
   const hide = () => {
     setHidePopup(true);
   };
 
   // Effects
-  useEffect(() => {
-    console.log("Listening for Install prompt");
-    window.addEventListener("beforeinstallprompt", (e) => {
-      // For older browsers
-      e.preventDefault();
-      console.log("Install Prompt fired");
-      setInstallPrompt(e);
-      // See if the app is already installed, in that case, do nothing
-      if (
-        window.matchMedia &&
-        window.matchMedia("(display-mode: standalone)").matches
-      ) {
-        return false;
-      }
-      // Set the state variable to make button visible
-      setInstallButton(true);
-    });
-  }, []);
+  // useEffect(() => {
+  //   console.log("Listening for Install prompt");
+  //   window.addEventListener("beforeinstallprompt", (e) => {
+  //     // For older browsers
+  //     e.preventDefault();
+  //     console.log("Install Prompt fired");
+  //     setInstallPrompt(e);
+  //     // See if the app is already installed, in that case, do nothing
+  //     if (
+  //       window.matchMedia &&
+  //       window.matchMedia("(display-mode: standalone)").matches
+  //     ) {
+  //       return false;
+  //     }
+  //     // Set the state variable to make button visible
+  //     setInstallButton(true);
+  //   });
+  // }, []);
 
   useEffect(() => {
-    if (window.navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {
+    let installed = localStorage.getItem("installPrompt");
+    console.log(installed);
+    if (installed === "true") {
+      setIsIos(false);
+    } else if (window.navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {
       setIsIos(true);
     } else {
       setIsIos(false);
@@ -80,7 +67,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
         <Layout>
           <Component {...pageProps} />
-          {isIos ? (
+          {isIos && (
             <div
               // className="add-to-home-screen"
               className={
@@ -97,6 +84,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 className="closebtn"
                 onClick={(e: any) => {
                   e.preventDefault();
+                  localStorage.setItem("installPrompt", JSON.stringify(true));
                   hide();
                 }}
               >
@@ -104,8 +92,6 @@ function MyApp({ Component, pageProps }: AppProps) {
               </span>
               <InstallPWAModel open={openModel} setOpen={setOpenModel} />
             </div>
-          ) : (
-            ""
           )}
         </Layout>
       </AuthContext.Provider>

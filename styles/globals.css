@@ -449,14 +449,12 @@ input[type="number"] {
   background-color: #f7f3d0 !important;
 }
 .secondary-btn {
-  border: 1px solid rgba(63, 81, 181, 0.5) !important;
-  background-color: #fff !important;
-  color: rgba(19, 19, 19, 0.87) !important;
+  border: 1px solid var(--secondary--color) !important;
+  background-color: var(--secondary--color) !important;
+  color: var(--primary-color) !important;
   font-family: var(--secondary-fonts) !important;
 }
-.secondary-btn:hover {
-  background-color: #fff !important;
-}
+
 .text-right {
   text-align: right;
 }
@@ -2974,6 +2972,8 @@ input:focus-visible {
 
 .floating-btn button {
   position: fixed;
+  /* background: var(--secondary--color) !important; */
+  /* color: var(--primary-color) !important; */
   right: 5px;
   bottom: 5px;
   z-index: 9;

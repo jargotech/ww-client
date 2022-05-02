@@ -50,7 +50,10 @@ export default function InstallPWAModel({ open, setOpen }: any) {
           </p>
           <button
             className="uk-button button-minimal"
-            onClick={() => handleClose()}
+            onClick={() => {
+              localStorage.setItem("installPrompt", JSON.stringify(true));
+              handleClose();
+            }}
           >
             Close
           </button>

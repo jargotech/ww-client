@@ -57,6 +57,7 @@ export default function HowItWorks() {
             <div className="floating-btn">
               <SiteButton
                 text="Sell Now"
+                buttonVariant="primary"
                 arrow={true}
                 onClick={handleClick}
                 styles={{ margin: "0 auto" }}
