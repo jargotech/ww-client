@@ -206,9 +206,7 @@ export default function History() {
                           <div className="ride-date d-flex justify-content-between">
                             <span>Trial Date</span>
                             <span>
-                              {moment(item.bookOnDateTime).format(
-                                "D MMM YYYY  h:mm a"
-                              )}
+                              {moment(item.bookOnDateTime).format("D MMM YYYY")}
                             </span>
                           </div>
                           <Image
@@ -249,7 +247,7 @@ export default function History() {
                                 <span className="readonly-custom-label">
                                   Ask
                                 </span>
-                                <h6 className="readonly-custom-value">
+                                <h6 className="readonly-custom-value fns-18">
                                   {currencyFormatter(item.Car_Detail.maxPrice)}
                                 </h6>
                               </div>
@@ -257,7 +255,7 @@ export default function History() {
                                 <span className="readonly-custom-label ">
                                   Bid
                                 </span>
-                                <h6 className="readonly-custom-value primary-color">
+                                <h6 className="readonly-custom-value primary-color fns-18">
                                   {currencyFormatter(item.requestPrice)}
                                 </h6>
                               </div>

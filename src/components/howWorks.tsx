@@ -58,7 +58,7 @@ export default function HowItWorks() {
               <SiteButton
                 text="Sell Now"
                 buttonVariant="primary"
-                arrow={true}
+                arrow={false}
                 onClick={handleClick}
                 styles={{ margin: "0 auto" }}
               />

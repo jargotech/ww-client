@@ -35,6 +35,7 @@ import { CarService } from "../../services/cars/carService";
 import { userJwtData } from "../../utils/getAccessToken";
 import { margin } from "@mui/system";
 import InfoIcon from "@mui/icons-material/Info";
+import GppGoodIcon from "@mui/icons-material/GppGood";
 
 // const steps = ["step1", "step2", "step3", "step4"];
 const steps = ["step1"];
@@ -226,7 +227,7 @@ export default function SellCarComponent() {
                   <img src={SuccesBookingPng.src} alt="succes booking" />
                   <h4>
                     We shall evaluate and buy your car in the next 24 hours.
-                    <br /> Our team will call you right away.
+                    <br /> Our team will call you soon.
                   </h4>
                   {/* <p>
                     You will be receiving a confirmation on your registered
@@ -252,9 +253,9 @@ export default function SellCarComponent() {
                         <CarDetailForm formik={props} />
                       ) : null}
                       <Alert
-                        severity="warning"
+                        severity="success"
                         sx={{
-                          display: "inline-flex",
+                          display: "flex",
                           alignItems: "center",
                           marginTop: "15px",
                           padding: "5px 10px",
@@ -263,7 +264,7 @@ export default function SellCarComponent() {
                           },
                         }}
                         iconMapping={{
-                          warning: <InfoIcon fontSize="inherit" />,
+                          success: <GppGoodIcon fontSize="inherit" />,
                         }}
                       >
                         Information provided by you and the transaction of your

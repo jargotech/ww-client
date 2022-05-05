@@ -244,7 +244,7 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
                       <Alert
                         severity="warning"
                         sx={{
-                          display: "inline-flex",
+                          display: "flex",
                           alignItems: "center",
                           marginTop: "15px",
                           padding: "5px 10px",
@@ -257,7 +257,7 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
                         }}
                       >
                         {activeStep == 0
-                          ? "Trials are subject to offers approved by our Sales Team."
+                          ? "Subject to offers approved by our sales team."
                           : "Subject to regional proximity!"}
                       </Alert>
                     </div>
@@ -274,12 +274,14 @@ export default function BookTrail({ carData, maxPriceValue }: any) {
                         <SiteButton
                           onClick={handleBackToCarCollection}
                           text="back"
+                          buttonVariant="tertiary"
                         />
                       ) : (
                         <SiteButton
                           disabled={activeStep === 0}
                           onClick={handleBack}
                           text="Back"
+                          buttonVariant="tertiary"
                         />
                       )}
 

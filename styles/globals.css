@@ -455,6 +455,11 @@ input[type="number"] {
   font-family: var(--secondary-fonts) !important;
 }
 
+.tertiary-btn {
+  border: 1px solid var(--secondary--color) !important;
+  background-color: transparent !important;
+  color: var(--secondary--color);
+}
 .text-right {
   text-align: right;
 }
@@ -2793,6 +2798,9 @@ input:focus-visible {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.fns-18 {
+  font-size: 18px !important;
+}
 .primary-color {
   color: var(--secondary--color) !important;
 }
@@ -2971,19 +2979,26 @@ input:focus-visible {
 }
 
 .floating-btn button {
+  width: 64px;
+  height: 64px;
   position: fixed;
-  /* background: var(--secondary--color) !important; */
-  /* color: var(--primary-color) !important; */
+  display: flex;
   right: 5px;
   bottom: 5px;
+  line-height: 1.2em;
+  border-radius: 50%;
   z-index: 9;
+  padding: 0px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
 }
 
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   .floating-btn button {
     bottom: 0;
     left: 0;
     right: 0;
     width: 100%;
   }
-}
+} */
