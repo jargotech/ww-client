@@ -106,7 +106,20 @@ export default function Authenticate({
   const signUpHandelSubmit = (values: any, { resetForm }: any) => {
     setAuthenticationError(null);
     console.log(values);
-    setSignData(values);
+    let { firstName, lastName, emailId, phoneNumber } = values;
+    let payload = emailId
+      ? {
+          firstName: firstName,
+          lastName: lastName,
+          emailId: emailId,
+          phoneNumber: phoneNumber,
+        }
+      : {
+          firstName: firstName,
+          lastName: lastName,
+          phoneNumber: phoneNumber,
+        };
+    setSignData(payload);
     setTimeout(function () {
       resetForm();
     }, 1500);
