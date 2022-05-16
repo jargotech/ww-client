@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Grid } from "@mui/material";
 import Image from "next/image";
 import CreateLogo from "../../public/create.svg";
@@ -8,13 +8,27 @@ import Badge from "../../public/badge.png";
 import Sold from "../../public/sold.png";
 import SiteButton from "./Button";
 import { useRouter } from "next/router";
+import AuthContext from "../context/AuthContext";
 
 export default function HowItWorks() {
   // States
 
+  // context
+  const { authenticated, setAuthenticated } = useContext(AuthContext);
+
   // Variable
 
   const router = useRouter();
+  const sellcar = () => {
+    if (localStorage.getItem("jwt")) {
+      setAuthenticated(false);
+      router.push({
+        pathname: "/sell-car",
+      });
+    } else {
+      setAuthenticated(true);
+    }
+  };
 
   // Funtions
   const handleClick = () => {
@@ -59,7 +73,7 @@ export default function HowItWorks() {
                 text="Sell Now"
                 buttonVariant="primary"
                 arrow={false}
-                onClick={handleClick}
+                onClick={sellcar}
                 styles={{ margin: "0 auto" }}
               />
             </div>

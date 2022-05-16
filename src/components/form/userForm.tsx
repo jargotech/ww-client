@@ -9,6 +9,7 @@ import { CitiesService } from "../../services/cities/citiesService";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateAdapter from "@mui/lab/AdapterDateFns";
+import DatePicker from "@mui/lab/DatePicker";
 
 export default function UserForm({ formik }: any) {
   // States
@@ -152,7 +153,7 @@ export default function UserForm({ formik }: any) {
         </Grid>
         <Grid item xs={6} md={6} className="book-trail-form-field">
           <LocalizationProvider dateAdapter={DateAdapter}>
-            <DateTimePicker
+            <DatePicker
               label="Trial Date"
               className="datePicker"
               // value={value}
