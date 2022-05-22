@@ -9,6 +9,7 @@ import AuthContext from "../src/context/AuthContext";
 import React, { useEffect, useState } from "react";
 import useIsIOS from "../src/hooks/useIsIos";
 import InstallPWAModel from "../src/hooks/installPWA";
+import Script from "next/script";
 
 // const outerTheme = createTheme({
 //   typography:{
@@ -63,39 +64,54 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
-        <Layout>
-          <Component {...pageProps} />
-          {isIos && (
-            <div
-              // className="add-to-home-screen"
-              className={
-                !hidePopup ? "add-to-home-screen" : "add-to-home-screen hide"
-              }
-            >
-              <button
-                onClick={() => setOpenModel(true)}
-                className="btn-secondary"
+    <>
+      <Script
+        strategy="lazyOnload"
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+      />
+      <Script id="googleAnalytic" strategy="lazyOnload">
+        {`
+                    window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SM7H9X2PXT');
+                `}
+      </Script>
+      <ThemeProvider theme={theme}>
+        <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
+          <Layout>
+            <Component {...pageProps} />
+            {isIos && (
+              <div
+                // className="add-to-home-screen"
+                className={
+                  !hidePopup ? "add-to-home-screen" : "add-to-home-screen hide"
+                }
               >
-                Add to Home Screen
-              </button>
-              <span
-                className="closebtn"
-                onClick={(e: any) => {
-                  e.preventDefault();
-                  localStorage.setItem("installPrompt", JSON.stringify(true));
-                  hide();
-                }}
-              >
-                &times;
-              </span>
-              <InstallPWAModel open={openModel} setOpen={setOpenModel} />
-            </div>
-          )}
-        </Layout>
-      </AuthContext.Provider>
-    </ThemeProvider>
+                <button
+                  onClick={() => setOpenModel(true)}
+                  className="btn-secondary"
+                >
+                  Add to Home Screen
+                </button>
+                <span
+                  className="closebtn"
+                  onClick={(e: any) => {
+                    e.preventDefault();
+                    localStorage.setItem("installPrompt", JSON.stringify(true));
+                    hide();
+                  }}
+                >
+                  &times;
+                </span>
+                <InstallPWAModel open={openModel} setOpen={setOpenModel} />
+              </div>
+            )}
+          </Layout>
+        </AuthContext.Provider>
+      </ThemeProvider>
+    </>
   );
 }
 
